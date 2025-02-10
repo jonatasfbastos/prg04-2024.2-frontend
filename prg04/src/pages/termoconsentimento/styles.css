@@ -172,23 +172,46 @@
     background-color: var(--tertiary-color);
 }
 
-/* Tabela */
+/* Estilização da tabela */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    text-align: center;
+    background-color: var(--color-white); /* Cor de fundo para a tabela */
+    border-radius: var(--border-radius); /* Bordas arredondadas para a tabela */
 }
 
+/* Estilo para as células da tabela */
 th, td {
     padding: 12px;
-    border: 1px solid var(--gray-color);
-    text-align: left;
+    border: 0px solid; /* Cor suave para as bordas das células */
+    text-align: center;
 }
 
-th {
-    background-color: #e3f2fd;
-    color: var(--text-color);
+/* Estilo para as linhas da tabela */
+table tbody tr:nth-child(odd) {
+    background-color: var(--background-color); /* Cor para as linhas ímpares */
+    color: var(--text-color); /* Texto preto nas linhas ímpares */
 }
+
+table tbody tr:nth-child(even) {
+    background-color: #f0f0f0; /* Cor para as linhas pares */
+    color: var(--text-color); /* Texto preto nas linhas pares */
+}
+
+/* Estilo para o cabeçalho da tabela */
+th {
+    background-color: var(--tertiary-color); /* Azul claro para o cabeçalho */
+    color: var(--text-color); /* Texto preto */
+    font-weight: bold;
+}
+
+/*table tbody tr:hover {*/
+/*    background-color: inherit; !* Mantém a cor de fundo sem alteração *!*/
+/*    color: inherit; !* Mantém a cor do texto sem alteração *!*/
+/*    cursor: default; !* Define o cursor normal ao passar o mouse *!*/
+/*}*/
 
 /* Botão de exclusão */
 button.delete {
@@ -260,12 +283,6 @@ button.delete:hover {
 .create-term:hover {
     background-color: var(--tertiary-color); /* Muda a cor de fundo */
     transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
-}
-
-/* Efeito ao passar o mouse sobre as linhas da tabela */
-table tbody tr:hover {
-    background-color: #f0f0f0; /* Altera a cor de fundo */
-    cursor: pointer; /* Indica que é clicável */
 }
 
 /* Estilização do modal de detalhes */
