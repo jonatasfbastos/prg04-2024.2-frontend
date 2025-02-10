@@ -1,0 +1,342 @@
+/* Container principal do termo de consentimento */
+.termo-consentimento-container {
+    width: 50%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título principal */
+.termo-consentimento-container h1 {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 30px;
+    padding: 40px;
+}
+
+/* Estilização dos grupos de formulários */
+.termo-consentimento-container .form-group {
+    margin-bottom: 20px;
+}
+
+/* Estilização dos rótulos (labels) */
+.termo-consentimento-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Indicador de campo obrigatório */
+.termo-consentimento-container .required {
+    color: #e74c3c;
+    font-size: 18px;
+    margin-left: 1px;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Tooltip exibindo "Campo obrigatório*" ao passar o mouse */
+.termo-consentimento-container .required::after {
+    content: "Campo obrigatório*";
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+/* Torna o tooltip visível ao passar o mouse */
+.termo-consentimento-container .required:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Estilização dos campos de entrada (inputs e textarea) */
+.termo-consentimento-container input,
+.termo-consentimento-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid var(--gray-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+}
+
+/* Configuração específica para textarea */
+.termo-consentimento-container textarea {
+    resize: vertical;
+    height: 120px;
+}
+
+/* Botão de submissão */
+.termo-consentimento-container button {
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Efeito hover no botão */
+.termo-consentimento-container button:hover {
+    background-color: var(--tertiary-color);
+}
+
+/* Estilização do contador de caracteres, alinhado à direita */
+.character-count {
+    font-size: 14px;
+    color: var(--text-color);
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Container que agrupa a mensagem de erro e o contador */
+.error-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+/* Mensagem de erro, alinhada à esquerda */
+.error-message {
+    font-size: 14px;
+    color: #e74c3c;
+    display: flex;
+    align-items: center;
+}
+
+/* Ícone de alerta antes da mensagem de erro */
+.error-message::before {
+    content: "⚠️";
+    margin-right: 5px;
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.termos-container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Campo de busca */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.search-container button {
+    align-self: stretch;
+    height: 41px;
+    margin-top: 1px;
+}
+
+.search-container input {
+    width: 250px;
+    padding: 8px;
+    border: 1px solid var(--gray-color);
+    border-radius: var(--border-radius);
+}
+
+.search-container button {
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: var(--tertiary-color);
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid var(--gray-color);
+    text-align: left;
+}
+
+th {
+    background-color: #e3f2fd;
+    color: var(--text-color);
+}
+
+/* Botão de exclusão */
+button.delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+}
+
+
+/* Estilização da paginação */
+.pagination {
+    display: flex; /* Exibe os elementos em linha */
+    justify-content: center; /* Centraliza os botões na tela */
+    margin-top: 20px; /* Espaçamento superior */
+    gap: 5px; /* Espaçamento entre os botões */
+}
+
+/* Estilos dos botões de paginação */
+.pagination button {
+    background-color: var(--gray-color); /* Cor de fundo padrão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    padding: 8px 12px; /* Espaçamento interno */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    border-radius: var(--border-radius); /* Bordas arredondadas */
+    transition: background 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
+}
+
+/* Efeito ao passar o mouse nos botões de paginação */
+.pagination button:hover {
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Estilização dos botões de paginação desabilitados */
+.pagination button:disabled {
+    background-color: var(--gray-color); /* Mantém a cor de fundo */
+    cursor: not-allowed; /* Indica que não pode ser clicado */
+}
+
+/* Estilização da página ativa */
+.active-page {
+    background-color: var(--primary-color); /* Destaca a página ativa */
+    font-weight: bold; /* Texto em negrito */
+    transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Botão para criar um novo termo */
+.create-term {
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda */
+    border-radius: var(--border-radius); /* Bordas arredondadas */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
+}
+
+/* Efeito ao passar o mouse no botão de criar termo */
+.create-term:hover {
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Efeito ao passar o mouse sobre as linhas da tabela */
+table tbody tr:hover {
+    background-color: #f0f0f0; /* Altera a cor de fundo */
+    cursor: pointer; /* Indica que é clicável */
+}
+
+/* Estilização do modal de detalhes */
+.modal {
+    position: fixed; /* Fixa o modal na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semitransparente */
+    display: flex; /* Exibe o modal no centro */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: white; /* Cor de fundo */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    width: 80%;
+    max-width: 600px; /* Largura máxima */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+}
+
+/* Margem para botões dentro do modal */
+button {
+    margin-top: 10px;
+}
+
+/* Botão de fechar detalhes */
+.close-details {
+    padding: 12px 20px; /* Espaçamento interno */
+    background-color: white; /* Cor de fundo */
+    color: var(--text-color); /* Cor do texto */
+    border: 2px solid black; /* Borda preta */
+    border-radius: var(--border-radius); /* Bordas arredondadas */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
+}
+
+/* Efeito ao passar o mouse no botão de fechar */
+.close-details:hover {
+    background-color: var(--gray-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Botão de detalhes */
+.button-details {
+    padding: 6px 20px; /* Espaçamento interno */
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    border-radius: 30px; /* Bordas arredondadas */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease; /* Efeito suave ao interagir */
+}
+
+/* Efeito ao passar o mouse no botão de detalhes */
+.button-details:hover {
+    background-color: var(--secondary-color); /* Muda a cor de fundo */
+}
+
+/* Linha divisória entre elementos */
+.divider {
+    border: none;
+    height: 1px; /* Define a espessura da linha */
+    background-color: var(--text-color); /* Cor da linha */
+    margin: 15px 0; /* Espaçamento acima e abaixo */
+    width: 100%; /* Largura total */
+}
