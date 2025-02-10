@@ -1,0 +1,15 @@
+@import url(../../styles/bootstrap.css);
+
+.bg-primary {
+    background-color: #2490e8 !important;
+}
+
+.titulo-principal {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.sinal-plus {
+    font-size: 2.5rem;
+    margin-left: 5px; /* Espaçamento entre "Saúde" e "+" */
+}

@@ -1,0 +1,5 @@
+@import url(../../styles/bootstrap.css);
+
+.bg-secundary{
+    background-color: var(--gray-color) !important;
+}
