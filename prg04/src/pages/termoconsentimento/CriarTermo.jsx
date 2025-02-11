@@ -1,9 +1,13 @@
+// Importa os hooks do React e outras dependências
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"; // Para navegação entre páginas
 import './styles.css'; // Importa o arquivo de estilos
-import { createTermoConsentimento } from './TermoConsentimentoService.jsx'; // Importa a função createTermoConsentimento
+import { createTermoConsentimento } from './TermoConsentimentoService.jsx'; // Função para criar o termo de consentimento
 
 function CriarTermo() {
-    // Estado para armazenar os dados do formulário
+    const navigate = useNavigate(); // Hook de navegação do React Router
+
+    // Estado que armazena os dados do formulário
     const [formData, setFormData] = useState({
         cpfPaciente: '',
         conteudo: '',
@@ -11,10 +15,17 @@ function CriarTermo() {
         cpfFuncionario: '',
     });
 
-    // Estado para armazenar mensagens de erro
+    // Estado que controla a visibilidade e dados do modal de erro
+    const [errorModal, setErrorModal] = useState({
+        visible: false,
+        status: '',
+        message: ''
+    });
+
+    // Estado para armazenar as mensagens de erro de validação
     const [errors, setErrors] = useState({});
 
-    // Função para atualizar o estado quando o usuário digita nos campos
+    // Função para atualizar os dados do formulário conforme o usuário digita
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -23,13 +34,22 @@ function CriarTermo() {
         });
     };
 
-    // Função para validar e enviar o formulário
+    // Função para fechar o modal de erro
+    const closeErrorModal = () => {
+        setErrorModal({
+            visible: false,
+            status: '',
+            message: ''
+        });
+    };
+
+    // Função para validar os campos do formulário e enviar os dados
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Evita o recarregamento da página
+        e.preventDefault(); // Previne o recarregamento da página
 
-        const validationErrors = {}; // Objeto para armazenar os erros de validação
+        const validationErrors = {}; // Armazena os erros de validação
 
-        // Validação dos campos obrigatórios
+        // Valida os campos obrigatórios e impõe restrições
         if (!formData.cpfPaciente) validationErrors.cpfPaciente = "O CPF do paciente não pode ser vazio";
         if (!formData.conteudo) validationErrors.conteudo = "O conteúdo do termo não pode ser vazio";
         if (formData.conteudo.length > 500) validationErrors.conteudo = "O conteúdo do termo não pode ter mais de 500 caracteres";
@@ -38,16 +58,21 @@ function CriarTermo() {
 
         setErrors(validationErrors); // Atualiza o estado de erros
 
-        // Se não houver erros, submete o formulário
+        // Se não houver erros, envia o formulário
         if (Object.keys(validationErrors).length === 0) {
             try {
-                // Chama a função createTermoConsentimento para criar o termo
+                // Chama a função para criar o termo de consentimento
                 const response = await createTermoConsentimento(formData);
                 console.log("Termo criado com sucesso:", response);
-                alert("Termo de Consentimento Criado!");
+                navigate("/gestao-termos"); // Redireciona para a página de gestão de termos
             } catch (error) {
+                // Em caso de erro, exibe um modal com a mensagem de erro
                 console.error("Erro ao criar termo", error);
-                alert("Erro ao criar o termo de consentimento. Tente novamente.");
+                setErrorModal({
+                    visible: true,
+                    status: error.response?.status || 'Erro',
+                    message: error.response?.data?.message || 'Ocorreu um erro ao tentar criar o termo.'
+                });
             }
         }
     };
@@ -81,7 +106,7 @@ function CriarTermo() {
                         onChange={handleChange}
                         maxLength="500"
                     />
-                    {/* Contador de caracteres */}
+                    {/* Exibe o contador de caracteres */}
                     <div className="character-count">
                         {formData.conteudo.length} / 500 caracteres
                     </div>
@@ -116,9 +141,21 @@ function CriarTermo() {
                     {errors.cpfFuncionario && <div className="error-message">{errors.cpfFuncionario}</div>}
                 </div>
 
-                {/* Botão de envio */}
+                {/* Botão de envio do formulário */}
                 <button type="submit">Criar Termo</button>
             </form>
+
+            {/* Modal de erro, exibido caso ocorra um erro ao tentar criar o termo */}
+            {errorModal.visible && (
+                <div className="error-modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={closeErrorModal}>&times;</span>
+                        <h2>{errorModal.status}</h2>
+                        <p>{errorModal.message}</p>
+                        <button className="ok-button" onClick={closeErrorModal}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

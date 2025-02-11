@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export async function getTermosConsentimento(page = 1, size = 5) {
-    const response = await axios.get(`http://localhost:8080/termo-consentimento/find-all?page=${page - 1}&size=${size}`);
-    return response.data.content;
+    const response = await axios.get(`http://localhost:8080/termo-consentimento/find-all?page=${page}&size=${size}`);
+    return response.data;
 }
 
 export async function getTermosConsentimentoByCpf(cpf, page = 1, size = 5) {
     const response = await axios.get(`http://localhost:8080/termo-consentimento/find-by-paciente?cpf-paciente=${cpf}&page=${page - 1}&size=${size}`);
-    return response.data.content;
+    return response.data;
 }
 
 export async function createTermoConsentimento(termoData) {
