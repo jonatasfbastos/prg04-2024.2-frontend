@@ -1,0 +1,15 @@
+.emissao-relatorios-container {
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .emissao-relatorios-container h1 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+  }
+  
+  .actions {
+    margin-bottom: 20px;
+  }

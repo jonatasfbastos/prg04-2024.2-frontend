@@ -4,6 +4,7 @@ import Login from "./pages/login/index";
 import Header from "./components/header/index";
 import GestaoTermos from './pages/termoconsentimento/gestao-termos.jsx';
 import CriarTermo from "./pages/termoconsentimento/criar-termo.jsx";
+import EmissaoRelatorios from "./pages/emissaorelatorios/emisssao-relatorios.jsx";
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/gestao-termos" element={<GestaoTermos />} />
         <Route path="/criar-termo" element={<CriarTermo />} />
+        <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
       </Routes>
     </Router>
   )

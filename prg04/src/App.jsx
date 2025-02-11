@@ -12,6 +12,10 @@ function App() {
         navigate("/gestao-termos");
     };
 
+    const goToEmissaoRelatorios = () => {
+        navigate("/emissao-relatorios");
+    };
+
     return (
         <>
             <div>HomePage</div>
@@ -19,6 +23,7 @@ function App() {
                 Exemplo de como usar as rotas
                 <button onClick={goToLogin}>Ir para Login</button>
                 <button onClick={goToGestaoTermos}>Gestão de Termos de Consentimento</button>
+                <button onClick={goToEmissaoRelatorios}>Emissão de Relátorios</button>
             </div>
         </>
     );
