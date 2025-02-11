@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css'; // Importa o arquivo de estilos
+import { createTermoConsentimento } from './TermoConsentimentoService.jsx'; // Importa a função createTermoConsentimento
 
 function CriarTermo() {
     // Estado para armazenar os dados do formulário
@@ -23,7 +24,7 @@ function CriarTermo() {
     };
 
     // Função para validar e enviar o formulário
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // Evita o recarregamento da página
 
         const validationErrors = {}; // Objeto para armazenar os erros de validação
@@ -39,8 +40,15 @@ function CriarTermo() {
 
         // Se não houver erros, submete o formulário
         if (Object.keys(validationErrors).length === 0) {
-            console.log(formData);
-            alert("Termo de Consentimento Criado!");
+            try {
+                // Chama a função createTermoConsentimento para criar o termo
+                const response = await createTermoConsentimento(formData);
+                console.log("Termo criado com sucesso:", response);
+                alert("Termo de Consentimento Criado!");
+            } catch (error) {
+                console.error("Erro ao criar termo", error);
+                alert("Erro ao criar o termo de consentimento. Tente novamente.");
+            }
         }
     };
 
