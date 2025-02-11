@@ -3,3 +3,9 @@
 .bg-secundary{
     background-color: var(--gray-color) !important;
 }
+
+.btn-primary {
+    background-color: var(--secondary-color) !important;
+    color: var(--color-white) !important;
+    border: none !important;
+}
