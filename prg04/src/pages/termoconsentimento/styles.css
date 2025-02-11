@@ -207,11 +207,9 @@ th {
     font-weight: bold;
 }
 
-/*table tbody tr:hover {*/
-/*    background-color: inherit; !* Mantém a cor de fundo sem alteração *!*/
-/*    color: inherit; !* Mantém a cor do texto sem alteração *!*/
-/*    cursor: default; !* Define o cursor normal ao passar o mouse *!*/
-/*}*/
+table tbody tr:hover {
+    background-color: var(--tertiary-color);
+}
 
 /* Botão de exclusão */
 button.delete {
@@ -254,7 +252,7 @@ button.delete:hover {
     transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
 }
 
-/* Estilização dos botões de paginação desabilitados */
+ /*Estilização dos botões de paginação desabilitados */
 .pagination button:disabled {
     background-color: var(--gray-color); /* Mantém a cor de fundo */
     cursor: not-allowed; /* Indica que não pode ser clicado */
