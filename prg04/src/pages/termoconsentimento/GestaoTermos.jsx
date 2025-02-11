@@ -6,7 +6,7 @@ import {
     getTermosConsentimentoByCpf,
     deleteTermoConsentimento,
     getTermoConsentimentoById
-} from './TermoConsentimentoService';
+} from './TermoConsentimentoService.jsx';
 
 export default function GestaoTermos() {
     const navigate = useNavigate(); // Hook para navegação entre páginas

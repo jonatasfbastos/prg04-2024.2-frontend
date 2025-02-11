@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/login/index";
 import Header from "./components/header/index";
-import GestaoTermos from './pages/termoconsentimento/gestao-termos.jsx';
-import CriarTermo from "./pages/termoconsentimento/criar-termo.jsx";
+import GestaoTermos from './pages/termoconsentimento/GestaoTermos.jsx';
+import CriarTermo from "./pages/termoconsentimento/CriarTermo.jsx";
 import EmissaoRelatorios from "./pages/emissaorelatorios/emisssao-relatorios.jsx";
 
 const AppRoutes = () => {
