@@ -21,6 +21,10 @@ function App() {
         navigate("/unidadesdesaude");
     };
 
+    const goToAgendas = () => {
+        navigate("/agendas");
+    };
+
     return (
         <>
             <div>HomePage</div>
@@ -30,6 +34,7 @@ function App() {
                 <button onClick={goToGestaoTermos}>Gestão de Termos de Consentimento</button>
                 <button onClick={goToEmissaoRelatorios}>Emissão de Relátorios</button>
                 <Botao texto="Unidades de Saude" onClick={goToUnidades} />
+                <button onClick={goToAgendas}>Agendas</button>
             </div>
         </>
     );
