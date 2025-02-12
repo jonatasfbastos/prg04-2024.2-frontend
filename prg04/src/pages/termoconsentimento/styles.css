@@ -128,13 +128,14 @@
 }
 
 .termos-container {
-    width: 80%;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: var(--background-secondary);
+    width: 100%;
+    margin: auto;
+    padding: 10px 0px 20px 0px;
+    background-color: var(--background-color);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    align-items: center;
 }
 
 /* Campo de busca */
@@ -147,7 +148,6 @@
 }
 
 .search-container button {
-    align-self: stretch;
     height: 41px;
     margin-top: 1px;
 }
@@ -159,7 +159,7 @@
     border-radius: var(--border-radius);
 }
 
-.search-container button {
+.search-container .search-button {
     background-color: var(--primary-color);
     color: var(--color-white);
     padding: 8px 16px;
@@ -168,18 +168,37 @@
     cursor: pointer;
 }
 
-.search-container button:hover {
+.search-container .search-button:hover {
     background-color: var(--tertiary-color);
+}
+
+/* Botão para criar um novo termo */
+.search-container .create-term {
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda */
+    border-radius: var(--border-radius); /* Bordas arredondadas */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
+}
+
+/* Efeito ao passar o mouse no botão de criar termo */
+.create-term:hover {
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Estilização da tabela */
 table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin: auto;
     text-align: center;
     background-color: var(--color-white); /* Cor de fundo para a tabela */
     border-radius: var(--border-radius); /* Bordas arredondadas para a tabela */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo para as células da tabela */
@@ -202,13 +221,13 @@ table tbody tr:nth-child(even) {
 
 /* Estilo para o cabeçalho da tabela */
 th {
-    background-color: var(--tertiary-color); /* Azul claro para o cabeçalho */
+    background-color: var(--background-secondary); /* Azul claro para o cabeçalho */
     color: var(--text-color); /* Texto preto */
     font-weight: bold;
 }
 
 table tbody tr:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--background-secondary);
 }
 
 /* Botão de exclusão */
@@ -269,24 +288,6 @@ button.active-page {
     background-color: var(--primary-color); /* Destaca a página ativa */
     font-weight: bold; /* Texto em negrito */
     transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
-}
-
-/* Botão para criar um novo termo */
-.create-term {
-    background-color: var(--primary-color); /* Cor de fundo */
-    color: white; /* Cor do texto */
-    padding: 10px 20px; /* Espaçamento interno */
-    border: none; /* Remove borda */
-    border-radius: var(--border-radius); /* Bordas arredondadas */
-    cursor: pointer; /* Mostra que é clicável */
-    font-size: 16px; /* Tamanho da fonte */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
-}
-
-/* Efeito ao passar o mouse no botão de criar termo */
-.create-term:hover {
-    background-color: var(--tertiary-color); /* Muda a cor de fundo */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Estilização do modal de detalhes */

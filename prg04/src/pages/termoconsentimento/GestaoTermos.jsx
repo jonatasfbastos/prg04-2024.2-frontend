@@ -18,7 +18,7 @@ export default function GestaoTermos() {
     const [isLastPage, setIsLastPage] = useState(false); // Verifica se é a última página
     const [paginaInicial, setPaginaInicial] = useState(0); // Controla a paginação inicial
     const [termoSelecionado, setTermoSelecionado] = useState(null); // Estado para armazenar o termo selecionado
-    const itensPorPagina = 5; // Define a quantidade de itens por página
+    const itensPorPagina = 10; // Define a quantidade de itens por página
     const maxBotoes = 10; // Define o número máximo de botões de navegação exibidos
 
     const goToCriarTermo = () => {
@@ -110,6 +110,7 @@ export default function GestaoTermos() {
     return (
         <div className="termos-container">
             <h1>Termos de Consentimento</h1>
+            <hr className="divider" />
             <div className="search-container">
                 <input
                     type="text"
@@ -117,7 +118,8 @@ export default function GestaoTermos() {
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)} // Atualiza o CPF digitado
                 />
-                <button onClick={fetchData}>Buscar</button>
+                <button onClick={fetchData} className="search-button">Buscar</button>
+                <button className="create-term" onClick={goToCriarTermo}>Criar Termo</button>
             </div>
             <table>
                 <thead>
@@ -153,6 +155,8 @@ export default function GestaoTermos() {
                 </tbody>
             </table>
 
+            <hr className="divider" />
+
             <div className="pagination">
                 <button onClick={voltarBloco} disabled={paginaInicial === 0}>{"<<"}</button>
                 <button onClick={() => mudarPagina(paginaAtual - 1)} disabled={isFirstPage}>&lt;</button>
@@ -168,10 +172,6 @@ export default function GestaoTermos() {
                 <button onClick={() => mudarPagina(paginaAtual + 1)} disabled={isLastPage}>&gt;</button>
                 <button onClick={avancarBloco} disabled={paginaInicial + maxBotoes >= totalPaginas}>{">>"}</button>
             </div>
-
-            <hr className="divider" />
-
-            <button className="create-term" onClick={goToCriarTermo}>Criar Termo</button>
 
             {termoSelecionado && (
                 <div className="modal">
