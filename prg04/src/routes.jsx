@@ -7,6 +7,8 @@ import CriarTermo from "./pages/termoconsentimento/CriarTermo.jsx";
 import EmissaoRelatorios from "./pages/emissaorelatorios/emisssao-relatorios.jsx";
 import Unidades from "./pages/unidadesdesaude/unidades.jsx";
 import Agendas from "./pages/agenda/Agendas.jsx";
+import BuscarRequisicoes from "./pages/requisicao/BuscarRequisicoes.jsx";
+import Requisicao from "./pages/requisicao/requisicao.jsx";
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
@@ -21,7 +23,8 @@ const AppRoutes = () => {
         <Route path="/criar-termo" element={<CriarTermo />} />
         <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
         <Route path="/unidadesdesaude" element={<Unidades />} />
-        <Route path="/agendas" element={<Agendas />} />
+        <Route path="/buscarrequisicoes" element={<BuscarRequisicoes />} />
+        <Route path="/requisicao" element={<Requisicao />} />
       </Routes>
     </Router>
   )
