@@ -12,7 +12,7 @@ function CriarTermo() {
         cpfPaciente: '',
         conteudo: '',
         assinaturaPaciente: '',
-        cpfFuncionario: '',
+        codigoFuncionario: '',
     });
 
     // Estado que controla a visibilidade e dados do modal de erro
@@ -54,7 +54,7 @@ function CriarTermo() {
         if (!formData.conteudo) validationErrors.conteudo = "O conteúdo do termo não pode ser vazio";
         if (formData.conteudo.length > 500) validationErrors.conteudo = "O conteúdo do termo não pode ter mais de 500 caracteres";
         if (!formData.assinaturaPaciente) validationErrors.assinaturaPaciente = "A assinatura do paciente não pode ser vazia";
-        if (!formData.cpfFuncionario) validationErrors.cpfFuncionario = "O CPF do funcionário não pode ser vazio";
+        if (!formData.codigoFuncionario) validationErrors.codigoFuncionario = "O código do funcionário não pode ser vazio";
 
         setErrors(validationErrors); // Atualiza o estado de erros
 
@@ -127,18 +127,18 @@ function CriarTermo() {
                     {errors.assinaturaPaciente && <div className="error-message">{errors.assinaturaPaciente}</div>}
                 </div>
 
-                {/* Campo CPF do Funcionário */}
+                {/* Campo Código do Funcionário */}
                 <div className="form-group">
-                    <label htmlFor="cpfFuncionario">CPF do Funcionário<span className="required">*</span></label>
+                    <label htmlFor="codigoFuncionario">Código do Funcionário<span className="required">*</span></label>
                     <input
                         type="text"
-                        id="cpfFuncionario"
-                        name="cpfFuncionario"
-                        placeholder="000.000.000-00"
-                        value={formData.cpfFuncionario}
+                        id="codigoFuncionario"
+                        name="codigoFuncionario"
+                        placeholder="Insira o código aqui..."
+                        value={formData.codigoFuncionario}
                         onChange={handleChange}
                     />
-                    {errors.cpfFuncionario && <div className="error-message">{errors.cpfFuncionario}</div>}
+                    {errors.codigoFuncionario && <div className="error-message">{errors.codigoFuncionario}</div>}
                 </div>
 
                 {/* Botão de envio do formulário */}
