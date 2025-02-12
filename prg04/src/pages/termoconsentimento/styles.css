@@ -92,7 +92,8 @@
 
 /* Efeito hover no botão */
 .termo-consentimento-container button:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Estilização do contador de caracteres, alinhado à direita */
@@ -136,30 +137,61 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     align-items: center;
+    justify-content: space-between;
+}
+
+.termos-container .titulo{
+    caption-side: top;
+    font-size: 1.25em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.termos-container .titulo:hover{
+    cursor: pointer;
+
 }
 
 /* Campo de busca */
-.search-container {
+.search-container-term {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap: 10px;
     margin-bottom: 20px;
+    margin-left: 5%;
     align-items: center;
+    width: 90%;
+    background-color: var(--background-color);
 }
 
-.search-container button {
-    height: 41px;
-    margin-top: 1px;
+.search-container-term button {
+    margin-top: auto;
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda */
+    border-radius: var(--border-radius); /* Bordas arredondadas */
+    cursor: pointer; /* Mostra que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
 }
 
-.search-container input {
+.search-container-term button:hover {
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+}
+
+.search-container-term input {
     width: 250px;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid var(--gray-color);
     border-radius: var(--border-radius);
 }
 
-.search-container .search-button {
+.search-container-term .search-button-term {
     background-color: var(--primary-color);
     color: var(--color-white);
     padding: 8px 16px;
@@ -168,12 +200,16 @@
     cursor: pointer;
 }
 
-.search-container .search-button:hover {
-    background-color: var(--tertiary-color);
+.search-container-term .search-button-term:hover {
+    background-color: var(--tertiary-color); /* Muda a cor de fundo */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Botão para criar um novo termo */
-.search-container .create-term {
+.create-term {
+    margin-left: auto;
+    align-self: center;
+    display: flex;
     background-color: var(--primary-color); /* Cor de fundo */
     color: white; /* Cor do texto */
     padding: 10px 20px; /* Espaçamento interno */
@@ -193,16 +229,25 @@
 /* Estilização da tabela */
 table {
     width: 90%;
-    border-collapse: collapse;
     margin: auto;
     text-align: center;
-    background-color: var(--color-white); /* Cor de fundo para a tabela */
+    align-items: center;
+    background-color: var(--background-color); /* Cor de fundo para a tabela */
     border-radius: var(--border-radius); /* Bordas arredondadas para a tabela */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-collapse: separate; /* Separa as células para permitir espaçamento */
+    border-spacing: 0 10px; /* Espaçamento entre as linhas (0px horizontal, 10px vertical) */
+}
+
+/* Estilo para o cabeçalho da tabela */
+thead tr{
+    background-color: var(--background-secondary); /* Azul claro para o cabeçalho */
+    color: var(--text-color); /* Texto preto */
+    font-weight: bold;
+    font-size: 30px;
 }
 
 /* Estilo para as células da tabela */
-th, td {
+td {
     padding: 12px;
     border: 0px solid; /* Cor suave para as bordas das células */
     text-align: center;
@@ -210,24 +255,23 @@ th, td {
 
 /* Estilo para as linhas da tabela */
 table tbody tr:nth-child(odd) {
-    background-color: var(--background-color); /* Cor para as linhas ímpares */
+    background-color: var(--color-white); /* Cor para as linhas ímpares */
     color: var(--text-color); /* Texto preto nas linhas ímpares */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #f0f0f0; /* Cor para as linhas pares */
+    background-color: var(--color-white); /* Cor para as linhas pares */
     color: var(--text-color); /* Texto preto nas linhas pares */
-}
-
-/* Estilo para o cabeçalho da tabela */
-th {
-    background-color: var(--background-secondary); /* Azul claro para o cabeçalho */
-    color: var(--text-color); /* Texto preto */
-    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 table tbody tr:hover {
     background-color: var(--background-secondary);
+}
+
+table tbody span{
+    color: var(--gray-color);
 }
 
 /* Botão de exclusão */
@@ -359,8 +403,8 @@ button {
     border: none;
     height: 1px; /* Define a espessura da linha */
     background-color: var(--text-color); /* Cor da linha */
-    margin: 15px 0; /* Espaçamento acima e abaixo */
-    width: 100%; /* Largura total */
+    margin: 15px auto 15px auto; /* Espaçamento acima e abaixo */
+    width: 95%; /* Largura total */
 }
 
 .error-modal {

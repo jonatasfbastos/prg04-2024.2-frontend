@@ -10,7 +10,7 @@
     max-width: 400px;
     margin: 20px auto;
   }
-  
+
   .search-input {
     flex: 1;
     padding: 8px;
@@ -18,7 +18,7 @@
     border-radius: 4px;
     font-size: 16px;
   }
-  
+
   .search-button {
     background: #007bff;
     color: white;
@@ -28,8 +28,7 @@
     border-radius: 4px;
     font-size: 16px;
   }
-  
+
   .search-button:hover {
     background: #0056b3;
   }
-  

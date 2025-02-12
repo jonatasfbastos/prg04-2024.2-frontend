@@ -109,33 +109,29 @@ export default function GestaoTermos() {
 
     return (
         <div className="termos-container">
-            <h1>Termos de Consentimento</h1>
+            <h1 className="titulo">TERMOS DE CONSENTIMENTO</h1>
+
             <hr className="divider" />
-            <div className="search-container">
+
+            <div className="search-container-term">
                 <input
                     type="text"
                     placeholder="Buscar pelo CPF do paciente"
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)} // Atualiza o CPF digitado
                 />
-                <button onClick={fetchData} className="search-button">Buscar</button>
+                <button onClick={fetchData}>Buscar</button>
                 <button className="create-term" onClick={goToCriarTermo}>Criar Termo</button>
             </div>
+
+            <hr className="divider" />
+
             <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome do Paciente</th>
-                    <th>Data e Hora de Criação</th>
-                    <th>Ações</th>
-                </tr>
-                </thead>
                 <tbody>
                 {termos.length > 0 ? (
                     termos.map((termo) => (
                         <tr key={termo.id}>
-                            <td>{termo.id}</td>
-                            <td>{termo.paciente.nome}</td>
+                            <td><span className="pre-atributo">emitido para </span> {termo.paciente.nome}</td>
                             <td>{formatarDataHora(termo.dataHoraConsentimento)}</td>
                             <td>
                                 <button className="delete" onClick={() => excluirTermo(termo.id)}>
