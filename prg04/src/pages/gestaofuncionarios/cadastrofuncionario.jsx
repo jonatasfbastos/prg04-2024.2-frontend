@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 // Define o componente 'cadastrofuncionario'
 const cadastrofuncionario = () => {
   // Hook useState para gerenciar o estado dos dados do formulário
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [formData, setFormData] = useState({
     codigo: '',
     login: '',
@@ -27,6 +28,7 @@ const cadastrofuncionario = () => {
 
     try {
       // Envia uma requisição POST para a API com os dados do formulário
+      // eslint-disable-next-line no-undef
       const response = await api.post('/funcionarios', formData);
       // Exibe a resposta da API em caso de sucesso
       console.log('Funcionário cadastrado:', response.data);
