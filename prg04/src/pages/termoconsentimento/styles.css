@@ -1,99 +1,68 @@
 .termos-container {
     width: 100%;
     margin: auto;
-    padding: 10px 0px 20px 0px;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.termos-container .titulo{
-    caption-side: top;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 1% 5px 1%;
+    margin-bottom: 15px;
+    width: 100%;
+    background-color: var(--secondary-color);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.header h1 {
+    padding-left: 7%;
     font-size: 1.5em;
     font-weight: bold;
     text-align: center;
-    padding: 10px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    color: var(--color-white);
 }
 
-.termos-container .titulo:hover{
+.header h1:hover {
     cursor: pointer;
-
 }
 
-/* Campo de busca */
-.search-container-term {
-    display: flex;
-    justify-content: left;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-left: 5%;
-    align-items: center;
-    width: 90%;
-    background-color: var(--background-color);
-}
-
-.search-container-term button {
-    margin-top: auto;
-    background-color: var(--primary-color); /* Cor de fundo */
-    color: white; /* Cor do texto */
-    padding: 10px 20px; /* Espaçamento interno */
-    border: none; /* Remove borda */
-    border-radius: var(--border-radius); /* Bordas arredondadas */
-    cursor: pointer; /* Mostra que é clicável */
-    font-size: 16px; /* Tamanho da fonte */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
-}
-
-.search-container-term button:hover {
-    background-color: var(--tertiary-color); /* Muda a cor de fundo */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
-}
-
-.search-container-term input {
-    width: 250px;
+.header input {
+    width: 230px;
+    height: 40px;
     padding: 10px;
+    margin-right: 5px;
+    margin-left: 8px;
     border: 1px solid var(--gray-color);
     border-radius: var(--border-radius);
 }
 
-.search-container-term .search-button-term {
+.header button {
+    height: 40px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
     background-color: var(--primary-color);
-    color: var(--color-white);
-    padding: 8px 16px;
+    color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.search-container-term .search-button-term:hover {
-    background-color: var(--tertiary-color); /* Muda a cor de fundo */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+.header button:hover {
+    background-color: var(--tertiary-color);
+    transform: scale(1.05);
 }
 
-/* Botão para criar um novo termo */
 .create-term {
     margin-left: auto;
-    align-self: center;
-    display: flex;
-    background-color: var(--primary-color); /* Cor de fundo */
-    color: white; /* Cor do texto */
-    padding: 10px 20px; /* Espaçamento interno */
-    border: none; /* Remove borda */
-    border-radius: var(--border-radius); /* Bordas arredondadas */
-    cursor: pointer; /* Mostra que é clicável */
-    font-size: 16px; /* Tamanho da fonte */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
-}
-
-/* Efeito ao passar o mouse no botão de criar termo */
-.create-term:hover {
-    background-color: var(--tertiary-color); /* Muda a cor de fundo */
-    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Estilização da tabela */
@@ -108,14 +77,6 @@ table {
     border-spacing: 0 10px; /* Espaçamento entre as linhas (0px horizontal, 10px vertical) */
 }
 
-/* Estilo para o cabeçalho da tabela */
-thead tr{
-    background-color: var(--background-secondary); /* Azul claro para o cabeçalho */
-    color: var(--text-color); /* Texto preto */
-    font-weight: bold;
-    font-size: 30px;
-}
-
 /* Estilo para as células da tabela */
 td {
     padding: 12px;
@@ -127,13 +88,13 @@ td {
 table tbody tr:nth-child(odd) {
     background-color: var(--color-white); /* Cor para as linhas ímpares */
     color: var(--text-color); /* Texto preto nas linhas ímpares */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 table tbody tr:nth-child(even) {
     background-color: var(--color-white); /* Cor para as linhas pares */
     color: var(--text-color); /* Texto preto nas linhas pares */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 table tbody tr:hover {
@@ -158,50 +119,62 @@ button.delete:hover {
     background-color: #c0392b;
 }
 
-
 /* Estilização da paginação */
 .pagination {
-    display: flex; /* Exibe os elementos em linha */
-    justify-content: center; /* Centraliza os botões na tela */
-    margin-top: 20px; /* Espaçamento superior */
-    gap: 5px; /* Espaçamento entre os botões */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 8px;
+    padding: 15px 0;
+    background-color: var(--secondary-color);
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos dos botões de paginação */
 .pagination button {
-    background-color: var(--gray-color); /* Cor de fundo padrão */
-    color: white; /* Cor do texto */
-    border: none; /* Remove borda */
-    padding: 8px 12px; /* Espaçamento interno */
-    cursor: pointer; /* Mostra que é clicável */
-    font-size: 16px; /* Tamanho da fonte */
-    border-radius: var(--border-radius); /* Bordas arredondadas */
-    transition: background 0.3s ease, transform 0.2s ease; /* Efeito suave ao interagir */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    border: none;
 }
 
-/* Efeito ao passar o mouse nos botões de paginação */
+/* Efeito ao passar o mouse nos botões */
 .pagination button:hover {
-    background-color: var(--tertiary-color); /* Muda a cor de fundo */
-    transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
+    background-color: var(--tertiary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
- /*Estilização dos botões de paginação desabilitados */
+/* Botão da página ativa */
+.pagination button.active-page {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilização dos botões desativados */
 .pagination button:disabled {
-    background-color: var(--gray-color); /* Mantém a cor de fundo */
-    cursor: not-allowed; /* Indica que não pode ser clicado */
+    background-color: var(--gray-color);
+    color: #888;
+    border: none;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
-/* Botão da página selecionada */
-button.active-page {
-    background-color: var(--text-color);
-    transform: scale(1.1); /* Aumenta o tamanho do botão */
-}
-
-/* Estilização da página ativa */
-.active-page {
-    background-color: var(--primary-color); /* Destaca a página ativa */
-    font-weight: bold; /* Texto em negrito */
-    transform: scale(1.1); /* Aumenta ligeiramente o tamanho */
+/* Melhor transição para o botão ativo */
+.pagination button.active-page:hover {
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
 
 /* Estilização do modal de detalhes */

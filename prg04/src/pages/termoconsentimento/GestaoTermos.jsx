@@ -109,22 +109,23 @@ export default function GestaoTermos() {
 
     return (
         <div className="termos-container">
-            <h1 className="titulo">TERMOS DE CONSENTIMENTO</h1>
 
-            <hr className="divider" />
+            <div className="termos-container">
+                <div className="header">
+                    <input
+                        type="text"
+                        placeholder="Buscar pelo CPF do paciente"
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                    />
 
-            <div className="search-container-term">
-                <input
-                    type="text"
-                    placeholder="Buscar pelo CPF do paciente"
-                    value={cpf}
-                    onChange={(e) => setCpf(e.target.value)} // Atualiza o CPF digitado
-                />
-                <button onClick={fetchData}>Buscar</button>
-                <button className="create-term" onClick={goToCriarTermo}>Criar Termo</button>
+                    <button onClick={fetchData}>Buscar</button>
+
+                    <h1>TERMOS DE CONSENTIMENTO</h1>
+
+                    <button className="create-term" onClick={goToCriarTermo}>Criar Termo</button>
+                </div>
             </div>
-
-            <hr className="divider" />
 
             <table>
                 <tbody>
@@ -150,8 +151,6 @@ export default function GestaoTermos() {
                 )}
                 </tbody>
             </table>
-
-            <hr className="divider" />
 
             <div className="pagination">
                 <button onClick={voltarBloco} disabled={paginaInicial === 0}>{"<<"}</button>
