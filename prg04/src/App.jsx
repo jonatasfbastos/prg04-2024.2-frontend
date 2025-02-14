@@ -18,7 +18,7 @@ function App() {
     };
 
     const goToUnidades = () => {
-        navigate("/unidadesdesaude");
+        navigate("/unidades-de-saude");
     };
 
     const goToMedicamentos = () => {
