@@ -132,7 +132,7 @@ export default function GestaoTermos() {
                     termos.map((termo) => (
                         <tr key={termo.id}>
                             <td><span className="pre-atributo">emitido para </span> {termo.paciente.nome}</td>
-                            <td>{formatarDataHora(termo.dataHoraConsentimento)}</td>
+                            <td><span className="pre-atributo">no dia </span>{formatarDataHora(termo.dataHoraConsentimento)}</td>
                             <td>
                                 <button className="delete" onClick={() => excluirTermo(termo.id)}>
                                     Excluir
@@ -173,7 +173,6 @@ export default function GestaoTermos() {
                 <div className="modal">
                     <div className="modal-content">
                         <h2>Detalhes do Termo</h2>
-                        <p><strong>ID:</strong> {termoSelecionado.id}</p>
                         <p><strong>Nome do Paciente:</strong> {termoSelecionado.paciente.nome}</p>
                         <p><strong>Data e Hora de Criação:</strong> {formatarDataHora(termoSelecionado.dataHoraConsentimento)}</p>
                         <p><strong>Conteúdo do Termo:</strong> {termoSelecionado.conteudo.substring(0, 500)}</p>
