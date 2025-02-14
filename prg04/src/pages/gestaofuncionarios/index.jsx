@@ -1,4 +1,5 @@
 import React from 'react'
+import './funcionario.css';
 
 export default function index() {
     return (
