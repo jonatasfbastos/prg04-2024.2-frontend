@@ -1,10 +1,14 @@
-import React from 'react'
-import './funcionario.css';
+import React from 'react';
 
-export default function index() {
-    return (
-        <div>
-            <h1>Funcionarios Page</h1>
-        </div>
-    )
-}
+
+const GestaoFuncionarios = () => {
+  return (
+    <div>
+      <h1>Gestão de Funcionários</h1>
+      <cadastrofuncionario />
+      <tablefuncionario />
+    </div>
+  );
+};
+
+export default GestaoFuncionarios;
