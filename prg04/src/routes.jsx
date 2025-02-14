@@ -9,6 +9,7 @@ import Unidades from "./pages/unidadesdesaude/unidades.jsx";
 import Agendas from "./pages/agenda/Agendas.jsx";
 import BuscarRequisicoes from "./pages/requisicao/BuscarRequisicoes.jsx";
 import Requisicao from "./pages/requisicao/requisicao.jsx";
+import Medicamentos from "./pages/medicamento/medicamentos.jsx";
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/criar-termo" element={<CriarTermo />} />
         <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
         <Route path="/unidadesdesaude" element={<Unidades />} />
+        <Route path="/medicamentos" element={<Medicamentos />} />
         <Route path="/buscarrequisicoes" element={<BuscarRequisicoes />} />
         <Route path="/requisicao" element={<Requisicao />} />
       </Routes>
