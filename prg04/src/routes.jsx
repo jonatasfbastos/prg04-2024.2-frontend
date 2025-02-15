@@ -28,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/criar-termo" element={<CriarTermo />} />
         <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
         <Route path="/unidadesdesaude" element={<Unidades />} />
+        <Route path="/agendas" element={<Agendas />} />
         <Route path="/medicamentos" element={<Medicamentos />} />
         <Route path="/buscarrequisicoes" element={<BuscarRequisicoes />} />
         <Route path="/requisicao" element={<Requisicao />} />
