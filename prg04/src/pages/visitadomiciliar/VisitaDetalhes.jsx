@@ -1,38 +1,33 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getVisitaById } from "./visitaService/visitaService";
 import "./visitas.css";
 
 const VisitaDetalhes = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
   const [visita, setVisita] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/visitas/${id}`)
-      .then((response) => response.json())
-      .then((data) => setVisita(data))
-      .catch((error) => console.error("Erro ao buscar visita:", error));
+    const fetchVisita = async () => {
+      setVisita(await getVisitaById(id));
+    };
+    fetchVisita();
   }, [id]);
 
-  if (!visita) {
-    return <p>Carregando...</p>;
-  }
+  if (!visita) return <p>Carregando...</p>;
 
   return (
     <div className="visitas-container">
       <h2>Detalhes da Visita</h2>
-      <p><strong>Digitado por:</strong> {visita.digitadoPor}</p>
+      <p><strong>Digitado Por:</strong> {visita.digitadoPor}</p>
       <p><strong>Data:</strong> {visita.data}</p>
-      <p><strong>Conferido por:</strong> {visita.conferidoPor}</p>
-      <p><strong>Número da Folha:</strong> {visita.numeroFolha}</p>
-
-      <button onClick={() => navigate(`/visitadomiciliar/editar/${id}`)}>Editar</button>
-      <button onClick={() => navigate(-1)}>Voltar</button>
+      <p><strong>Conferido Por:</strong> {visita.conferidoPor}</p>
     </div>
   );
 };
 
 export default VisitaDetalhes;
+
 
 
 

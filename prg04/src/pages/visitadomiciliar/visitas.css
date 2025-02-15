@@ -15,125 +15,52 @@
   margin-bottom: 20px;
 }
 
-/* Estilo para a barra de filtros */
-.filtros {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.filtros input {
-  padding: 10px;
+/* Estilização dos fieldsets para melhor organização */
+fieldset {
   border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-}
-
-.filtros button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.filtros button:hover {
-  background-color: #0056b3;
-}
-
-/* Estilizando a tabela */
-.visitas-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.visitas-table th,
-.visitas-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: center;
-}
-
-.visitas-table th {
-  background-color: #007bff;
-  color: white;
-}
-
-.visitas-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.visitas-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Estilização dos botões dentro da tabela */
-.visitas-table button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-.visitas-table .delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.visitas-table .delete-btn:hover {
-  background-color: #b52b3a;
-}
-
-/* Mensagem de "Nenhuma visita encontrada" */
-.no-data {
-  text-align: center;
-  font-size: 16px;
-  color: #777;
-  padding: 20px;
-}
-
-
-/* ============================= */
-/* Estilos exclusivos para VisitaForm */
-/* ============================= */
-.visitas-container {
-  max-width: 600px;
-  margin: 40px auto;
-  background: #f8f9fa;
-  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.visitas-container h2 {
-  text-align: center;
-  color: #333;
+  padding: 15px;
+  background: #fff;
   margin-bottom: 20px;
 }
 
-.visitas-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* Destacando os títulos dos fieldsets */
+legend {
+  font-weight: bold;
+  font-size: 18px; /* Aumentei o tamanho */
+  color: #222;
+  text-transform: uppercase;
 }
 
+/* Melhor espaçamento entre os campos */
 .visitas-container label {
   font-weight: bold;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.visitas-container input {
+.required {
+  color: red;
+}
+
+.visitas-container input,
+.visitas-container textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Ajustando os botões */
 .visitas-container button {
   background-color: #007bff;
   color: white;
@@ -155,3 +82,5 @@
 .visitas-container button[type="button"]:hover {
   background-color: #b02a37;
 }
+
+

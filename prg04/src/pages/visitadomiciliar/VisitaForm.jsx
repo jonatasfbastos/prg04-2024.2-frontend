@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getVisitaById, createVisita, updateVisita } from "./visitaService/visitaService";
 import "./visitas.css";
 
 const VisitaForm = () => {
@@ -11,7 +12,14 @@ const VisitaForm = () => {
     cns: "",
     cbo: "",
     cnes: "",
-    ine: ""
+    ine: "",
+    motivoVisita: "",
+    acompanhamento: "",
+    controleAmbiental: "",
+    antropometria: "",
+    sinaisVitais: "",
+    glicemia: "",
+    desfecho: ""
   });
 
   const { id } = useParams();
@@ -19,10 +27,10 @@ const VisitaForm = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:8080/visitas/${id}`)
-        .then((response) => response.json())
-        .then((data) => setVisita(data))
-        .catch((error) => console.error("Erro ao buscar visita:", error));
+      const fetchVisita = async () => {
+        setVisita(await getVisitaById(id) || {});
+      };
+      fetchVisita();
     }
   }, [id]);
 
@@ -30,10 +38,9 @@ const VisitaForm = () => {
     setVisita({ ...visita, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica se todos os campos estão preenchidos antes de enviar
     for (const key in visita) {
       if (!visita[key]) {
         alert(`O campo ${key.toUpperCase()} é obrigatório.`);
@@ -41,45 +48,76 @@ const VisitaForm = () => {
       }
     }
 
-    const method = id ? "PUT" : "POST";
-    const url = id ? `http://localhost:8080/visitas/${id}` : "http://localhost:8080/visitas";
+    if (id) {
+      await updateVisita(id, visita);
+    } else {
+      await createVisita(visita);
+    }
 
-    fetch(url, {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(visita),
-    })
-      .then(() => navigate("/visitadomiciliar"))
-      .catch((error) => console.error("Erro ao salvar visita:", error));
+    navigate("/visitadomiciliar");
   };
 
   return (
     <div className="visitas-container">
       <h2>{id ? "Editar Visita" : "Nova Visita"}</h2>
       <form onSubmit={handleSubmit}>
-        <label>Digitado Por: <span className="required">*</span></label>
-        <input type="text" name="digitadoPor" value={visita.digitadoPor} onChange={handleChange} required />
+        
+        {/* Seção Cabeçalho */}
+        <fieldset>
+          <legend>Cabeçalho</legend>
+          <label>Digitado Por (Nome do Profissional): <span className="required">*</span></label>
+          <input type="text" name="digitadoPor" value={visita.digitadoPor} onChange={handleChange} required />
 
-        <label>Data: <span className="required">*</span></label>
-        <input type="date" name="data" value={visita.data} onChange={handleChange} required />
+          <label>Data (Dia/Mês/Ano): <span className="required">*</span></label>
+          <input type="date" name="data" value={visita.data} onChange={handleChange} required />
 
-        <label>Conferido Por: <span className="required">*</span></label>
-        <input type="text" name="conferidoPor" value={visita.conferidoPor} onChange={handleChange} required />
+          <label>Conferido Por (Nome do Revisor): <span className="required">*</span></label>
+          <input type="text" name="conferidoPor" value={visita.conferidoPor} onChange={handleChange} required />
 
-        <label>Número da Folha: <span className="required">*</span></label>
-        <input type="text" name="numeroFolha" value={visita.numeroFolha} onChange={handleChange} required />
+          <label>Número da Folha (Número do Prontuário): <span className="required">*</span></label>
+          <input type="text" name="numeroFolha" value={visita.numeroFolha} onChange={handleChange} required />
+        </fieldset>
 
-        <label>CNS (Cartão Nacional de Saúde): <span className="required">*</span></label>
-        <input type="text" name="cns" value={visita.cns} onChange={handleChange} required />
+        {/* Seção Identificação do Profissional e Estabelecimento */}
+        <fieldset>
+          <legend>Identificação do Profissional e Estabelecimento de Saúde</legend>
+          <label>CNS (Cartão Nacional de Saúde): <span className="required">*</span></label>
+          <input type="text" name="cns" value={visita.cns} onChange={handleChange} required />
 
-        <label>CBO (Código Brasileiro de Ocupações): <span className="required">*</span></label>
-        <input type="text" name="cbo" value={visita.cbo} onChange={handleChange} required />
+          <label>CBO (Código Brasileiro de Ocupações): <span className="required">*</span></label>
+          <input type="text" name="cbo" value={visita.cbo} onChange={handleChange} required />
 
-        <label>CNES (Cadastro Nacional de Estabelecimentos de Saúde): <span className="required">*</span></label>
-        <input type="text" name="cnes" value={visita.cnes} onChange={handleChange} required />
+          <label>CNES (Cadastro Nacional de Estabelecimentos de Saúde): <span className="required">*</span></label>
+          <input type="text" name="cnes" value={visita.cnes} onChange={handleChange} required />
 
-        <label>INE (Identificação Nacional do Estabelecimento): <span className="required">*</span></label>
-        <input type="text" name="ine" value={visita.ine} onChange={handleChange} required />
+          <label>INE (Identificação Nacional do Estabelecimento): <span className="required">*</span></label>
+          <input type="text" name="ine" value={visita.ine} onChange={handleChange} required />
+        </fieldset>
+
+        {/* Seção Outras Informações */}
+        <fieldset>
+          <legend>Outras Informações</legend>
+          <label>Motivo da Visita: <span className="required">*</span></label>
+          <textarea name="motivoVisita" value={visita.motivoVisita} onChange={handleChange} required />
+
+          <label>Acompanhamento: <span className="required">*</span></label>
+          <textarea name="acompanhamento" value={visita.acompanhamento} onChange={handleChange} required />
+
+          <label>Controle Ambiental: <span className="required">*</span></label>
+          <textarea name="controleAmbiental" value={visita.controleAmbiental} onChange={handleChange} required />
+
+          <label>Antropometria: <span className="required">*</span></label>
+          <textarea name="antropometria" value={visita.antropometria} onChange={handleChange} required />
+
+          <label>Sinais Vitais: <span className="required">*</span></label>
+          <textarea name="sinaisVitais" value={visita.sinaisVitais} onChange={handleChange} required />
+
+          <label>Glicemia: <span className="required">*</span></label>
+          <textarea name="glicemia" value={visita.glicemia} onChange={handleChange} required />
+
+          <label>Desfecho: <span className="required">*</span></label>
+          <textarea name="desfecho" value={visita.desfecho} onChange={handleChange} required />
+        </fieldset>
 
         <button type="submit">Salvar</button>
         <button type="button" onClick={() => navigate("/visitadomiciliar")}>Cancelar</button>
@@ -89,6 +127,10 @@ const VisitaForm = () => {
 };
 
 export default VisitaForm;
+
+
+
+
 
 
 
