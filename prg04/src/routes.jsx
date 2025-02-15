@@ -13,6 +13,7 @@ import Medicamentos from "./pages/medicamento/GestaoMedicamentos.jsx";
 import VisitasList from "./pages/visitadomiciliar/VisitasList.jsx";
 import VisitaForm from "./pages/visitadomiciliar/VisitaForm.jsx";
 import VisitaDetalhes from "./pages/visitadomiciliar/VisitaDetalhes.jsx";
+import GestaoVacinacao from "./pages/vacinacao/GestaoVacinacao.jsx";
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route path="/visitadomiciliar/novo" element={<VisitaForm />} />
         <Route path="/visitadomiciliar/editar/:id" element={<VisitaForm />} />
         <Route path="/visitadomiciliar/detalhes/:id" element={<VisitaDetalhes />} />
+        <Route path="/vacinacao" element={<GestaoVacinacao />} />
       </Routes>
     </Router>
   )
