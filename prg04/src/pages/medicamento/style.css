@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+
+.header_medicamentos{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+}
+
+.header_medicamentos h1{
+    color: var(--color-white);
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 10px;
+    margin-left: 10px;
+}
+.header_medicamentos-acao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-pesquisar_input{
+    padding: 15px;
+}
+
+.header-pesquisar_input input{
+    width: 20vh;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+
+.header_button{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.header_button_acao{
+    width: 10vh;
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    font-weight: bolder;
+    border-radius: 20px;
+   
+}
+
+.section_botao-atualizar{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+@media (min-width: 600px) {
+    .header_medicamentos h1{
+        font-size: 30px;
+    }
+    .header_button{
+        margin: 0 20px;
+    }
+
+    .header_button_acao{
+        margin-top: 20px;
+       width: 15vh;
+    }
+}
+
+@media (min-width: 1100px) {
+    .header_medicamentos h1{
+        font-size: 40px;
+    }
+    .header_medicamentos-acao{
+        flex-direction: row;
+    }
+    .header-pesquisar_input input{
+        width: 30vh;
+        height: 30px;
+        border-radius: 10px;
+        font-size: 10px;
+        text-align: center;
+    }
+}

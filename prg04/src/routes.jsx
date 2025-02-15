@@ -9,7 +9,7 @@ import Unidades from "./pages/unidadesdesaude/unidades.jsx";
 import Agendas from "./pages/agenda/Agendas.jsx";
 import BuscarRequisicoes from "./pages/requisicao/BuscarRequisicoes.jsx";
 import Requisicao from "./pages/requisicao/requisicao.jsx";
-import Medicamentos from "./pages/medicamento/medicamentos.jsx";
+import Medicamentos from "./pages/medicamento/GestaoMedicamentos.jsx";
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
