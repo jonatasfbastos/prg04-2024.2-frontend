@@ -4,6 +4,7 @@ import { getVisitaById, createVisita, updateVisita } from "./visitaService/visit
 import "./visitas.css";
 
 const VisitaForm = () => {
+  // Estado para armazenar os dados da visita
   const [visita, setVisita] = useState({
     digitadoPor: "",
     data: "",
@@ -22,25 +23,31 @@ const VisitaForm = () => {
     desfecho: ""
   });
 
+  // Obtém o ID da visita (se houver) da URL
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Se houver um ID, busca os dados da visita para edição
   useEffect(() => {
     if (id) {
       const fetchVisita = async () => {
-        setVisita(await getVisitaById(id) || {});
+        const data = await getVisitaById(id);
+        if (data) setVisita(data);
       };
       fetchVisita();
     }
   }, [id]);
 
+  // Atualiza o estado conforme o usuário preenche o formulário
   const handleChange = (e) => {
     setVisita({ ...visita, [e.target.name]: e.target.value });
   };
 
+  // Lida com o envio do formulário
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validação para garantir que todos os campos estão preenchidos
     for (const key in visita) {
       if (!visita[key]) {
         alert(`O campo ${key.toUpperCase()} é obrigatório.`);
@@ -48,12 +55,14 @@ const VisitaForm = () => {
       }
     }
 
+    // Se houver um ID, significa que estamos editando uma visita existente, senão, criamos uma nova
     if (id) {
       await updateVisita(id, visita);
     } else {
       await createVisita(visita);
     }
 
+    // Redireciona o usuário para a lista de visitas após salvar
     navigate("/visitadomiciliar");
   };
 
@@ -119,6 +128,7 @@ const VisitaForm = () => {
           <textarea name="desfecho" value={visita.desfecho} onChange={handleChange} required />
         </fieldset>
 
+        {/* Botões de ação */}
         <button type="submit">Salvar</button>
         <button type="button" onClick={() => navigate("/visitadomiciliar")}>Cancelar</button>
       </form>
@@ -127,6 +137,7 @@ const VisitaForm = () => {
 };
 
 export default VisitaForm;
+
 
 
 

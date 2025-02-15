@@ -4,64 +4,53 @@ import { getVisitas, deleteVisita } from "./visitaService/visitaService";
 import "./visitas.css";
 
 const VisitasList = () => {
+  // Estado para armazenar a lista de visitas
   const [visitas, setVisitas] = useState([]);
-  const [filtroNome, setFiltroNome] = useState("");
-  const [filtroData, setFiltroData] = useState("");
   const navigate = useNavigate();
 
+  // Carrega a lista de visitas ao montar o componente
   useEffect(() => {
     const fetchVisitas = async () => {
-      setVisitas(await getVisitas());
+      const data = await getVisitas();
+      if (data) setVisitas(data);
     };
     fetchVisitas();
   }, []);
 
+  // Função para excluir uma visita
   const handleDelete = async (id) => {
-    await deleteVisita(id);
-    setVisitas(await getVisitas());
+    if (window.confirm("Tem certeza que deseja excluir esta visita?")) {
+      await deleteVisita(id);
+      setVisitas(visitas.filter((visita) => visita.id !== id)); // Remove a visita da lista sem recarregar a página
+    }
   };
-
-  const visitasFiltradas = visitas.filter((visita) =>
-    visita.digitadoPor.toLowerCase().includes(filtroNome.toLowerCase()) &&
-    (!filtroData || visita.data.startsWith(filtroData))
-  );
 
   return (
     <div className="visitas-container">
-      <h2>Gestão de Visitas Domiciliares</h2>
-      <div className="filtros">
-        <input type="text" placeholder="Filtrar por nome" value={filtroNome} onChange={(e) => setFiltroNome(e.target.value)} />
-        <input type="date" value={filtroData} onChange={(e) => setFiltroData(e.target.value)} />
-        <button onClick={() => navigate("/visitadomiciliar/novo")}>Nova Visita</button>
-      </div>
-      <table className="visitas-table">
+      <h2>Lista de Visitas</h2>
+      <button onClick={() => navigate("/visitadomiciliar/novo")}>Nova Visita</button>
+      <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Digitado Por</th>
             <th>Data</th>
-            <th>Conferido Por</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {visitasFiltradas.length > 0 ? (
-            visitasFiltradas.map((visita) => (
-              <tr key={visita.id}>
-                <td>{visita.digitadoPor}</td>
-                <td>{visita.data}</td>
-                <td>{visita.conferidoPor}</td>
-                <td>
-                  <button onClick={() => navigate(`/visitadomiciliar/detalhes/${visita.id}`)}>Detalhes</button>
-                  <button onClick={() => navigate(`/visitadomiciliar/editar/${visita.id}`)}>Editar</button>
-                  <button className="delete-btn" onClick={() => handleDelete(visita.id)}>Excluir</button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="no-data">Nenhuma visita encontrada.</td>
+          {visitas.map((visita) => (
+            <tr key={visita.id}>
+              <td>{visita.id}</td>
+              <td>{visita.digitadoPor}</td>
+              <td>{new Date(visita.data).toLocaleDateString()}</td>
+              <td>
+                <button onClick={() => navigate(`/visitadomiciliar/${visita.id}`)}>Detalhes</button>
+                <button onClick={() => navigate(`/visitadomiciliar/editar/${visita.id}`)}>Editar</button>
+                <button onClick={() => handleDelete(visita.id)}>Excluir</button>
+              </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
