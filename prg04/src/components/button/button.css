@@ -1,11 +1,30 @@
 @import url(../../styles/bootstrap.css);
 
-.bg-secundary{
-    background-color: var(--gray-color) !important;
+.buttonComponent .bg-secundary{
+    background-color: var(--primary-color) !important;
+    box-shadow: none;
 }
 
-.btn-primary {
-    background-color: var(--secondary-color) !important;
+.buttonComponent .btn-primary {
+    background-color: var(--primary-color) !important;
     color: var(--color-white) !important;
-    border: none !important;
+    box-shadow: none;
+}
+
+.buttonComponent button {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 16px;
+    transition: .3s;
+    background-color: var(--primary-color);
+    box-shadow: none;
+    border-radius: 10px !important;
+    text-transform: capitalize;
+}
+
+.buttonComponent button:hover{
+    transition: .3s;
+    background-color: var(--primary-color);
+    opacity: .8;
+    box-shadow: none;
 }

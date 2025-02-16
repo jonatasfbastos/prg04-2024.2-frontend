@@ -1,3 +1,23 @@
 div button {
     margin-right: 10px;
 }
+
+.homePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 64px;
+}
+
+.menu {
+    width: 100%;
+    max-width: 30vw;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media(max-width: 1024px) {
+        max-width: none;
+    }
+}

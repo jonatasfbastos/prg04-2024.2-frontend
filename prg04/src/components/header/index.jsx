@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Botao from '../button/button.jsx';
 import '../header/styles.css';
 
 export default function Index() {
@@ -26,23 +25,17 @@ export default function Index() {
                 </div>
 
                 {/* Exibe os botões apenas na página inicial */}
-                {isHomePage && (
-                    <div>
-                        <Botao texto="Login" />
-                        <Botao texto="Cadastre-se" />
-                    </div>
-                )}
             </div>
 
             {/* Barra de navegação */}
-            <nav className="bg-secondary text-light">
+            <nav>
                 <div className="container-sm">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <a className="nav-link text-light" href="#feedbacks">Feedback</a>
+                            <a className="nav-link text-dark" href="#feedbacks">Feedback</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-light" href="#features">Funcionalidades</a>
+                            <a className="nav-link text-dark" href="#features">Funcionalidades</a>
                         </li>
                     </ul>
                 </div>

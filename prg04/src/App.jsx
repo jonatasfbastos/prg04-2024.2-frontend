@@ -5,10 +5,6 @@ import Botao from "./components/button/button.jsx";
 function App() {
     const navigate = useNavigate(); // hook de gerenciamento de rotas
 
-    const goToLogin = () => {
-        navigate("/login");
-    };
-
     const goToGestaoTermos = () => {
         navigate("/gestao-termos");
     };
@@ -41,21 +37,18 @@ function App() {
     };
 
     return (
-        <>
-            <div>HomePage</div>
-            <div>
-                Exemplo de como usar as rotas
-                <button onClick={goToLogin}>Ir para Login</button>
-                <button onClick={goToGestaoTermos}>Gestão de Termos de Consentimento</button>
-                <button onClick={goToEmissaoRelatorios}>Emissão de Relátorios</button>
+        <div className="homePage">
+            <div className="menu">
+                <Botao texto="Gestão de Termos de Consentimento" onClick={goToGestaoTermos}></Botao>
+                <Botao texto="Emissão de Relátorios" onClick={goToEmissaoRelatorios}></Botao>
                 <Botao texto="Unidades de Saude" onClick={goToUnidades} />
                 <Botao texto="Gestão de Medicamento" onClick={goToMedicamentos}/>
-                <button onClick={goToAgendas}>Agendas</button>
-                <button onClick={goToBuscarRequisicoes}>Ir para Requisicoes</button>
-                <button onClick={goToVacinacao}>Gestão de Vacinação</button>
-                <button onClick={goToVisitasDomiciliares}>Gestão de Visitas Domiciliares</button>
+                <Botao texto="Agendas" onClick={goToAgendas}></Botao>
+                <Botao texto="Ir para Requisicoes" onClick={goToBuscarRequisicoes}></Botao>
+                <Botao texto="Gestão de Vacinação" onClick={goToVacinacao}></Botao>
+                <Botao texto="Gestão de Visitas Domiciliares" onClick={goToVisitasDomiciliares}></Botao>
             </div>
-        </>
+        </div>
     );
 }
 

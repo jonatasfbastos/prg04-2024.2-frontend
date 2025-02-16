@@ -7,7 +7,8 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2, h3 {
+h2,
+h3 {
   text-align: center;
 }
 
@@ -30,8 +31,9 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
-  background-color: #0031b9;
+.search-container button:hover {
+  transition: 0.3s;
+  opacity: 0.7;
 }
 
 .lista-exames {
@@ -67,7 +69,6 @@ button:hover {
   border-radius: 4px;
   cursor: pointer;
   max-width: 100px;
-  
 }
 
 .remover-btn:hover {
