@@ -6,8 +6,11 @@ import "./style.css"
 
 
 function GestaoMedicamentos (){
+    //Passando o a Endpoint, para utilizar nos métodos
     const url = 'http://localhost:8080/medicamentos'
-    const [medicamento, setMedicamento] = useState([])
+
+    /* Ele cria um estado e um modificar de estados, quando realizo uma requisição ele muda o estado do array com os elementos*/
+    const [medicamento, setMedicamento] = useState([]);
 
      // Função para buscar medicamentos
      function getMedicamentos() {
@@ -19,13 +22,13 @@ function GestaoMedicamentos (){
         })
         .then(Response => Response.json())
         .then(data => {
+            /*Pegando os dados dentro da paginação */
             setMedicamento(data.content);
         })
-        .catch(error => console.error('Erro ao buscar medicamentos:', error));
+        .catch(error => alert('Erro ao buscar medicamentos:', error));
     }
 
-
-
+        /* Pegando o "id" Código futuramento  e nome, o id para enviar para requisição e o nome para informar ao usuário */
         function deleteMedicamento(id, nome){
             if(confirm("Deseja Excluir Medicamento: " + nome + "?")){
                 fetch(url + "/delete/" + id, {
@@ -36,16 +39,16 @@ function GestaoMedicamentos (){
                 }).then(response => {
                     if (response.ok) {
                         alert("Medicamento Excluido");
+                        /*Atualizando a tabela*/
+                        getMedicamentos();
                     } else {
                         alert("Erro ao excluir medicamento");
                     }
                 })
                 .catch(error => console.log(error))
             }
+            
         }
-
-
-
 
         function Detalhes(){
             alert("Detalhes")
@@ -56,9 +59,11 @@ function GestaoMedicamentos (){
         getMedicamentos();
     }, []); // Array de dependências vazio para rodar apenas na montagem do componente
 
+    /* Transformando Objetos em Array utilizando a propriedade do JS, verificar ser é um array caso não transforma em um*/
     const listaMedicamento = Array.isArray(medicamento) ? medicamento : [medicamento];
     
 
+    /*Page*/
     return (
     <main>
     <header>
@@ -96,6 +101,7 @@ function GestaoMedicamentos (){
                         </tr>
                 </thead>
                 <tbody> 
+                    {/* Criar uma tabela com base no seu elementos adicionando um index para ser o chave e seus elementos*/}
                 {medicamento.length > 0 ? (
                         medicamento.map((med, index) => (
                             <tr key={index}>
@@ -123,4 +129,5 @@ function GestaoMedicamentos (){
     )
 }
 
+/*Exportanto O método de Medicamentos */
 export default GestaoMedicamentos;
