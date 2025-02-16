@@ -49,7 +49,7 @@ function App() {
                 <button onClick={goToGestaoTermos}>Gestão de Termos de Consentimento</button>
                 <button onClick={goToEmissaoRelatorios}>Emissão de Relátorios</button>
                 <Botao texto="Unidades de Saude" onClick={goToUnidades} />
-                <button onClick={goToMedicamentos}>Gestão de Medicamentos</button>
+                <Botao texto="Gestão de Medicamento" onClick={goToMedicamentos}/>
                 <button onClick={goToAgendas}>Agendas</button>
                 <button onClick={goToBuscarRequisicoes}>Ir para Requisicoes</button>
                 <button onClick={goToVacinacao}>Gestão de Vacinação</button>

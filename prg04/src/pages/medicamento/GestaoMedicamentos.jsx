@@ -1,15 +1,68 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 /*Importação de Component já criados */
 import Botao from '../../components/button/button.jsx';
 import ReportTable from '../../components/reporttable/reporttable.jsx';
 import "./style.css"
 
 
-function medicamentos (){
+function GestaoMedicamentos (){
+    const url = 'http://localhost:8080/medicamentos'
+    const [medicamento, setMedicamento] = useState([])
+
+     // Função para buscar medicamentos
+     function getMedicamentos() {
+        fetch(url + "/findall", {
+            method: "GET",
+            headers: {
+                'content-Type': 'application/json',
+            },
+        })
+        .then(Response => Response.json())
+        .then(data => {
+            setMedicamento(data.content);
+        })
+        .catch(error => console.error('Erro ao buscar medicamentos:', error));
+    }
+
+
+
+        function deleteMedicamento(id, nome){
+            if(confirm("Deseja Excluir Medicamento: " + nome + "?")){
+                fetch(url + "/delete/" + id, {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(response => {
+                    if (response.ok) {
+                        alert("Medicamento Excluido");
+                    } else {
+                        alert("Erro ao excluir medicamento");
+                    }
+                })
+                .catch(error => console.log(error))
+            }
+        }
+
+
+
+
+        function Detalhes(){
+            alert("Detalhes")
+        }
+
+    // UseEffect para buscar os dados apenas na montagem do componente
+    useEffect(() => {
+        getMedicamentos();
+    }, []); // Array de dependências vazio para rodar apenas na montagem do componente
+
+    const listaMedicamento = Array.isArray(medicamento) ? medicamento : [medicamento];
+    
 
     return (
     <main>
     <header>
+
        <div className="header_medicamentos">
             <h1>Medicamentos</h1>
             <div className="header_medicamentos-acao">
@@ -27,23 +80,41 @@ function medicamentos (){
     </header>
     <section>
         <div className="section_botao-atualizar">
-         <Botao texto="Atualizar" className="delete"/>
+         <Botao texto="Atualizar" className="delete" onClick={getMedicamentos}/>
         </div>
+        
         <div className="table">
                 <table>
-                <tbody>
+                <thead>
                     
                         <tr >
-                            <td><span className="atributo">Codigo </span> </td>
-                            <td><span className="atributo">Nome</span></td>
-                            <td><span className="atributo">Categoria </span> </td>
-                            <td><span className="atributo">Quantidade </span></td>
-                            <td>
-                                <Botao texto="Excluir" className="delete"/>
-                                <Botao texto="Editar" className="delete"/>
-                                <Botao texto="Ver Detalhes" className="delete"/>
-                            </td>
+                            <td>Codigo</td>
+                            <td>Nome</td>
+                            <td>Categoria </td>
+                            <td>Quantidade</td>
+                            
                         </tr>
+                </thead>
+                <tbody> 
+                {medicamento.length > 0 ? (
+                        medicamento.map((med, index) => (
+                            <tr key={index}>
+                                <td>{med.id}</td>
+                                <td>{med.nome}</td>
+                                <td>{med.categoria}</td>
+                                <td>{med.quantidade}</td>
+                                <td>
+                                    <Botao texto="Excluir" onClick={() => deleteMedicamento(med.id, med.nome)}/>
+                                    <Botao texto="Editar"/>
+                                    <Botao texto="Ver Detalhes" onClick={() => Detalhes()}/>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5">Nenhum medicamento encontrado</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>
@@ -52,4 +123,4 @@ function medicamentos (){
     )
 }
 
-export default medicamentos;
+export default GestaoMedicamentos;
