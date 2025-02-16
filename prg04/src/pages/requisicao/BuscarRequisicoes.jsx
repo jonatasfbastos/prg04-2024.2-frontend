@@ -65,15 +65,15 @@ const BuscarRequisicoes = () => {
       <input
         type="text"
         placeholder="Digite o nome ou CPF..."
-        className="search-input"
+        className="input-requisicao"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
       />
-      <button className="search-button" onClick={handleSearch} disabled={carregando}>
+      <button className="botao-requisicao" onClick={handleSearch} disabled={carregando}>
         {carregando ? "Buscando..." : "Buscar"}
       </button>
 
-      <button className="create-button" onClick={irParaRequisicao}>
+      <button className="botao-requisicao" onClick={irParaRequisicao}>
         Emitir Requisição
       </button>
 
@@ -103,7 +103,7 @@ const BuscarRequisicoes = () => {
                   <p>Nenhum exame encontrado.</p>
                 )}
                 {/* Botão para remover a requisição */}
-                <button onClick={() => handleDelete(requisicao.id)}>Remover</button>
+                <button className="remover-btn "onClick={() => handleDelete(requisicao.id)}>Remover</button>
               </li>
             ))}
           </ul>

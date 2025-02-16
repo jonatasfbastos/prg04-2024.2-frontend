@@ -11,7 +11,7 @@ h2, h3 {
   text-align: center;
 }
 
-input {
+.input-requisicao {
   width: 100%;
   padding: 8px;
   margin: 8px 0;
@@ -19,7 +19,7 @@ input {
   border-radius: 4px;
 }
 
-button {
+.botao-requisicao {
   width: 100%;
   padding: 10px;
   background-color: #0da6ff;
@@ -30,7 +30,7 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.botao-requisicao:hover {
   background-color: #0031b9;
 }
 
@@ -67,9 +67,9 @@ button:hover {
   border-radius: 4px;
   cursor: pointer;
   max-width: 100px;
-  
 }
 
 .remover-btn:hover {
   background-color: #c82333;
 }
+
