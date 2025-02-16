@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react"
 import Botao from '../../components/button/button.jsx';
 import ReportTable from '../../components/reporttable/reporttable.jsx';
 import "./style.css"
+import {useNavigate} from 'react-router-dom';// Importar o hook useNavigate
 
 
 function GestaoMedicamentos (){
     //Passando o a Endpoint, para utilizar nos métodos
     const url = 'http://localhost:8080/medicamentos'
-
+    const navigate = useNavigate();  // Instanciando o hook useNavigate
     /* Ele cria um estado e um modificar de estados, quando realizo uma requisição ele muda o estado do array com os elementos*/
     const [medicamento, setMedicamento] = useState([]);
 
@@ -54,6 +55,10 @@ function GestaoMedicamentos (){
             alert("Detalhes")
         }
 
+        function goToMedicamento(){
+            navigate("/CriarMedicamento")
+        }
+
     // UseEffect para buscar os dados apenas na montagem do componente
     useEffect(() => {
         getMedicamentos();
@@ -76,7 +81,7 @@ function GestaoMedicamentos (){
                 </div>
                 <div className="header_button">
                     <button className="header_button_acao">Pesquisar</button>
-                    <button className="header_button_acao">Novo</button>
+                    <button className="header_button_acao" onClick={goToMedicamento}>Novo</button>
                 </div>
             </div>
             
@@ -131,3 +136,4 @@ function GestaoMedicamentos (){
 
 /*Exportanto O método de Medicamentos */
 export default GestaoMedicamentos;
+
