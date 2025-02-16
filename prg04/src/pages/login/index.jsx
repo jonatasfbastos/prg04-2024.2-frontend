@@ -2,23 +2,19 @@ import { useForm } from "react-hook-form";
 import "./styles.css";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
-import Botao from "../../components/button/button"; // Certifique-se que este componente repassa as props corretamente
+import Botao from "../../components/button/button"; 
 
 export default function Index() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     // Configuração do react-hook-form
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
     // Função executada no submit do formulário
     const onSubmit = (data) => {
-        console.log("Dados do formulário:", data);
-        navigate("/home");
-    };
+        console.log("Dados do formulário:", data)
+        navigate("/home")
+    }
 
     return (
         <div id="loginPage">
@@ -76,5 +72,5 @@ export default function Index() {
                 </form>
             </div>
         </div>
-    );
+    )
 }

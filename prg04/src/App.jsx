@@ -3,38 +3,38 @@ import { useNavigate } from "react-router-dom";
 import Botao from "./components/button/button.jsx";
 
 function App() {
-    const navigate = useNavigate(); // hook de gerenciamento de rotas
+    const navigate = useNavigate() // hook de gerenciamento de rotas
 
     const goToGestaoTermos = () => {
-        navigate("/gestao-termos");
-    };
+        navigate("/gestao-termos")
+    }
 
     const goToEmissaoRelatorios = () => {
-        navigate("/emissao-relatorios");
-    };
+        navigate("/emissao-relatorios")
+    }
 
     const goToUnidades = () => {
-        navigate("/unidades-de-saude");
-    };
+        navigate("/unidades-de-saude")
+    }
 
     const goToMedicamentos = () => {
-        navigate("/medicamentos");
-    };
+        navigate("/medicamentos")
+    }
 
     const goToAgendas = () => {
-        navigate("/agendas");
-    };
+        navigate("/agendas")
+    }
 
     const goToBuscarRequisicoes = () => {
-        navigate("/buscarrequisicoes");
-    };
+        navigate("/buscarrequisicoes")
+    }
     const goToVacinacao = () => {
-        navigate("/vacinacao");
-    };
+        navigate("/vacinacao")
+    }
 
     const goToVisitasDomiciliares = () => {
-        navigate("/visitadomiciliar");
-    };
+        navigate("/visitadomiciliar")
+    }
 
     return (
         <div className="homePage">
@@ -49,7 +49,7 @@ function App() {
                 <Botao texto="Gestão de Visitas Domiciliares" onClick={goToVisitasDomiciliares}></Botao>
             </div>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
