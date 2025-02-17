@@ -1,0 +1,52 @@
+/* Personalizando os botões */
+.custom-button {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para o card */
+  .card {
+    border-radius: 10px;
+    background: linear-gradient(135deg, #66cc99, #33cccc);
+  }
+  
+  .card-body {
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  /* Estilo do título e texto */
+  h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo do container */
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 767px) {
+    .card-body {
+      padding: 2rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
