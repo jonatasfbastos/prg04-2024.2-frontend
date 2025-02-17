@@ -1,0 +1,86 @@
+/* Apenas para as telas de visita */
+.visitas-container {
+  max-width: 900px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste do cabeçalho */
+.visitas-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilização dos fieldsets para melhor organização */
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+/* Destacando os títulos dos fieldsets */
+legend {
+  font-weight: bold;
+  font-size: 18px; /* Aumentei o tamanho */
+  color: #222;
+  text-transform: uppercase;
+}
+
+/* Melhor espaçamento entre os campos */
+.visitas-container label {
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.required {
+  color: red;
+}
+
+.visitas-container input,
+.visitas-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Ajustando os botões */
+.visitas-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.visitas-container button:hover {
+  background-color: #0056b3;
+}
+
+.visitas-container button[type="button"] {
+  background-color: #dc3545;
+}
+
+.visitas-container button[type="button"]:hover {
+  background-color: #b02a37;
+}
+
+

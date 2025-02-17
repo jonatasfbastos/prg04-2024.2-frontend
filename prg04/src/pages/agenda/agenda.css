@@ -1,0 +1,207 @@
+/* CSS de agenda com nomeclatura para evitar conflitos */
+.agenda-container {
+    background-color: #f4f8fb;
+    padding: 30px;
+    border-radius: 12px;
+    width: 85%;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Config do titulo */
+  .agenda-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #1c5fa8;
+    font-weight: bold;
+  }
+  
+  /* Pesquisar usuario */
+  .agenda-input {
+    width: 50%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .agenda-input:focus {
+    outline: none;
+    border-color: #1c5fa8;
+    box-shadow: 0 0 5px rgba(28, 95, 168, 0.5);
+  }
+  
+  /* Botão de Adicionar agenda */
+  .agenda-add-btn {
+    background-color: #1c5fa8;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Botão de Filtro da agenda */
+  .agenda-filtro-select {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .agenda-add-btn:hover {
+    background-color: #155a84;
+  }
+  
+  /* Config da tabela de dados */
+  .agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .agenda-table th, .agenda-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .agenda-table th {
+    background-color: #1c5fa8;
+    color: white;
+    font-size: 18px;
+  }
+  
+  .agenda-table td {
+    background-color: #ffffff;
+    font-size: 16px;
+  }
+  
+  .agenda-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Coluna com o deletar e editar */
+  .agenda-delete-btn, .agenda-edit-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .agenda-delete-btn {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .agenda-delete-btn:hover {
+    background-color: #c9302c;
+  }
+  
+  .agenda-edit-btn {
+    background-color: #1c5fa8;
+    color: white;
+  }
+  
+  .agenda-edit-btn:hover {
+    background-color: #155a84;
+  }
+  
+  /* Telas suspensas */
+  .agenda-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .agenda-modal-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .agenda-modal-content h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #1c5fa8;
+  }
+  
+  .agenda-modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .agenda-modal-content input:focus {
+    outline: none;
+    border-color: #1c5fa8;
+    box-shadow: 0 0 5px rgba(28, 95, 168, 0.5);
+  }
+  
+  .agenda-modal-content button {
+    background-color: #1c5fa8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .agenda-modal-content button:hover {
+    background-color: #155a84;
+  }
+  
+  .agenda-modal-content label {
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  /* Mensagem de erro ao ter uma excessão */
+  .agenda-error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .agenda-container {
+      width: 95%;
+    }
+  
+    .agenda-input {
+      width: 90%;
+    }
+  
+    .agenda-modal-content {
+      width: 90%;
+    }
+  }
+  

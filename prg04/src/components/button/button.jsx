@@ -1,12 +1,18 @@
 import React from 'react';
-import "../button/button.css"
+import "../button/button.css";
+import { Button } from '@mui/material';
 
-// Função para criar um botão componentizado
-const Botao = ({texto, onClick}) => {
+const Botao = ({ texto, onClick, ...props }) => {
   return (
-    <button className='btn btn-primary rounded' onClick={onClick}>
-      {texto || 'Botão'} {/* Texto padrão: "Botão" */}
-    </button>
+    <div className='buttonComponent'>
+      <Button
+        className='btn btn-primary rounded'
+        onClick={onClick}
+        {...props} // repassa todas as outras props, como type="submit"
+      >
+        {texto || 'Botão'}
+      </Button>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .header_medicamentos{
     display: flex;
     align-items: center;
@@ -54,6 +53,10 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+}
+
+.form_cancelar{
+    background-color: red;
 }
 
 @media (min-width: 600px) {
