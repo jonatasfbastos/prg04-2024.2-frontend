@@ -78,7 +78,7 @@ function CriarTermo() {
     };
 
     return (
-        <div className="termo-consentimento-container">
+        <div className="criar-termo-container">
             <h1>Criar Termo de Consentimento</h1>
             <form onSubmit={handleSubmit}>
                 {/* Campo CPF do Paciente */}

@@ -286,7 +286,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 16criarpx;
 }
 
 .termos-container .ok-button:hover {
@@ -296,7 +296,7 @@
 
 /*Tela de criação de termos*/
 /* Container principal do termo de consentimento */
-.termo-consentimento-container {
+.criar-termo-container {
     width: 50%;
     margin: 40px auto;
     padding: 20px;
@@ -306,7 +306,7 @@
 }
 
 /* Título principal */
-.termo-consentimento-container h1 {
+.criar-termo-container h1 {
     text-align: center;
     color: var(--text-color);
     font-size: 30px;
@@ -314,12 +314,12 @@
 }
 
 /* Estilização dos grupos de formulários */
-.termo-consentimento-container .form-group {
+.criar-termo-container .form-group {
     margin-bottom: 20px;
 }
 
 /* Estilização dos rótulos (labels) */
-.termo-consentimento-container label {
+.criar-termo-container label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
@@ -327,7 +327,7 @@
 }
 
 /* Indicador de campo obrigatório */
-.termo-consentimento-container .required {
+.criar-termo-container .required {
     color: #e74c3c;
     font-size: 18px;
     margin-left: 1px;
@@ -336,7 +336,7 @@
 }
 
 /* Tooltip exibindo "Campo obrigatório*" ao passar o mouse */
-.termo-consentimento-container .required::after {
+.criar-termo-container .required::after {
     content: "Campo obrigatório*";
     position: absolute;
     bottom: 20px;
@@ -353,14 +353,14 @@
 }
 
 /* Torna o tooltip visível ao passar o mouse */
-.termo-consentimento-container .required:hover::after {
+.criar-termo-container .required:hover::after {
     visibility: visible;
     opacity: 1;
 }
 
 /* Estilização dos campos de entrada (inputs e textarea) */
-.termo-consentimento-container input,
-.termo-consentimento-container textarea {
+.criar-termo-container input,
+.criar-termo-container textarea {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -370,13 +370,13 @@
 }
 
 /* Configuração específica para textarea */
-.termo-consentimento-container textarea {
+.criar-termo-container textarea {
     resize: vertical;
     height: 120px;
 }
 
 /* Botão de submissão */
-.termo-consentimento-container button {
+.criar-termo-container button {
     background-color: var(--primary-color);
     color: var(--color-white);
     padding: 10px 20px;
@@ -388,13 +388,13 @@
 }
 
 /* Efeito hover no botão */
-.termo-consentimento-container button:hover {
+.criar-termo-container button:hover {
     background-color: var(--tertiary-color); /* Muda a cor de fundo */
     transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
 }
 
 /* Estilização do contador de caracteres, alinhado à direita */
-.character-count {
+.criar-termo-container button .character-count {
     font-size: 14px;
     color: var(--text-color);
     text-align: right;
@@ -402,7 +402,7 @@
 }
 
 /* Container que agrupa a mensagem de erro e o contador */
-.error-container {
+.criar-termo-container button .error-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -410,7 +410,7 @@
 }
 
 /* Mensagem de erro, alinhada à esquerda */
-.error-message {
+.criar-termo-container button .error-message {
     font-size: 14px;
     color: #e74c3c;
     display: flex;
@@ -418,7 +418,7 @@
 }
 
 /* Ícone de alerta antes da mensagem de erro */
-.error-message::before {
+.criar-termo-container button .error-message::before {
     content: "⚠️";
     margin-right: 5px;
     margin-top: 2px;

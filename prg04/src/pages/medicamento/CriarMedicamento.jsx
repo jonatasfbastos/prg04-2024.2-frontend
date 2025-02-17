@@ -69,7 +69,7 @@ function CriarMedicamento() {
     }
    
     return (
-        <div className="termo-consentimento-container">
+        <div className="criar-termo-container">
             <h1>Criar Medicamento</h1>
             <form onSubmit={(e) => { e.preventDefault(); postMedicamento(); }}>
                 {/* Campos do formulário */}
