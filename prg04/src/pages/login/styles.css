@@ -40,22 +40,22 @@ form {
     padding: 64px 32px;
     border-radius: 16px;
 
-}  
+}
 
 @media(max-width: 1600px) {
     form {
         max-width: 50vw;
     }
-}   
+}
 
 @media(min-width: 1600px) {
     form {
         max-width: 30vw;
     }
-}   
+}
 
 @media(max-width: 1024px) {
     form {
         max-width: none;
     }
-}   
+}
