@@ -36,6 +36,10 @@ function App() {
         navigate("/vacinacao")
     };
 
+    const gotToPaciente = () => {
+        navigate("/gestao-paciente")
+    }
+
 
     return (
         <>
@@ -50,6 +54,7 @@ function App() {
                 <button onClick={goToAgendas}>Agendas</button>
                 <button onClick={goToBuscarRequisicoes}>Ir para Requisicoes</button>
                 <button onClick= {goToVacinacao}>Gestão de Vacinação</button>
+                <button onClick={gotToPaciente}>Gestão de Pacientes</button>
             </div>
         </>
     );

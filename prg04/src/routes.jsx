@@ -10,6 +10,10 @@ import Agendas from "./pages/agenda/Agendas.jsx";
 import BuscarRequisicoes from "./pages/requisicao/BuscarRequisicoes.jsx";
 import Requisicao from "./pages/requisicao/requisicao.jsx";
 import Medicamentos from "./pages/medicamento/GestaoMedicamentos.jsx";
+import GestaoPaciente from "./pages/prontuario/GestaoPaciente.jsx";
+import CriarPaciente from "./pages/prontuario/CriarPaciente.jsx";
+import DetalhesPaciente from "./pages/prontuario//DetalhesPaciente.jsx"
+import ProntuarioScreen from "./pages/prontuario/ProntuarioScreen.jsx"
 
 const AppRoutes = () => {
   //abaixo define as rotas, colocando path da rota e a página referente
@@ -27,6 +31,10 @@ const AppRoutes = () => {
         <Route path="/medicamentos" element={<Medicamentos />} />
         <Route path="/buscarrequisicoes" element={<BuscarRequisicoes />} />
         <Route path="/requisicao" element={<Requisicao />} />
+        <Route path="/gestao-paciente" element={<GestaoPaciente />} />
+        <Route path="/criar-paciente" element={<CriarPaciente/>} />
+        <Route path="/detalhes-paciente" element={<DetalhesPaciente/>} />
+        <Route path="/prontuario" element={<ProntuarioScreen/>} />
       </Routes>
     </Router>
   )
