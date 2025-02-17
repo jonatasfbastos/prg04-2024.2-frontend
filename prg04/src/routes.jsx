@@ -25,6 +25,7 @@ import VisitasList from "./pages/visitadomiciliar/VisitasList.jsx";
 import VisitaForm from "./pages/visitadomiciliar/VisitaForm.jsx";
 import VisitaDetalhes from "./pages/visitadomiciliar/VisitaDetalhes.jsx";
 import GestaoVacinacao from "./pages/vacinacao/GestaoVacinacao.jsx";
+import GerirCampanha from "./pages/campanha/gerir-campanhas.jsx";
 
 const Layout = () => {
   const location = useLocation();
@@ -66,6 +67,7 @@ const Layout = () => {
           element={<VisitaDetalhes />}
         />
         <Route path="/vacinacao" element={<GestaoVacinacao />} />
+        <Route path="/gerir-campanhas" element={<GerirCampanha />} />
       </Routes>
     </>
   );
