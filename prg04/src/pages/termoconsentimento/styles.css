@@ -286,7 +286,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16criarpx;
+    font-size: 16px;
 }
 
 .termos-container .ok-button:hover {
@@ -394,7 +394,7 @@
 }
 
 /* Estilização do contador de caracteres, alinhado à direita */
-.criar-termo-container button .character-count {
+.criar-termo-container .character-count {
     font-size: 14px;
     color: var(--text-color);
     text-align: right;
@@ -402,7 +402,7 @@
 }
 
 /* Container que agrupa a mensagem de erro e o contador */
-.criar-termo-container button .error-container {
+.criar-termo-container .error-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -410,7 +410,7 @@
 }
 
 /* Mensagem de erro, alinhada à esquerda */
-.criar-termo-container button .error-message {
+.criar-termo-container .error-message {
     font-size: 14px;
     color: #e74c3c;
     display: flex;
@@ -418,7 +418,7 @@
 }
 
 /* Ícone de alerta antes da mensagem de erro */
-.criar-termo-container button .error-message::before {
+.criar-termo-container .error-message::before {
     content: "⚠️";
     margin-right: 5px;
     margin-top: 2px;
