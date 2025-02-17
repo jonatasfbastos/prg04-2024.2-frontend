@@ -15,6 +15,7 @@ import VisitasList from "./pages/visitadomiciliar/VisitasList.jsx";
 import VisitaForm from "./pages/visitadomiciliar/VisitaForm.jsx";
 import VisitaDetalhes from "./pages/visitadomiciliar/VisitaDetalhes.jsx";
 import GestaoVacinacao from "./pages/vacinacao/GestaoVacinacao.jsx";
+import GestaoAtendimentos from "./pages/gestaoatendimento/GestaoAtendimento.jsx";
 
 
 const AppRoutes = () => {
@@ -40,6 +41,7 @@ const AppRoutes = () => {
         <Route path="/visitadomiciliar/editar/:id" element={<VisitaForm />} />
         <Route path="/visitadomiciliar/detalhes/:id" element={<VisitaDetalhes />} />
         <Route path="/vacinacao" element={<GestaoVacinacao />} />
+        <Route path="/gestaoatendimentos" element={<GestaoAtendimentos />} />
       </Routes>
     </Router>
   )
