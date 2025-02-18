@@ -2,10 +2,10 @@ import  { useEffect, useState } from 'react';
 import api from './services/api'; // Importa a instância configurada do axios
 
 const TableFuncionario = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   const [funcionarios, setFuncionarios] = useState([]);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {

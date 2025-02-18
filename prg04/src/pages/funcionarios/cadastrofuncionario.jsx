@@ -3,7 +3,7 @@ import  { useState } from 'react';
 // Define o componente 'cadastrofuncionario'
 const CadastroFuncionario = () => {
   // Hook useState para gerenciar o estado dos dados do formulário
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+ 
   const [formData, setFormData] = useState({
     codigo: '',
     login: '',
