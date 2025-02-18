@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); 
 
 :root {
     --primary-color: #2490e8;
@@ -6,7 +6,8 @@
     --tertiary-color: #60c2ff;
     --text-color: #252525;
     --background-color: #fcfffa;
-    --background-secondary: #cfcfcf;
+    --background-secondary: #eeeeee;
+    --background-transparent-blue: #2490e82f;
     --gray-color: #b1b5c0;
     --color-white: #f5f5f5;
 

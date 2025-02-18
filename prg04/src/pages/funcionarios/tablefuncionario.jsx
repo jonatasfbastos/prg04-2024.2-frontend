@@ -1,9 +1,11 @@
 import  { useEffect, useState } from 'react';
-import api from '../api'; // Importa a instância configurada do axios
+import api from './services/api'; // Importa a instância configurada do axios
 
 const TableFuncionario = () => {
+
   const [funcionarios, setFuncionarios] = useState([]);
 
+  
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {

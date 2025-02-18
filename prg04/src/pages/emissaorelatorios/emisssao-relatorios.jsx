@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReportTable from '../../components/reporttable/reporttable.jsx';
 import Botao from '../../components/button/button.jsx';
+import api from '../emissaorelatorios/services/api.js'; // Importando o Axios configurado
 import './emissao-relatorios.css';
 
 const EmissaoRelatorios = () => {
@@ -8,15 +9,26 @@ const EmissaoRelatorios = () => {
 
   useEffect(() => {
     const fetchReports = async () => {
-      const data = await getReports();
-      setReports(data);
+      try {
+        const response = await api.get('/atendimentos/relatorios'); // Altere a rota conforme seu backend
+        setReports(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar relatórios:', error);
+      }
     };
 
     fetchReports();
   }, []);
 
-  const handleGerarRelatorio = () => {
-    alert('Relatório gerado com sucesso!');
+  const handleGerarRelatorio = async () => {
+    try {
+      const response = await api.post('/atendimentos/gerar-relatorio');
+      alert('Relatório gerado com sucesso!');
+      setReports(response.data);
+    } catch (error) {
+      console.error('Erro ao gerar relatório:', error);
+      alert('Erro ao gerar relatório.');
+    }
   };
 
   return (

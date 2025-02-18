@@ -1,7 +1,7 @@
 import 'react';
 
 
-const GestaoFuncionarios = () => {
+const funcionarios = () => {
   return (
     <div>
       <h1>Gestão de Funcionários</h1>
@@ -11,4 +11,4 @@ const GestaoFuncionarios = () => {
   );
 };
 
-export default GestaoFuncionarios;
+export default funcionarios;

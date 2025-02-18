@@ -1,7 +1,7 @@
 @import url(../../styles/bootstrap.css);
 
 .bg-primary {
-    background-color: #2490e8 !important;
+    background-color: var(--primary-color) !important;
 }
 
 .titulo-principal {
@@ -12,4 +12,8 @@
 .sinal-plus {
     font-size: 2.5rem;
     margin-left: 5px; /* Espaçamento entre "Saúde" e "+" */
+}
+
+header nav {
+    background-color: var(--background-secondary);
 }
