@@ -1,62 +1,128 @@
-import  { useState } from 'react';
-
-// Define o componente 'cadastrofuncionario'
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Botao from "../../components/button/button"; // Botão customizado, se necessário
+import api from "./services/api"; // Certifique-se de que a instância da API está correta
+import './funcionario.css';
 const CadastroFuncionario = () => {
-  // Hook useState para gerenciar o estado dos dados do formulário
- 
-  const [formData, setFormData] = useState({
-    codigo: '',
-    login: '',
-    senha: '',
-    categoria: '',
-    nome: '',
-    cpf: '',
-    endereco: '',
-    telefone: '',
-  });
+  const navigate = useNavigate();
+  
+  // Configuração do react-hook-form
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // Função handleChange para atualizar os dados do formData quando um campo é alterado
-  const handleChange = (e) => {
-    // Atualiza o campo específico em formData com base no nome do campo de entrada
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Função handleSubmit para enviar os dados do formulário para a API quando o formulário for enviado
-  const handleSubmit = async (e) => {
-    // Previne o comportamento padrão de envio do formulário
-    e.preventDefault();
-
+  // Função executada no submit do formulário
+  const onSubmit = async (data) => {
     try {
-      // Envia uma requisição POST para a API com os dados do formulário
-      // eslint-disable-next-line no-undef
-      const response = await api.post('/funcionarios', formData);
-      // Exibe a resposta da API em caso de sucesso
+      // Envia os dados para a API
+      const response = await api.post('/funcionarios', data);
       console.log('Funcionário cadastrado:', response.data);
-      // Exibe um alerta de sucesso
       alert('Funcionário cadastrado com sucesso!');
+      navigate("/home"); // Navega para a página principal após o cadastro
     } catch (error) {
-      // Exibe um erro no console se a requisição falhar
       console.error('Erro ao cadastrar funcionário:', error);
-      // Exibe um alerta de erro
       alert('Erro ao cadastrar funcionário.');
     }
   };
 
   return (
-    // Formulário que chama a função handleSubmit ao ser submetido
-    <form onSubmit={handleSubmit}>
-      {/* Campos de entrada para cada dado do formulário */}
-      <input type="text" name="codigo" placeholder="Código" onChange={handleChange} required />
-      <input type="text" name="login" placeholder="Login" onChange={handleChange} required />
-      <input type="password" name="senha" placeholder="Senha" onChange={handleChange} required />
-      <input type="text" name="categoria" placeholder="Categoria" onChange={handleChange} required />
-      <input type="text" name="nome" placeholder="Nome" onChange={handleChange} required />
-      <input type="text" name="cpf" placeholder="CPF" onChange={handleChange} required />
-      <input type="text" name="endereco" placeholder="Endereço" onChange={handleChange} required />
-      <input type="text" name="telefone" placeholder="Telefone" onChange={handleChange} required />
-      {/* Botão de envio para submeter o formulário */}
-      <button type="submit">Cadastrar</button>
-    </form>
+    <div id="cadastroFuncionarioPage">
+      <div className="formContainer">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1>Cadastrar Funcionário</h1>
+          
+          <TextField
+            id="codigo"
+            label="Código"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("codigo", { required: "Código é obrigatório." })}
+            error={Boolean(errors.codigo)}
+            helperText={errors.codigo?.message}
+          />
+          
+          <TextField
+            id="login"
+            label="Login"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("login", { required: "Login é obrigatório." })}
+            error={Boolean(errors.login)}
+            helperText={errors.login?.message}
+          />
+          
+          <TextField
+            id="senha"
+            label="Senha"
+            variant="filled"
+            type="password"
+            fullWidth
+            margin="normal"
+            {...register("senha", { required: "Senha é obrigatória." })}
+            error={Boolean(errors.senha)}
+            helperText={errors.senha?.message}
+          />
+          
+          <TextField
+            id="categoria"
+            label="Categoria"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("categoria", { required: "Categoria é obrigatória." })}
+            error={Boolean(errors.categoria)}
+            helperText={errors.categoria?.message}
+          />
+          
+          <TextField
+            id="nome"
+            label="Nome"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("nome", { required: "Nome é obrigatório." })}
+            error={Boolean(errors.nome)}
+            helperText={errors.nome?.message}
+          />
+          
+          <TextField
+            id="cpf"
+            label="CPF"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("cpf", { required: "CPF é obrigatório." })}
+            error={Boolean(errors.cpf)}
+            helperText={errors.cpf?.message}
+          />
+          
+          <TextField
+            id="endereco"
+            label="Endereço"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("endereco", { required: "Endereço é obrigatório." })}
+            error={Boolean(errors.endereco)}
+            helperText={errors.endereco?.message}
+          />
+          
+          <TextField
+            id="telefone"
+            label="Telefone"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            {...register("telefone", { required: "Telefone é obrigatório." })}
+            error={Boolean(errors.telefone)}
+            helperText={errors.telefone?.message}
+          />
+
+          <Botao type="submit" texto="Cadastrar" variant="contained" />
+        </form>
+      </div>
+    </div>
   );
 };
 
