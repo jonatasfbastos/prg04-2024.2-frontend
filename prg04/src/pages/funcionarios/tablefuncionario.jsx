@@ -1,7 +1,7 @@
 import  { useEffect, useState } from 'react';
-import api from '../funcionarios/services/api'; // Importa a instância configurada do axios
+import api from './services/api'; // Importa a instância configurada do axios
 
-const tablefuncionario = () => {
+const TableFuncionario = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [funcionarios, setFuncionarios] = useState([]);
 
@@ -48,4 +48,4 @@ const tablefuncionario = () => {
   );
 };
 
-export default tablefuncionario;
+export default TableFuncionario;
