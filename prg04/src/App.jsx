@@ -47,6 +47,9 @@ function App() {
         navigate("/gestaoatendimentos");
     }
 
+    const goToFuncionarios = () => {
+        navigate("/funcionarios")
+    } 
     return (
         <div className="homePage">
             <div className="menu">
@@ -65,6 +68,7 @@ function App() {
                 <Botao texto="Gestão de Visitas Domiciliares" onClick={goToVisitasDomiciliares}></Botao>
                 <Botao texto="Campanhas de Vacinação" onClick={goToCampanha}></Botao>
                 <Botao texto="Agendar Consulta" onClick={goToGestaoAtendimentos}/>
+                <Botao texto="Gestão de Funcionários" onClick={goToFuncionarios}></Botao>
             </div>
         </div>
     )
