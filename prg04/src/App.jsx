@@ -53,22 +53,21 @@ function App() {
     return (
         <div className="homePage">
             <div className="menu">
-                <Botao texto="Gestão de Termos de Consentimento" onClick={goToGestaoTermos}></Botao>
-                <Botao texto="Emissão de Relátorios" onClick={goToEmissaoRelatorios}></Botao>
-                <Botao texto="Unidades de Saude" onClick={goToUnidades} />
+                <button onClick={goToGestaoTermos}>Gestão de Termos de Consentimento</button>
+                <button onClick={goToEmissaoRelatorios}>Emissão de Relátorios</button>
+                <button onClick={goToUnidades}>Unidades de Saude</button>
                 <button onClick={goToMedicamentos}>Gestão de Medicamentos</button>
                 <button onClick={goToAgendas}>Agendas</button>
                 <button onClick={goToBuscarRequisicoes}>Ir para Requisicoes</button>
                 <button onClick= {goToVacinacao}>Gestão de Vacinação</button>
                 <button onClick={gotToPaciente}>Gestão de Pacientes</button>
-                <Botao texto="Gestão de Medicamento" onClick={goToMedicamentos}/>
-                <Botao texto="Agendas" onClick={goToAgendas}></Botao>
-                <Botao texto="Ir para Requisicoes" onClick={goToBuscarRequisicoes}></Botao>
-                <Botao texto="Gestão de Vacinação" onClick={goToVacinacao}></Botao>
-                <Botao texto="Gestão de Visitas Domiciliares" onClick={goToVisitasDomiciliares}></Botao>
-                <Botao texto="Campanhas de Vacinação" onClick={goToCampanha}></Botao>
-                <Botao texto="Agendar Consulta" onClick={goToGestaoAtendimentos}/>
-                <Botao texto="Gestão de Funcionários" onClick={goToFuncionarios}></Botao>
+                <button onClick={goToMedicamentos}>Gestão de Medicamentos</button>
+                <button onClick={goToBuscarRequisicoes}>Ir para Requisicoes</button>
+                <button onClick={goToVacinacao}>Gestão de Vacinação</button>
+                <button onClick={goToVisitasDomiciliares}>Gestão de Visitas Domiciliares</button>
+                <button onClick={goToCampanha}>Campanhas de Vacinação</button>
+                <button onClick={goToGestaoAtendimentos}>Agendar consulta</button>
+                <button onClick={goToFuncionarios}>Gestão de Funcionários</button>
             </div>
         </div>
     )

@@ -1,14 +1,16 @@
 import 'react';
+import CadastroFuncionario from './cadastrofuncionario';
+import TableFuncionario from './tablefuncionario';
 
 
-const funcionarios = () => {
+const Funcionarios = () => {
   return (
     <div>
       <h1>Gestão de Funcionários</h1>
-      <cadastrofuncionario />
-      <tablefuncionario />
+      <CadastroFuncionario />
+      <TableFuncionario />
     </div>
   );
 };
 
-export default funcionarios;
+export default Funcionarios;
