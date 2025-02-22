@@ -28,8 +28,10 @@ const CadastroFuncionario = () => {
     <div id="cadastroFuncionarioPage">
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Cadastrar Funcionário</h1>
-          
+          <div className="logo">
+            <h1 className="titulo-principal" >Cadastrar Funcionário</h1>
+              <span className="text-danger sinal-plus">+</span>
+          </div>
           <TextField
             id="codigo"
             label="Código"
