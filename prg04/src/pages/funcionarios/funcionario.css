@@ -1,5 +1,9 @@
 @import url(../../styles/input-field.css);
 
+th {
+  display: none;
+}
+
 #cadastroFuncionarioPage {
     height: 84vh;
     width: 100%;
@@ -15,6 +19,7 @@
 }
 
 .titulo-principal {
+    text-align: center;
     font-size: 2.5rem;
     font-weight: bold;
 }
