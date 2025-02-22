@@ -29,8 +29,7 @@ const CadastroFuncionario = () => {
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="logo">
-            <h1 className="titulo-principal" >Cadastrar Funcionário</h1>
-              <span className="text-danger sinal-plus">+</span>
+            <h1 className="titulo-principal" >Cadastrar Funcinario</h1>
           </div>
           <TextField
             id="codigo"
