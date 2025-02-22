@@ -1,11 +1,11 @@
 @import url(../../styles/input-field.css);
 
-#loginPage {
+#cadastroFuncionarioPage {
     height: 84vh;
     width: 100%;
 }
 
-#loginPage .css-16bevx5-MuiFormControl-root-MuiTextField-root {
+#cadastroFuncionarioPage .css-16bevx5-MuiFormControl-root-MuiTextField-root {
     margin: 0;
 }
 
@@ -35,11 +35,20 @@ form {
     justify-content: space-between;
     gap: 24px;
     background-color: var(--background-secondary);
-    max-width: 30vw;
-    width: 100%;
-    padding: 64px 32px;
+    max-width: 40vw;
+    width: 90%;
+    padding:  32px;
     border-radius: 16px;
+    min-height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
+}
 
+form input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
 @media(max-width: 1600px) {
