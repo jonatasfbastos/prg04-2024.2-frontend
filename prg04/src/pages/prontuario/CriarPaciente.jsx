@@ -103,7 +103,7 @@ const CriarPaciente = () => {
           <div className="alert alert-success">{successMessage}</div>
         )}
         <form onSubmit={handleSubmit} className="row g-3">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">Nome Completo</label>
             <input
               type="text"
@@ -115,7 +115,7 @@ const CriarPaciente = () => {
             />
             {errors.nome && <div className="text-danger">{errors.nome}</div>}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">CPF</label>
             <input
               type="text"
@@ -127,7 +127,7 @@ const CriarPaciente = () => {
             />
             {errors.cpf && <div className="text-danger">{errors.cpf}</div>}
           </div>
-          <div className="col-md-4">
+          <div className="col-md-12">
             <label className="form-label">Data de Nascimento</label>
             <input
               type="date"
@@ -141,7 +141,7 @@ const CriarPaciente = () => {
               <div className="text-danger">{errors.dataNascimento}</div>
             )}
           </div>
-          <div className="col-md-4">
+          <div className="col-md-12">
             <label className="form-label">Gênero</label>
             <select
               className="form-control"
@@ -157,7 +157,7 @@ const CriarPaciente = () => {
             </select>
             {errors.sexo && <div className="text-danger">{errors.genero}</div>}
           </div>
-          <div className="col-md-4">
+          <div className="col-md-12">
             <label className="form-label">Estado Civil</label>
             <input
               type="text"
@@ -185,7 +185,7 @@ const CriarPaciente = () => {
               <div className="text-danger">{errors.endereco}</div>
             )}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">Telefone</label>
             <input
               type="text"
@@ -199,7 +199,7 @@ const CriarPaciente = () => {
               <div className="text-danger">{errors.telefone}</div>
             )}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label className="form-label">E-mail</label>
             <input
               type="email"
@@ -223,7 +223,7 @@ const CriarPaciente = () => {
           </div>
           {temResponsavel && (
             <>
-              <div className="col-md-6">
+              <div className="col-md-12">
                 <label className="form-label">Nome do Responsável</label>
                 <input
                   type="text"
@@ -234,7 +234,7 @@ const CriarPaciente = () => {
                   required={temResponsavel}
                 />
               </div>
-              <div className="col-md-6">
+              <div className="col-md-12">
                 <label className="form-label">Contato do Responsável</label>
                 <input
                   type="text"
