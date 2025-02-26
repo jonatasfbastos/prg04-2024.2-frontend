@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Botao from "../../components/button/button"; // Botão customizado, se necessário
 import api from "./services/api"; // Certifique-se de que a instância da API está correta
 import './funcionario.css';
+import TableFuncionario from "./tablefuncionario";
 
 const CadastroFuncionario = () => {
   const navigate = useNavigate();
@@ -130,7 +131,12 @@ const CadastroFuncionario = () => {
             helperText={errors.telefone?.message}
           />
 
+        const goTocadastrofuncionario = () ={">"} {
+        navigate("/funcionarios/cadastrofuncionario")
+    } 
           <Botao type="submit" texto="Cadastrar" variant="contained" />
+          <Botao type="submit" texto="cadastrados" variant="contained" />
+          <button onClick={TableFuncionario}>Gestão de Funcionários</button>
         </form>
       </div>
     </div>
