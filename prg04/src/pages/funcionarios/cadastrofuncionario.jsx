@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Botao from "../../components/button/button"; // Botão customizado, se necessário
 import api from "./services/api"; // Certifique-se de que a instância da API está correta
 import './funcionario.css';
+
 const CadastroFuncionario = () => {
   const navigate = useNavigate();
   
@@ -14,13 +15,22 @@ const CadastroFuncionario = () => {
   const onSubmit = async (data) => {
     try {
       // Envia os dados para a API
-      const response = await api.post('/funcionarios', data);
+      const response = await api.post('/funcionarios', {
+        codigo: data.codigo,
+        login: data.login,
+        senha: data.senha,
+        categoria: data.categoria,
+        nome: data.nome,
+        cpf: data.cpf,
+        endereco: data.endereco,
+        telefone: data.telefone
+      });
       console.log('Funcionário cadastrado:', response.data);
       alert('Funcionário cadastrado com sucesso!');
       navigate("/home"); // Navega para a página principal após o cadastro
     } catch (error) {
       console.error('Erro ao cadastrar funcionário:', error);
-      alert('Erro ao cadastrar funcionário.');
+      alert('Erro ao cadastrar funcionário. Verifique os dados e tente novamente.');
     }
   };
 
@@ -29,7 +39,7 @@ const CadastroFuncionario = () => {
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="logo">
-            <h1 className="titulo-principal" >Cadastrar Funcinario</h1>
+            <h1 className="titulo-principal">Cadastrar Funcionário</h1>
           </div>
           <TextField
             id="codigo"
