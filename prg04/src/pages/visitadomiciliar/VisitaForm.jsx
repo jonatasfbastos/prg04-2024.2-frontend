@@ -20,7 +20,8 @@ const VisitaForm = () => {
     antropometria: "",
     sinaisVitais: "",
     glicemia: "",
-    desfecho: ""
+    desfecho: "",
+    pacienteNome: "" // Adicionado campo para nome do paciente
   });
 
   // Obtém o ID da visita (se houver) da URL
@@ -106,6 +107,10 @@ const VisitaForm = () => {
         {/* Seção Outras Informações */}
         <fieldset>
           <legend>Outras Informações</legend>
+
+          <label>Nome do Paciente: <span className="required">*</span></label>
+          <input type="text" name="pacienteNome" value={visita.pacienteNome} onChange={handleChange} required />
+
           <label>Motivo da Visita: <span className="required">*</span></label>
           <textarea name="motivoVisita" value={visita.motivoVisita} onChange={handleChange} required />
 
@@ -137,6 +142,7 @@ const VisitaForm = () => {
 };
 
 export default VisitaForm;
+
 
 
 
