@@ -1,6 +1,5 @@
 import "./App.css"
 import { useNavigate } from "react-router-dom";
-import Botao from "./components/button/button.jsx";
 
 function App() {
     const navigate = useNavigate() // hook de gerenciamento de rotas

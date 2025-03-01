@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
+/**
+ * Componente Modal para adicionar uma nova unidade de saúde
+ * @param {boolean} show - Controla a visibilidade do modal
+ * @param {function} onClose - Função para fechar o modal
+ * @param {function} onSubmit - Função para enviar os dados do formulário
+ */
 const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
+  // Estado para armazenar os dados do formulário
   const [data, setData] = useState({
     nome: '',
-    tipo: 'HOSPITAL',
+    tipo: 'HOSPITAL', // Valor padrão definido como HOSPITAL
     telefone: '',
     horario_funcionamento: '',
     capacidade_atendimento: '',
-    status: 'ATIVO',
+    status: 'ATIVO', // Valor padrão definido como ATIVO
     endereco: {
       rua: '',
       numero: '',
@@ -20,9 +26,15 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     },
   });
 
+  /**
+   * Gerencia alterações nos campos do formulário
+   * @param {Event} e - Evento de mudança do campo
+   * @param {boolean} isEndereco - Indica se o campo faz parte do objeto endereço
+   */
   const handleChange = (e, isEndereco) => {
     const { name, value } = e.target;
     if (isEndereco) {
+      // Atualiza o campo dentro do objeto endereço
       setData({
         ...data,
         endereco: {
@@ -31,6 +43,7 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
         },
       });
     } else {
+      // Atualiza os campos principais do objeto data
       setData({
         ...data,
         [name]: value,
@@ -38,6 +51,11 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     }
   };
 
+  /**
+   * Converte todos os campos de texto para maiúsculas
+   * @param {Object} data - Objeto com os dados do formulário
+   * @returns {Object} - Objeto com todos os campos de texto em maiúsculas
+   */
   const transformDataToUpperCase = (data) => {
     return {
       ...data,
@@ -59,13 +77,16 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     };
   };
 
+  /**
+   * Verifica se todos os campos obrigatórios foram preenchidos
+   * @returns {boolean} - Verdadeiro se todos os campos obrigatórios estiverem preenchidos
+   */
   const isValid = () => {
-    // Validação simples para garantir que todos os campos estão preenchidos
     return (
       data.nome &&
       data.telefone &&
-      data.horarioFuncionamento &&
-      data.capacidadeAtendimento &&
+      data.horario_funcionamento &&
+      data.capacidade_atendimento &&
       data.endereco.rua &&
       data.endereco.numero &&
       data.endereco.cep &&
@@ -75,169 +96,115 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     );
   };
 
+  /**
+   * Gerencia o envio do formulário
+   * Valida os dados, transforma em maiúsculas e envia para o componente pai
+   */
   const handleSubmit = () => {
     if (isValid()) {
-      const transformedData = transformDataToUpperCase(data); // Transformando os dados para maiúsculo
-      onSubmit(transformedData); // Passando os dados preenchidos para o componente Unidades
-      onClose(); // Fechando o modal após a submissão
+      // Transforma os dados para maiúsculo antes de enviar
+      const transformedData = transformDataToUpperCase(data);
+      // Passa os dados para o componente pai
+      onSubmit(transformedData);
+      // Fecha o modal após o envio bem-sucedido
+      onClose();
     } else {
+      // Exibe alerta se houver campos obrigatórios não preenchidos
       alert("Por favor, preencha todos os campos corretamente.");
     }
   };
 
+  // Renderiza o componente modal
   return (
-    <Modal show={show} onHide={onClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Adicionar Unidade de Saúde</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form style={{ marginLeft: '-15px', marginRight: '-15px' }}>
-          <Form.Group as={Row} controlId="nome">
-            <Form.Label column sm={3}>Nome</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="nome"
-                value={data.nome}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="tipo">
-            <Form.Label column sm={3}>Tipo</Form.Label>
-            <Col sm={9}>
-              <Form.Select
-                name="tipo"
-                value={data.tipo}
-                onChange={handleChange}
-              >
-                <option value="HOSPITAL">HOSPITAL</option>
-                <option value="FARMACIA">FARMÁCIA</option>
-                <option value="UPA">UPA</option>
-                <option value="UBS">UBS</option>
-              </Form.Select>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="telefone">
-            <Form.Label column sm={3}>Telefone</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="telefone"
-                value={data.telefone}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="horarioFuncionamento">
-            <Form.Label column sm={3}>Horário</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="horarioFuncionamento"
-                value={data.horarioFuncionamento}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="capacidadeAtendimento">
-            <Form.Label column sm={3}>Capacidade</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="capacidadeAtendimento"
-                value={data.capacidadeAtendimento}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="status">
-            <Form.Label column sm={3}>Status</Form.Label>
-            <Col sm={9}>
-              <Form.Select
-                name="status"
-                value={data.status}
-                onChange={handleChange}
-              >
-                <option value="ATIVO">ATIVO</option>
-                <option value="INATIVO">INATIVO</option>
-                <option value="EM REFORMA">EM_REFORMA</option>
-              </Form.Select>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="rua">
-            <Form.Label column sm={3}>Rua</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="rua"
-                value={data.endereco.rua}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="numero">
-            <Form.Label column sm={3}>Número</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="numero"
-                value={data.endereco.numero}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="cep">
-            <Form.Label column sm={3}>CEP</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="cep"
-                value={data.endereco.cep}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="complemento">
-            <Form.Label column sm={3}>Complemento</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="complemento"
-                value={data.endereco.complemento}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="bairro">
-            <Form.Label column sm={3}>Bairro</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="bairro"
-                value={data.endereco.bairro}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="cidade">
-            <Form.Label column sm={3}>Cidade</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="cidade"
-                value={data.endereco.cidade}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="uf">
-            <Form.Label column sm={3}>UF</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                name="uf"
-                value={data.endereco.uf}
-                onChange={(e) => handleChange(e, true)}
-              />
-            </Col>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>Cancelar</Button>
-        <Button variant="primary" onClick={handleSubmit}>Salvar</Button>
-      </Modal.Footer>
-    </Modal>
+    // A classe 'd-block' ou 'd-none' controla a visibilidade do modal
+    <div className={`modal ${show ? 'd-block' : 'd-none'}`} tabIndex="-1">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          {/* Cabeçalho do modal */}
+          <div className="modal-header">
+            <h5 className="modal-title">Adicionar Unidade de Saúde</h5>
+            <button type="button" className="btn-close" onClick={onClose}></button>
+          </div>
+          
+          {/* Corpo do modal com o formulário */}
+          <div className="modal-body">
+            <form className='w-100'>
+              {/* Campos para informações básicas da unidade */}
+              <div className="mb-3">
+                <label className="form-label">Nome</label>
+                <input type="text" className="form-control" name="nome" value={data.nome} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Tipo</label>
+                <select className="form-select" name="tipo" value={data.tipo} onChange={handleChange}>
+                  <option value="HOSPITAL">HOSPITAL</option>
+                  <option value="FARMACIA">FARMACIA</option>
+                  <option value="UPA">UPA</option>
+                  <option value="UBS">UBS</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Telefone</label>
+                <input type="text" className="form-control" name="telefone" value={data.telefone} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Horário</label>
+                <input type="text" className="form-control" name="horario_funcionamento" value={data.horario_funcionamento} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Capacidade</label>
+                <input type="text" className="form-control" name="capacidade_atendimento" value={data.capacidade_atendimento} onChange={handleChange} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Status</label>
+                <select className="form-select" name="status" value={data.status} onChange={handleChange}>
+                  <option value="ATIVO">ATIVO</option>
+                  <option value="INATIVO">INATIVO</option>
+                  <option value="EM REFORMA">EM REFORMA</option>
+                </select>
+              </div>
+              
+              {/* Seção de campos para o endereço */}
+              <h6>Endereço</h6>
+              <div className="mb-3">
+                <label className="form-label">Rua</label>
+                <input type="text" className="form-control" name="rua" value={data.endereco.rua} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Número</label>
+                <input type="text" className="form-control" name="numero" value={data.endereco.numero} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">CEP</label>
+                <input type="text" className="form-control" name="cep" value={data.endereco.cep} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Complemento</label>
+                <input type="text" className="form-control" name="complemento" value={data.endereco.complemento} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Bairro</label>
+                <input type="text" className="form-control" name="bairro" value={data.endereco.bairro} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Cidade</label>
+                <input type="text" className="form-control" name="cidade" value={data.endereco.cidade} onChange={(e) => handleChange(e, true)} />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">UF</label>
+                <input type="text" className="form-control" name="uf" value={data.endereco.uf} onChange={(e) => handleChange(e, true)} />
+              </div>
+            </form>
+          </div>
+          
+          {/* Rodapé do modal com botões de ação */}
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={onClose}>Cancelar</button>
+            <button type="button" className="btn btn-primary" onClick={handleSubmit}>Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
