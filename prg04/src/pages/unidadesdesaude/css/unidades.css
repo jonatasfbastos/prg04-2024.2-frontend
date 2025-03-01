@@ -1,0 +1,4 @@
+@import url(../../../styles/bootstrap.css);
+#cabecalho th{
+    display: table-cell !important
+}
