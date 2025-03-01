@@ -2,6 +2,27 @@ import React, { useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 
+//Icons
+import {
+    FaFileContract,
+    FaChartLine,
+    FaHospital,
+    FaPills,
+    FaUsers,
+    FaCalendarAlt,
+    FaUserTie
+} from "react-icons/fa";
+
+import {
+    MdSchedule,
+    MdAssignment,
+    MdVaccines
+} from "react-icons/md";
+
+import {
+    GiHouse,
+} from "react-icons/gi";
+
 function App() {
     const navigate = useNavigate(); // Hook de gerenciamento de rotas
 
@@ -26,72 +47,84 @@ function App() {
             title: "Gestão de Termos de Consentimento",
             description: "Gerencie os termos de consentimento dos pacientes.",
             onClick: goToGestaoTermos,
+            icon: <FaFileContract className="home-page__card-icon" />,
         },
         {
             id: 2,
             title: "Emissão de Relatórios",
             description: "Emita relatórios precisos e detalhados.",
             onClick: goToEmissaoRelatorios,
+            icon: <FaChartLine className="home-page__card-icon" />,
         },
         {
             id: 3,
             title: "Unidades de Saúde",
             description: "Encontre e gerencie suas unidades de saúde.",
             onClick: goToUnidades,
+            icon: <FaHospital className="home-page__card-icon" />,
         },
         {
             id: 4,
             title: "Gestão de Medicamentos",
             description: "Controle o estoque e a distribuição de medicamentos.",
             onClick: goToMedicamentos,
+            icon: <FaPills className="home-page__card-icon" />,
         },
         {
             id: 5,
             title: "Agendas",
             description: "Organize as agendas de atendimento.",
             onClick: goToAgendas,
+            icon: <MdSchedule className="home-page__card-icon" />,
         },
         {
             id: 6,
             title: "Requisições",
             description: "Busque e gerencie requisições.",
             onClick: goToBuscarRequisicoes,
+            icon: <MdAssignment className="home-page__card-icon" />,
         },
         {
             id: 7,
             title: "Gestão de Vacinação",
             description: "Controle o processo de vacinação.",
             onClick: goToVacinacao,
+            icon: <MdVaccines className="home-page__card-icon" />,
         },
         {
             id: 8,
             title: "Gestão de Pacientes",
             description: "Gerencie o cadastro e o histórico dos pacientes.",
             onClick: goToPaciente,
+            icon: <FaUsers className="home-page__card-icon" />, // Alterado de GiHealthNormal
         },
         {
             id: 9,
             title: "Visitas Domiciliares",
             description: "Agende e monitore visitas domiciliares.",
             onClick: goToVisitasDomiciliares,
+            icon: <GiHouse className="home-page__card-icon" />,
         },
         {
             id: 10,
             title: "Campanhas de Vacinação",
             description: "Organize campanhas de vacinação.",
             onClick: goToCampanha,
+            icon: <MdVaccines className="home-page__card-icon" />, // Alterado de GiCampfire
         },
         {
             id: 11,
             title: "Agendar Consulta",
             description: "Agende consultas médicas com facilidade.",
             onClick: goToGestaoAtendimentos,
+            icon: <FaCalendarAlt className="home-page__card-icon" />, // Alterado de GiDoctorFace
         },
         {
             id: 12,
             title: "Gestão de Funcionários",
             description: "Gerencie os funcionários da unidade de saúde.",
             onClick: goToFuncionarios,
+            icon: <FaUserTie className="home-page__card-icon" />, // Alterado de GiMedicinePills
         },
     ];
 
@@ -146,6 +179,7 @@ function App() {
                                 .slice(currentPage * cardsPerPage, currentPage * cardsPerPage + cardsPerPage)
                                 .map((service) => (
                                     <div key={service.id} className="home-page__card">
+                                        {service.icon} {/* Ícone adicionado aqui */}
                                         <h3 className="home-page__card-title">{service.title}</h3>
                                         <p className="home-page__card-description">{service.description}</p>
                                         <button className="home-page__card-button" onClick={service.onClick}>
@@ -166,6 +200,7 @@ function App() {
                     <div className="home-page__cards-container">
                         {services.map((service) => (
                             <div key={service.id} className="home-page__card">
+                                {service.icon}
                                 <h3 className="home-page__card-title">{service.title}</h3>
                                 <p className="home-page__card-description">{service.description}</p>
                                 <button className="home-page__card-button" onClick={service.onClick}>
@@ -178,7 +213,7 @@ function App() {
 
                 {!fullView ? (
                     <button className="home-page__ver-tudo-button" onClick={handleVerTudo}>
-                        Ver tudo
+                        Mostrar mais
                     </button>
                 ) : (
                     <button className="home-page__ver-tudo-button" onClick={handleMostrarMenos}>
