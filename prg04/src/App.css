@@ -1,23 +1,119 @@
-div button {
-    margin-right: 10px;
+/* Container principal */
+.home-page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    padding: 20px;
 }
 
-.homePage {
+/* Cabeçalho da página */
+.home-page__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Seção de serviços */
+.home-page__services {
+    text-align: center;
+}
+
+/* Container do carrossel */
+.home-page__carousel-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: 64px;
+    justify-content: center;
+    gap: 10px;
 }
 
-.menu {
-    width: 100%;
-    max-width: 30vw;
-    padding: 24px;
+/* Container dos cards no modo carrossel */
+.home-page__cards-container--carousel {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 20px;
+    padding: 5px;
+}
 
-    @media(max-width: 1024px) {
-        max-width: none;
-    }
+/* Container dos cards no modo grid (ver tudo) */
+.home-page__cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo de cada card */
+.home-page__card {
+    background-color: var(--color-white); /* Card com cor branca */
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 5px;
+    width: 280px;
+    height: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.home-page__card:hover {
+    background-color: var(--background-secondary);
+}
+
+/* Título do card */
+.home-page__card-title {
+    margin-top: 0;
+}
+
+/* Botão do card */
+.home-page__card-button {
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-page__card-button:hover {
+    background-color: var(--tertiary-color);
+}
+
+/* Botões do carrossel */
+.home-page__carousel-button {
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.home-page__carousel-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Botão "Ver tudo" */
+.home-page__ver-tudo-button {
+    margin-top: 20px;
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-page__ver-tudo-button:hover {
+    background-color: var(--tertiary-color);
 }
