@@ -23,6 +23,8 @@ import {
     GiHouse,
 } from "react-icons/gi";
 
+import headerImage from './images/banner.jpg';
+
 function App() {
     const navigate = useNavigate(); // Hook de gerenciamento de rotas
 
@@ -157,13 +159,13 @@ function App() {
     return (
         <div className="home-page">
             <header className="home-page__header">
-                <h1>Sistema de Saúde</h1>
-                <p>
-                    Bem-vindo ao nosso sistema de saúde, onde a tecnologia e a excelência caminham juntas para cuidar do seu bem-estar.
-                </p>
+                <div className="home-page__header-text">
+                    <h1>Uma solução completa para gestão da saúde pública e privada.</h1>
+                </div>
+                <img src={headerImage} alt="Banner"/>
             </header>
             <section className="home-page__services">
-                <h2>Confira nossos serviços</h2>
+                <h2>Confira nossos serviços:</h2>
 
                 {!fullView ? (
                     <div className="home-page__carousel-container">
