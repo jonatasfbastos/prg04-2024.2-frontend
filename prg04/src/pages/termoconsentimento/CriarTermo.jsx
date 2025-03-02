@@ -149,13 +149,13 @@ function CriarTermo() {
             {errorModal.visible && (
                 <div className="error-modal">
                     <div className="modal-content">
-                        <span className="close" onClick={closeErrorModal}>&times;</span>
                         <h2>{errorModal.status}</h2>
                         <p>{errorModal.message}</p>
                         <button className="ok-button" onClick={closeErrorModal}>OK</button>
                     </div>
                 </div>
             )}
+
         </div>
     );
 }

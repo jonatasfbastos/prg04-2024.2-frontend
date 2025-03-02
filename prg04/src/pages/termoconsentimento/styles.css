@@ -178,7 +178,7 @@
 }
 
 /* Estilização do modal de detalhes */
-.termos-container .modal {
+.termos-containre .modal {
     position: fixed; /* Fixa o modal na tela */
     top: 0;
     left: 0;
@@ -250,7 +250,7 @@
     width: 95%; /* Largura total */
 }
 
-.termos-container .error-modal {
+.termos-container .modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -261,14 +261,11 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    color: black;
 }
 
-.termos-container .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 500px;
-    text-align: center;
+.termos-container .modal h2 p{
+    color: black;
 }
 
 .termos-container .close {
@@ -423,4 +420,37 @@
     margin-right: 5px;
     margin-top: 2px;
     font-size: 16px;
+}
+
+/* Estilização do modal de detalhes */
+.criar-termo-container .error-modal {
+    position: fixed; /* Fixa o modal na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semitransparente */
+    display: flex; /* Exibe o modal no centro */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    color: black;
+}
+
+/* Conteúdo do modal */
+.criar-termo-container .modal-content {
+    background-color: white; /* Cor de fundo */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    width: 80%;
+    max-width: 600px; /* Largura máxima */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+}
+
+.termos-container .modal-content,
+.termos-container .modal-content h2,
+.termos-container .modal-content p,
+.criar-termo-container .modal-content,
+.criar-termo-container .modal-content h2,
+.criar-termo-container .modal-content p {
+    color: black;
 }
