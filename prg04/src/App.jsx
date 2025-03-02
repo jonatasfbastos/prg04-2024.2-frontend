@@ -160,7 +160,7 @@ function App() {
         <div className="home-page">
             <header className="home-page__header">
                 <div className="home-page__header-text">
-                    <h1>Uma solução completa para gestão da saúde pública e privada.</h1>
+                    <h1>Uma solução completa para gestão da saúde pública e privada</h1>
                 </div>
                 <img src={headerImage} alt="Banner"/>
             </header>
