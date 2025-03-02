@@ -40,7 +40,7 @@ const VisitasList = () => {
       <div className="filtros">
         <input 
           type="text" 
-          placeholder="Nome do profissional responsável" 
+          placeholder="Filtrar por nome" 
           value={filtroNome} 
           onChange={(e) => setFiltroNome(e.target.value)} 
         />
@@ -58,7 +58,6 @@ const VisitasList = () => {
           <tr>
             <th>Digitado Por</th>
             <th>Data</th>
-            <th>Paciente</th> {/* Adicionada coluna para exibir nome do paciente */}
             <th>Conferido Por</th>
             <th>Ações</th>
           </tr>
@@ -69,8 +68,7 @@ const VisitasList = () => {
             visitasFiltradas.map((visita) => (
               <tr key={visita.id}>
                 <td>{visita.digitadoPor}</td>
-                <td>{new Date(visita.data).toLocaleDateString()}</td>
-                <td>{visita.paciente ? visita.paciente.nome : "Não informado"}</td> {/* Exibe o nome do paciente */}
+                <td>{visita.data}</td>
                 <td>{visita.conferidoPor}</td>
                 <td>
                   {/* Botão para visualizar detalhes da visita */}
@@ -86,7 +84,7 @@ const VisitasList = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="no-data">Nenhuma visita encontrada.</td> {/* Ajustado para 5 colunas */}
+              <td colSpan="4" className="no-data">Nenhuma visita encontrada.</td>
             </tr>
           )}
         </tbody>

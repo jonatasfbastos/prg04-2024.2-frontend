@@ -50,7 +50,6 @@ const Requisicao = () => {
       <label>CPF do Paciente:</label>
       <input
         type="text"
-        className="input-requisicao"
         value={cpfPaciente}
         onChange={(e) => setCpfPaciente(e.target.value)}
         placeholder="Digite o CPF do paciente"
@@ -59,7 +58,6 @@ const Requisicao = () => {
       <label>Nome do Paciente:</label>
       <input
         type="text"
-        className="input-requisicao"
         value={nomePaciente}
         onChange={(e) => setNomePaciente(e.target.value)}
         placeholder="Digite o nome do paciente"
@@ -68,13 +66,12 @@ const Requisicao = () => {
       <label>Nome do Exame:</label>
       <input
         type="text"
-        className="input-requisicao"
         value={exame}
         onChange={(e) => setExame(e.target.value)}
         placeholder="Digite o nome do exame"
       />
-      <button className="botao-requisicao" onClick={adicionarExame}>Adicionar Exame</button>
-      
+      <button onClick={adicionarExame}>Adicionar Exame</button>
+
       {listaExames.length > 0 && (
         <div className="lista-exames">
           <h3>Exames Adicionados:</h3>
@@ -82,7 +79,7 @@ const Requisicao = () => {
             {listaExames.map((item, index) => (
               <li key={index}>
                 {item}
-                <button className="botao-requisicao remover-btn" onClick={() => removerExame(index)}>
+                <button className="remover-btn" onClick={() => removerExame(index)}>
                   Remover
                 </button>
               </li>
@@ -95,15 +92,14 @@ const Requisicao = () => {
       <label>Data da Requisição:</label>
       <input
         type="datetime-local"
-        className="input-requisicao"
         value={dataRequisicao}
         onChange={(e) => setDataRequisicao(e.target.value)}
       />
 
-      <button className="botao-requisicao" onClick={emitirRequisicao}>
+      <button className="emitir-requisicao" onClick={emitirRequisicao}>
         Emitir Requisição
       </button>
-      <button className="botao-requisicao" onClick={() => navigate("/BuscarRequisicoes")}>
+      <button className="voltar" onClick={() => navigate("/BuscarRequisicoes")}>
         Voltar
       </button>
     </div>

@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "react-datepicker": "^8.1.0",
-    "react-router-dom": "^7.1.5",
-    "uuid": "^11.0.5"
+    "react-router-dom": "^7.1.5"
   }
 }

@@ -25,9 +25,7 @@ import VisitasList from "./pages/visitadomiciliar/VisitasList.jsx";
 import VisitaForm from "./pages/visitadomiciliar/VisitaForm.jsx";
 import VisitaDetalhes from "./pages/visitadomiciliar/VisitaDetalhes.jsx";
 import GestaoVacinacao from "./pages/vacinacao/GestaoVacinacao.jsx";
-import GestaoAtendimentos from "./pages/gestaoatendimento/GestaoAtendimento.jsx";
-import funcionarios from "./pages/funcionarios/index.jsx";
-import Funcionarios from "./pages/funcionarios/index.jsx";
+import GerirCampanha from "./pages/campanha/gerir-campanhas.jsx";
 
 const Layout = () => {
   const location = useLocation();
@@ -51,7 +49,7 @@ const Layout = () => {
         <Route path="/gestao-termos" element={<GestaoTermos />} />
         <Route path="/criar-termo" element={<CriarTermo />} />
         <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
-        <Route path="/unidades-de-saude" element={<Unidades />} />
+        <Route path="/unidadesdesaude" element={<Unidades />} />
         <Route path="/agendas" element={<Agendas />} />
         <Route path="/medicamentos" element={<Medicamentos />} />
         <Route path="/CriarMedicamento" element={<CriarMedicamento />} />
@@ -68,14 +66,9 @@ const Layout = () => {
           path="/visitadomiciliar/detalhes/:id"
           element={<VisitaDetalhes />}
         />
-        
         <Route path="/vacinacao" element={<GestaoVacinacao />} />
-
-        <Route path="/gestaoatendimentos" element={<GestaoAtendimentos/>} />
-        <Route path="/funcionarios" element={<Funcionarios/>} />
-
+        <Route path="/gerir-campanhas" element={<GerirCampanha />} />
       </Routes>
-      
     </>
   );
 };

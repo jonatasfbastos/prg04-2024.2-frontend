@@ -10,8 +10,6 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import "../prontuario/detalhes-paciente.css";
-
 const DetalhesPaciente = () => {
   const [formData, setFormData] = useState({
     id: "",
@@ -113,6 +111,7 @@ const DetalhesPaciente = () => {
         dataNascimento: updatedData.dataNascimento.join("-"),
       });
 
+
       setShowUpdateModal(false); // Fecha o modal de atualização
     } catch (error) {
       console.error("Erro ao atualizar paciente", error);
@@ -123,19 +122,16 @@ const DetalhesPaciente = () => {
     <div className="container">
       <h2>Detalhes do Paciente</h2>
       <div className="row mb-3">
-        <div className="col-md-6">
+        <div className="col-md-8">
           <Form.Control
-            className="input-cpf" // Adicionando a classe para o input
             type="text"
             placeholder="Digite o CPF"
             value={formData.cpf}
             onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
           />
         </div>
-        <div className="col-md-6">
-          <Button className="button-pesquisar" onClick={handleSearchPaciente}>
-            Buscar Paciente
-          </Button>
+        <div className="col-md-4">
+          <Button onClick={handleSearchPaciente}>Buscar Paciente</Button>
         </div>
       </div>
 

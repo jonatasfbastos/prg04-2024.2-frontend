@@ -31,36 +31,13 @@ const VisitaDetalhes = () => {
       <p><strong>CBO:</strong> {visita.cbo}</p>
       <p><strong>CNES:</strong> {visita.cnes}</p>
       <p><strong>INE:</strong> {visita.ine}</p>
-      
-      {/* Se o paciente estiver presente, exibe as informações do paciente */}
-      {visita.paciente && (
-        <>
-          <h3>Paciente</h3>
-          <p><strong>Nome do Paciente:</strong> {visita.paciente.nome}</p>
-          {/* Exiba outros dados do paciente conforme necessário */}
-        </>
-      )}
-
-      <h3>Motivo da Visita</h3>
-      <p>{visita.motivoVisita}</p>
-
-      <h3>Acompanhamento</h3>
-      <p>{visita.acompanhamento}</p>
-
-      <h3>Controle Ambiental</h3>
-      <p>{visita.controleAmbiental}</p>
-
-      <h3>Antropometria</h3>
-      <p>{visita.antropometria}</p>
-
-      <h3>Sinais Vitais</h3>
-      <p>{visita.sinaisVitais}</p>
-
-      <h3>Glicemia</h3>
-      <p>{visita.glicemia}</p>
-
-      <h3>Desfecho</h3>
-      <p>{visita.desfecho}</p>
+      <p><strong>Motivo da Visita:</strong> {visita.motivoVisita}</p>
+      <p><strong>Acompanhamento:</strong> {visita.acompanhamento}</p>
+      <p><strong>Controle Ambiental:</strong> {visita.controleAmbiental}</p>
+      <p><strong>Antropometria:</strong> {visita.antropometria}</p>
+      <p><strong>Sinais Vitais:</strong> {visita.sinaisVitais}</p>
+      <p><strong>Glicemia:</strong> {visita.glicemia}</p>
+      <p><strong>Desfecho:</strong> {visita.desfecho}</p>
 
       <button onClick={() => navigate("/visitadomiciliar")}>Voltar</button>
     </div>
