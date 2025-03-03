@@ -16,7 +16,8 @@ import {
 import {
     MdSchedule,
     MdAssignment,
-    MdVaccines
+    MdVaccines,
+    MdFamilyRestroom
 } from "react-icons/md";
 
 import {
@@ -41,6 +42,7 @@ function App() {
     const goToCampanha = () => navigate("/gerir-campanhas");
     const goToGestaoAtendimentos = () => navigate("/gestaoatendimentos");
     const goToFuncionarios = () => navigate("/funcionarios");
+    const goToFamilia = () => navigate("/familia");
 
     // Array de serviços com dados para os cards
     const services = [
@@ -127,6 +129,13 @@ function App() {
             description: "Gerencie os funcionários da unidade de saúde.",
             onClick: goToFuncionarios,
             icon: <FaUserTie className="home-page__card-icon" />, // Alterado de GiMedicinePills
+        },
+        {
+            id: 13,
+            title: "Gestão de Familias",
+            description: "Gerencie as familias da unidade de saúde.",
+            onClick: goToFamilia,
+            icon:<MdFamilyRestroom className="home-page__card-icon"/>,
         },
     ];
 
