@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import "./App.css";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"; // Importa React e o hook useState para gerenciamento de estado
+import "./App.css"; // Importa o arquivo de estilos CSS
+import { useNavigate } from "react-router-dom"; // Importa o hook useNavigate para controle de rotas
 
-//Icons
+// Importação de ícones do React Icons
 import {
     FaFileContract,
     FaChartLine,
@@ -24,12 +24,12 @@ import {
     GiHouse,
 } from "react-icons/gi";
 
-import headerImage from './images/banner.jpg';
+import headerImage from './images/banner.jpg'; // Importa a imagem do cabeçalho
 
 function App() {
-    const navigate = useNavigate(); // Hook de gerenciamento de rotas
+    const navigate = useNavigate(); // Hook para gerenciar a navegação entre rotas
 
-    // Funções de navegação
+    // Funções de navegação para cada serviço, redirecionando para a rota correspondente
     const goToGestaoTermos = () => navigate("/gestao-termos");
     const goToEmissaoRelatorios = () => navigate("/emissao-relatorios");
     const goToUnidades = () => navigate("/unidades-de-saude");
@@ -44,7 +44,7 @@ function App() {
     const goToFuncionarios = () => navigate("/funcionarios");
     const goToFamilia = () => navigate("/familia");
 
-    // Array de serviços com dados para os cards
+    // Array de serviços contendo os dados para os cards exibidos na página
     const services = [
         {
             id: 1,
@@ -100,7 +100,7 @@ function App() {
             title: "Gestão de Pacientes",
             description: "Gerencie o cadastro e o histórico dos pacientes.",
             onClick: goToPaciente,
-            icon: <FaUsers className="home-page__card-icon" />, // Alterado de GiHealthNormal
+            icon: <FaUsers className="home-page__card-icon" />, // Ícone para gestão de pacientes
         },
         {
             id: 9,
@@ -114,21 +114,21 @@ function App() {
             title: "Campanhas de Vacinação",
             description: "Organize campanhas de vacinação.",
             onClick: goToCampanha,
-            icon: <MdVaccines className="home-page__card-icon" />, // Alterado de GiCampfire
+            icon: <MdVaccines className="home-page__card-icon" />, // Ícone para campanhas de vacinação
         },
         {
             id: 11,
             title: "Agendar Consulta",
             description: "Agende consultas médicas com facilidade.",
             onClick: goToGestaoAtendimentos,
-            icon: <FaCalendarAlt className="home-page__card-icon" />, // Alterado de GiDoctorFace
+            icon: <FaCalendarAlt className="home-page__card-icon" />, // Ícone para agendamento de consultas
         },
         {
             id: 12,
             title: "Gestão de Funcionários",
             description: "Gerencie os funcionários da unidade de saúde.",
             onClick: goToFuncionarios,
-            icon: <FaUserTie className="home-page__card-icon" />, // Alterado de GiMedicinePills
+            icon: <FaUserTie className="home-page__card-icon" />, // Ícone para gestão de funcionários
         },
         {
             id: 13,
@@ -139,45 +139,57 @@ function App() {
         },
     ];
 
+    // Estado para controlar a página atual do carrossel
     const [currentPage, setCurrentPage] = useState(0);
+    // Estado para controlar se todos os serviços serão exibidos (visão completa) ou apenas um carrossel
     const [fullView, setFullView] = useState(false);
 
+    // Número de cards exibidos por página no carrossel
     const cardsPerPage = 4;
+    // Cálculo do número total de páginas do carrossel
     const totalPages = Math.ceil(services.length / cardsPerPage);
 
+    // Função para navegar para a página anterior do carrossel
     const handlePrev = () => {
         if (currentPage > 0) {
             setCurrentPage(currentPage - 1);
         }
     };
 
+    // Função para navegar para a próxima página do carrossel
     const handleNext = () => {
         if (currentPage < totalPages - 1) {
             setCurrentPage(currentPage + 1);
         }
     };
 
+    // Função para exibir todos os serviços (visão completa)
     const handleVerTudo = () => {
         setFullView(true);
     };
 
+    // Função para retornar à exibição em carrossel (mostrar menos)
     const handleMostrarMenos = () => {
         setFullView(false);
     };
 
     return (
         <div className="home-page">
+            {/* Cabeçalho da página com título e imagem de banner */}
             <header className="home-page__header">
                 <div className="home-page__header-text">
                     <h1>Uma solução completa para gestão da saúde pública e privada</h1>
                 </div>
                 <img src={headerImage} alt="Banner"/>
             </header>
+            {/* Seção que exibe os serviços */}
             <section className="home-page__services">
                 <h2>Confira nossos serviços:</h2>
 
+                {/* Exibição condicional: carrossel se fullView for falso, lista completa se verdadeiro */}
                 {!fullView ? (
                     <div className="home-page__carousel-container">
+                        {/* Botão para navegar para a página anterior do carrossel */}
                         <button
                             className="home-page__carousel-button"
                             onClick={handlePrev}
@@ -186,11 +198,12 @@ function App() {
                             &#9664;
                         </button>
                         <div className="home-page__cards-container--carousel">
+                            {/* Renderiza os cards do carrossel com base na página atual */}
                             {services
                                 .slice(currentPage * cardsPerPage, currentPage * cardsPerPage + cardsPerPage)
                                 .map((service) => (
                                     <div key={service.id} className="home-page__card">
-                                        {service.icon} {/* Ícone adicionado aqui */}
+                                        {service.icon} {/* Ícone do serviço */}
                                         <h3 className="home-page__card-title">{service.title}</h3>
                                         <p className="home-page__card-description">{service.description}</p>
                                         <button className="home-page__card-button" onClick={service.onClick}>
@@ -199,6 +212,7 @@ function App() {
                                     </div>
                                 ))}
                         </div>
+                        {/* Botão para navegar para a próxima página do carrossel */}
                         <button
                             className="home-page__carousel-button"
                             onClick={handleNext}
@@ -208,6 +222,7 @@ function App() {
                         </button>
                     </div>
                 ) : (
+                    // Exibição completa de todos os serviços quando fullView é verdadeiro
                     <div className="home-page__cards-container">
                         {services.map((service) => (
                             <div key={service.id} className="home-page__card">
@@ -222,6 +237,7 @@ function App() {
                     </div>
                 )}
 
+                {/* Botão para alternar entre "Mostrar mais" e "Mostrar menos" */}
                 {!fullView ? (
                     <button className="home-page__ver-tudo-button" onClick={handleVerTudo}>
                         Mostrar mais
@@ -236,4 +252,4 @@ function App() {
     );
 }
 
-export default App;
+export default App; // Exporta o componente App como padrão
