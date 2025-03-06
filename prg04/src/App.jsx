@@ -36,7 +36,7 @@ function App() {
     const goToMedicamentos = () => navigate("/medicamentos");
     const goToAgendas = () => navigate("/agendas");
     const goToBuscarRequisicoes = () => navigate("/buscarrequisicoes");
-    const goToVacinacao = () => navigate("/vacinacao");
+    const goToVacinas = () => navigate("/vacinas");
     const goToPaciente = () => navigate("/gestao-paciente");
     const goToVisitasDomiciliares = () => navigate("/visitadomiciliar");
     const goToCampanha = () => navigate("/gerir-campanhas");
@@ -90,9 +90,9 @@ function App() {
         },
         {
             id: 7,
-            title: "Gestão de Vacinação",
-            description: "Controle o processo de vacinação.",
-            onClick: goToVacinacao,
+            title: "Gestão de Vacinas", 
+            description: "Gerencie vacinas e lotes disponíveis.",
+            onClick: goToVacinas, 
             icon: <MdVaccines className="home-page__card-icon" />,
         },
         {

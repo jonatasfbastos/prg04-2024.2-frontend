@@ -1,0 +1,19 @@
+.vacina-lista-container {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .filter-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-input {
+    flex: 1;
+  }
+  
+  .filter-button,
+  .new-button {
+    margin-left: 10px;
+  }
