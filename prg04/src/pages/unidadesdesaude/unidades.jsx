@@ -6,124 +6,164 @@ import EditUnidadeModal from './EditUnidadeModal';
 import DeleteUnidadeModal from './DeleteUnidadeModal';
 import DetailsUnidadeModal from './DetailsUnidadeModal';
 
+// Componente principal para gerenciar unidades
 const Unidades = () => {
-  const [unidades, setUnidades] = useState([]);
-  const [filteredUnidades, setFilteredUnidades] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [selectedUnidade, setSelectedUnidade] = useState(null);
+  // Estados do componente
+  const [unidades, setUnidades] = useState([]); // Lista completa de unidades
+  const [filteredUnidades, setFilteredUnidades] = useState([]); // Lista filtrada de unidades
+  const [searchTerm, setSearchTerm] = useState(''); // Termo de pesquisa por nome
+  const [filterType, setFilterType] = useState(''); // Filtro por tipo de unidade
+  const [showAddModal, setShowAddModal] = useState(false); // Controle do modal de adição
+  const [showEditModal, setShowEditModal] = useState(false); // Controle do modal de edição
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // Controle do modal de exclusão
+  const [showDetailsModal, setShowDetailsModal] = useState(false); // Controle do modal de detalhes
+  const [selectedUnidade, setSelectedUnidade] = useState(null); // Unidade selecionada para ações
 
+  // Efeito para carregar as unidades ao montar o componente
   useEffect(() => {
     fetchUnidades();
   }, []);
 
+  // Efeito para filtrar unidades quando searchTerm ou filterType mudam
   useEffect(() => {
-    // Filtra as unidades conforme o termo de busca
-    const filtered = unidades.filter((unidade) =>
+    // Filtra primeiro pelo nome
+    let filtered = unidades.filter((unidade) =>
       unidade.nome.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    
+    // Se houver um tipo selecionado, aplica o filtro por tipo
+    if (filterType) {
+      filtered = filtered.filter((unidade) => 
+        unidade.tipo.toUpperCase() === filterType
+      );
+    }
+    
+    // Atualiza a lista filtrada
     setFilteredUnidades(filtered);
-  }, [searchTerm, unidades]);
+  }, [searchTerm, filterType, unidades]);
 
+  // Função para buscar unidades da API
   const fetchUnidades = async () => {
     try {
       const response = await UnidadeService.getAll();
+      // Define os estados com os dados retornados ou array vazio se não houver conteúdo
       setUnidades(response.content || []);
-      setFilteredUnidades(response.content || []); // Inicializa o estado filtrado
+      setFilteredUnidades(response.content || []);
     } catch (error) {
       console.error('Erro ao carregar as unidades', error);
     }
   };
 
+  // Função para adicionar uma nova unidade
   const handleAddUnidade = async (data) => {
     try {
+      // Estrutura os dados no formato esperado pela API
       const unidadeToSave = {
-        nome: data.nome,
-        tipo: data.tipo,
-        endereco: {
-          id: {
-            rua: data.endereco.rua,
-            numero: data.endereco.numero,
-            cep: data.endereco.cep,
+        unidade: {
+          nome: data.nome,
+          tipo: data.tipo,
+          endereco: {
+            id: {
+              rua: data.endereco.rua,
+              numero: data.endereco.numero,
+              cep: data.endereco.cep,
+            },
+            complemento: data.endereco.complemento || '',
+            bairro: data.endereco.bairro,
+            cidade: data.endereco.cidade,
+            uf: data.endereco.uf,
           },
-          complemento: data.endereco.complemento || '',
-          bairro: data.endereco.bairro,
-          cidade: data.endereco.cidade,
-          uf: data.endereco.uf,
-        },
-        telefone: data.telefone,
-        horario_funcionamento: data.horarioFuncionamento,
-        capacidade_atendimento: data.capacidadeAtendimento,
-        status: data.status,
+          telefone: data.telefone,
+          horario_funcionamento: data.horarioFuncionamento,
+          capacidade_atendimento: data.capacidadeAtendimento,
+          status: data.status,
+        }
       };
 
       console.log(JSON.stringify(unidadeToSave));
   
-      // Agora chama a API para criar a unidade
+      // Chama a API para criar a unidade
       await UnidadeService.create(unidadeToSave);
-      // Após adicionar, você pode atualizar o estado ou fazer algo mais
       alert('Unidade adicionada com sucesso!');
-      fetchUnidades(); // Atualiza a lista de unidades
+      fetchUnidades(); // Atualiza a lista após adição
     } catch (error) {
-      console.error('Erro ao adicionar unidade:', error);
+      console.error('Erro ao adicionar unidade:', error.response?.data || error.message);
       alert('Erro ao adicionar unidade');
     }
   };
   
-
+  // Função para editar uma unidade existente
   const handleEditUnidade = async (data) => {
     try {
+      // Estrutura os dados para atualização
       const unidadeToEdit = {
-        nome: data.nome,
-        tipo: data.tipo,
-        telefone: data.telefone,
-        horario_funcionamento: data.horario_funcionamento,
-        capacidade_atendimento: data.capacidade_atendimento,
-        status: data.status,
+        unidade: {
+          nome: data.nome,
+          tipo: data.tipo,
+          telefone: data.telefone,
+          horario_funcionamento: data.horario_funcionamento,
+          capacidade_atendimento: data.capacidade_atendimento,
+          status: data.status,
+        }
       };
 
       console.log(JSON.stringify(unidadeToEdit));
   
-      // Agora chama a API para atualizar a unidade
-      await UnidadeService.update(unidadeToEdit); // Passando o ID da unidade que está sendo editada
+      // Chama a API para atualizar a unidade
+      await UnidadeService.update(unidadeToEdit, selectedUnidade.tipo);
       alert('Unidade atualizada com sucesso!');
-      fetchUnidades(); // Atualiza a lista de unidades
+      fetchUnidades(); // Atualiza a lista após edição
     } catch (error) {
       console.error('Erro ao atualizar unidade:', error);
       alert('Erro ao atualizar unidade');
     }
   };
 
+  // Função para excluir uma unidade
   const handleDeleteUnidade = async () => {
     try {
+      // Chama a API para excluir usando o telefone como identificador
       await UnidadeService.delete(selectedUnidade.telefone);
       alert('Unidade excluída com sucesso!');
-      fetchUnidades(); // Atualiza a lista de unidades
-      setShowDeleteModal(false);
+      fetchUnidades(); // Atualiza a lista após exclusão
+      setShowDeleteModal(false); // Fecha o modal
     } catch (error) {
       console.error('Erro ao excluir unidade', error);
     }
   };
 
+  // Renderização do componente
   return (
     <div className="container-lg">
-      {/* Input de pesquisa e botão de adicionar na mesma linha */}
+      {/* Seção de pesquisa, filtro e botão de adicionar */}
       <div className="d-flex justify-content-between align-items-center mb-3">
+        {/* Campo de pesquisa por nome */}
         <Form.Control
           type="text"
           placeholder="Pesquisar unidade..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-50 mt-2"
+          className="w-25 mt-2 me-2"
         />
+        {/* Filtro por tipo de unidade */}
+        <Form.Select
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+          className="w-25 mt-2 me-2"
+        >
+          <option value="">Todos os tipos</option>
+          <option value="HOSPITAL">Hospital</option>
+          <option value="FARMACIA">Farmácia</option>
+          <option value="UBS">UBS</option>
+          <option value="UPA">UPA</option>
+        </Form.Select>
+        {/* Botão para abrir modal de adição */}
         <Button onClick={() => setShowAddModal(true)} variant="primary">
           Adicionar Unidade
         </Button>
       </div>
 
+      {/* Tabela de unidades */}
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -142,6 +182,7 @@ const Unidades = () => {
               <td>{unidade.telefone}</td>
               <td>{unidade.horario_funcionamento}</td>
               <td>
+                {/* Botões de ação para cada unidade */}
                 <Button variant="info" onClick={() => setSelectedUnidade(unidade) || setShowDetailsModal(true)}>Detalhes</Button>
                 <Button variant="warning" onClick={() => setSelectedUnidade(unidade) || setShowEditModal(true)}>Editar</Button>
                 <Button variant="danger" onClick={() => setSelectedUnidade(unidade) || setShowDeleteModal(true)}>Excluir</Button>
@@ -151,7 +192,7 @@ const Unidades = () => {
         </tbody>
       </Table>
 
-      {/* Modals */}
+      {/* Modais para operações CRUD */}
       <AddUnidadeModal
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
