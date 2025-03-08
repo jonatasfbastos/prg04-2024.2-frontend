@@ -32,7 +32,7 @@ function GestaoMedicamentos (){
             /*Pegando os dados dentro da paginação */
             setMedicamento(data.content);
         })
-        .catch(error => alert('Erro ao buscar medicamentos:', error));
+        .catch(error => console.log('Erro inesperado ao buscar medicamentos:', error));
     }
 
         /* Pegando o "id" Código futuramento  e nome, o id para enviar para requisição e o nome para informar ao usuário */
@@ -67,6 +67,12 @@ function GestaoMedicamentos (){
                 // Desestruture o objeto para enviar apenas os campos necessários
                 const { id, nome, categoria, quantidade, registroAnvisa, fornecedor, dataDeFabricacao, dataDeValidade, lote, instrucaoArmazenamento, tipoReceita, descricao } = medicamentoSelecionadoUpdate;
             
+                // Verifica se o id está válido antes de realizar a requisição
+                if (!id || isNaN(id)) {
+                    console.log("ID inválido");
+                    return; // Evita a execução da requisição
+                }
+
                 const response = await fetch(url + "/update/" + id, {
                     method: "PUT",
                     headers: {
@@ -113,6 +119,7 @@ function GestaoMedicamentos (){
             };
 
         function abrirUpdate(med){
+            console.log(med)
             setMedicamentoSelecionadoUpdate(med);
             setModalAbertoUpdate(true);
         }

@@ -176,6 +176,13 @@
     flex-direction: column;
 }
 
+.criar-termo-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 600px) {
     .header_medicamentos h1{
         font-size: 30px;

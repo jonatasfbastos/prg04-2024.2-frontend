@@ -84,9 +84,11 @@ function CriarMedicamento() {
 
                 <label htmlFor="dataDeFabricacao">Data de Fabricação <span className="required">*</span></label>
                 <input type="date" name="dataDeFabricacao" value={medicamento.dataDeFabricacao} onChange={handleChange} id="dataDeFabricacao" required/>
+                <small className="descricao">A data de Fabricação deve ser anterior ou igual à data atual.</small>
 
                 <label htmlFor="dataDeValidade">Data de Validade <span className="required">*</span></label>
                 <input type="date" name="dataDeValidade" value={medicamento.dataDeValidade} onChange={handleChange} id="dataDeValidade" required/>
+                <small className="descricao">A data de Validade deve ser Maior ou igual à data atual.</small>
 
                 <label htmlFor="quantidade">Quantidade <span className="required">*</span></label>
                 <input type="number" name="quantidade" value={medicamento.quantidade} onChange={handleChange} placeholder="100" id="quantidade" required/>
