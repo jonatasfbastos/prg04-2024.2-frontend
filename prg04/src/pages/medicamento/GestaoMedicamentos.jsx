@@ -16,6 +16,7 @@ function GestaoMedicamentos (){
     const [modalAberto, setModalAberto] = useState(false);
     const [modalAbertoUpdate, setModalAbertoUpdate] = useState(false);
     const [medicamentoSelecionadoUpdate, setMedicamentoSelecionadoUpdate] = useState(null);
+    const[termo, setTermo] = useState(""); // Estado para armazenar o valor do input de pesquisar
     
 
      // Função para buscar medicamentos
@@ -95,6 +96,22 @@ function GestaoMedicamentos (){
                 }
             }
 
+            const findByMedicamento = () => {
+                console.log("Pesquisando por ", termo);
+
+                fetch(url + `/findall/${termo}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    setMedicamento(data);
+                })
+                .catch(error => console.error("Erro ao buscar medicamento:", error));
+            };
+
         function abrirUpdate(med){
             setMedicamentoSelecionadoUpdate(med);
             setModalAbertoUpdate(true);
@@ -148,10 +165,11 @@ function GestaoMedicamentos (){
             <h1>Medicamentos</h1>
             <div className="header_medicamentos-acao">
                 <div className="header-pesquisar_input">
-                    <input type="text" name="pesquisar" id="pesquisar" placeholder="Digite o medicamento ..."/>
+                    <input type="text" name="pesquisar" id="pesquisar" placeholder="Digite o medicamento..." onChange={(e) => setTermo(e.target.value)}/>
+                     
                 </div>
                 <div className="header_button">
-                    <Botao className="header_button_action" texto="Pesquisar"/>
+                    <Botao className="header_button_action" texto="Pesquisar" onClick={findByMedicamento}/>
                     <Botao className="header_button_action" texto="Novo" onClick={goToMedicamento}/>
                 </div>
             </div>
