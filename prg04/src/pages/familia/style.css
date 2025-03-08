@@ -55,20 +55,6 @@
     background-color: #0056b3;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.create-familia {
-    background-color: #28a745;
-}
-
-.create-familia:hover {
-    background-color: #218838;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
