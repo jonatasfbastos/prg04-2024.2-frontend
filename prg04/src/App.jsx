@@ -43,6 +43,7 @@ function App() {
     const goToGestaoAtendimentos = () => navigate("/gestaoatendimentos");
     const goToFuncionarios = () => navigate("/funcionarios");
     const goToFamilia = () => navigate("/familia");
+    const goToLotes = () => navigate("/lote");
 
     // Array de serviços contendo os dados para os cards exibidos na página
     const services = [
@@ -136,6 +137,13 @@ function App() {
             description: "Gerencie as familias da unidade de saúde.",
             onClick: goToFamilia,
             icon:<MdFamilyRestroom className="home-page__card-icon"/>,
+        },
+        {
+            id: 14,
+            title: "Gestão de Lotes",
+            description: "Gerencie os lotes de vacinas e medicamentos.",
+            onClick: goToLotes,
+            icon: <FaFileContract className="home-page__card-icon" />,
         },
     ];
 
