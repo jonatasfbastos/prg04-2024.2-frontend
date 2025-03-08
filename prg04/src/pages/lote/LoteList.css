@@ -1,0 +1,14 @@
+.lote-lista-container {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .filter-section {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .filter-input {
+    flex: 1;
+  }

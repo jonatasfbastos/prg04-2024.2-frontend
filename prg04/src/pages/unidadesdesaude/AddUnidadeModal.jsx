@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
+// Componente modal para adicionar uma nova unidade de saúde
 const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
+  // Estado inicial para os dados do formulário
   const [data, setData] = useState({
     nome: '',
-    tipo: 'HOSPITAL',
+    tipo: 'HOSPITAL', // Valor padrão para o tipo
     telefone: '',
     horario_funcionamento: '',
     capacidade_atendimento: '',
-    status: 'ATIVO',
+    status: 'ATIVO', // Valor padrão para o status
     endereco: {
       rua: '',
       numero: '',
@@ -20,9 +22,11 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     },
   });
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e, isEndereco) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Extrai nome e valor do campo alterado
     if (isEndereco) {
+      // Se for um campo de endereço, atualiza a subseção 'endereco'
       setData({
         ...data,
         endereco: {
@@ -31,6 +35,7 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
         },
       });
     } else {
+      // Para campos normais, atualiza diretamente no nível raiz do data
       setData({
         ...data,
         [name]: value,
@@ -38,6 +43,7 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     }
   };
 
+  // Função para transformar todos os campos de texto em maiúsculas
   const transformDataToUpperCase = (data) => {
     return {
       ...data,
@@ -59,13 +65,14 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     };
   };
 
+  // Função para validar se os campos obrigatórios estão preenchidos
   const isValid = () => {
-    // Validação simples para garantir que todos os campos estão preenchidos
+    // Retorna true se todos os campos obrigatórios tiverem valor
     return (
       data.nome &&
       data.telefone &&
-      data.horarioFuncionamento &&
-      data.capacidadeAtendimento &&
+      data.horario_funcionamento && // Corrigido de horarioFuncionamento para corresponder ao estado
+      data.capacidade_atendimento && // Corrigido de capacidadeAtendimento para corresponder ao estado
       data.endereco.rua &&
       data.endereco.numero &&
       data.endereco.cep &&
@@ -75,23 +82,29 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
     );
   };
 
+  // Função para submeter os dados do formulário
   const handleSubmit = () => {
     if (isValid()) {
-      const transformedData = transformDataToUpperCase(data); // Transformando os dados para maiúsculo
-      onSubmit(transformedData); // Passando os dados preenchidos para o componente Unidades
-      onClose(); // Fechando o modal após a submissão
+      // Transforma os dados para maiúsculas antes de submeter
+      const transformedData = transformDataToUpperCase(data);
+      onSubmit(transformedData); // Chama a função de submissão passada como prop
+      onClose(); // Fecha o modal após submissão bem-sucedida
     } else {
+      // Exibe alerta se a validação falhar
       alert("Por favor, preencha todos os campos corretamente.");
     }
   };
 
+  // Renderização do componente
   return (
+    // Modal do Bootstrap controlado pelas props show e onHide
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
         <Modal.Title>Adicionar Unidade de Saúde</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form style={{ marginLeft: '-15px', marginRight: '-15px' }}>
+        <Form>
+          {/* Campo Nome */}
           <Form.Group as={Row} controlId="nome">
             <Form.Label column sm={3}>Nome</Form.Label>
             <Col sm={9}>
@@ -102,6 +115,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Tipo */}
           <Form.Group as={Row} controlId="tipo">
             <Form.Label column sm={3}>Tipo</Form.Label>
             <Col sm={9}>
@@ -111,12 +126,14 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
                 onChange={handleChange}
               >
                 <option value="HOSPITAL">HOSPITAL</option>
-                <option value="FARMACIA">FARMÁCIA</option>
+                <option value="FARMACIA">FARMACIA</option>
                 <option value="UPA">UPA</option>
                 <option value="UBS">UBS</option>
               </Form.Select>
             </Col>
           </Form.Group>
+
+          {/* Campo Telefone */}
           <Form.Group as={Row} controlId="telefone">
             <Form.Label column sm={3}>Telefone</Form.Label>
             <Col sm={9}>
@@ -127,26 +144,32 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Horário de Funcionamento */}
           <Form.Group as={Row} controlId="horarioFuncionamento">
             <Form.Label column sm={3}>Horário</Form.Label>
             <Col sm={9}>
               <Form.Control
-                name="horarioFuncionamento"
-                value={data.horarioFuncionamento}
+                name="horario_funcionamento" // Nome ajustado para corresponder ao estado
+                value={data.horario_funcionamento}
                 onChange={handleChange}
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Capacidade de Atendimento */}
           <Form.Group as={Row} controlId="capacidadeAtendimento">
             <Form.Label column sm={3}>Capacidade</Form.Label>
             <Col sm={9}>
               <Form.Control
-                name="capacidadeAtendimento"
-                value={data.capacidadeAtendimento}
+                name="capacidade_atendimento" // Nome ajustado para corresponder ao estado
+                value={data.capacidade_atendimento}
                 onChange={handleChange}
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Status */}
           <Form.Group as={Row} controlId="status">
             <Form.Label column sm={3}>Status</Form.Label>
             <Col sm={9}>
@@ -161,16 +184,20 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               </Form.Select>
             </Col>
           </Form.Group>
+
+          {/* Campo Rua */}
           <Form.Group as={Row} controlId="rua">
             <Form.Label column sm={3}>Rua</Form.Label>
             <Col sm={9}>
               <Form.Control
                 name="rua"
                 value={data.endereco.rua}
-                onChange={(e) => handleChange(e, true)}
+                onChange={(e) => handleChange(e, true)} // Indica que é campo de endereço
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Número */}
           <Form.Group as={Row} controlId="numero">
             <Form.Label column sm={3}>Número</Form.Label>
             <Col sm={9}>
@@ -181,6 +208,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo CEP */}
           <Form.Group as={Row} controlId="cep">
             <Form.Label column sm={3}>CEP</Form.Label>
             <Col sm={9}>
@@ -191,6 +220,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Complemento */}
           <Form.Group as={Row} controlId="complemento">
             <Form.Label column sm={3}>Complemento</Form.Label>
             <Col sm={9}>
@@ -201,6 +232,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Bairro */}
           <Form.Group as={Row} controlId="bairro">
             <Form.Label column sm={3}>Bairro</Form.Label>
             <Col sm={9}>
@@ -211,6 +244,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo Cidade */}
           <Form.Group as={Row} controlId="cidade">
             <Form.Label column sm={3}>Cidade</Form.Label>
             <Col sm={9}>
@@ -221,6 +256,8 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
               />
             </Col>
           </Form.Group>
+
+          {/* Campo UF */}
           <Form.Group as={Row} controlId="uf">
             <Form.Label column sm={3}>UF</Form.Label>
             <Col sm={9}>
@@ -234,11 +271,14 @@ const AddUnidadeModal = ({ show, onClose, onSubmit }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
+        {/* Botão para cancelar e fechar o modal */}
         <Button variant="secondary" onClick={onClose}>Cancelar</Button>
+        {/* Botão para salvar os dados */}
         <Button variant="primary" onClick={handleSubmit}>Salvar</Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
+// Exporta o componente para uso em outros arquivos
 export default AddUnidadeModal;

@@ -1,0 +1,16 @@
+.lote-form-container {
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lote-form-container .MuiTextField-root {
+    margin-bottom: 16px;
+  }
+  
+  .lote-form-container .MuiFormHelperText-root {
+    margin-top: 2px;
+    font-size: 0.75rem;
+  }

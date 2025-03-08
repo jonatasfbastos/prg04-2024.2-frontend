@@ -1,35 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Importa o axios
+import axios from "axios";
 import "./requisicao.css";
 
 const Requisicao = () => {
   const navigate = useNavigate();
-  const [cpfPaciente, setCpfPaciente] = useState(""); // Estado para CPF do paciente
+  const [cpfPaciente, setCpfPaciente] = useState("");
   const [nomePaciente, setNomePaciente] = useState("");
-  const [exame, setExame] = useState("");
-  const [listaExames, setListaExames] = useState([]);
-  const [dataRequisicao, setDataRequisicao] = useState(""); // Adicionando data da requisição
+  const [selectedExameId, setSelectedExameId] = useState(""); // Para o dropdown de exames
+  const [listaExameIds, setListaExameIds] = useState([]); // Lista de IDs dos exames selecionados
+  const [examesDisponiveis, setExamesDisponiveis] = useState([]); // Lista de exames do backend
+  const [dataRequisicao, setDataRequisicao] = useState("");
+
+  // Buscar exames disponíveis ao carregar o componente
+  useEffect(() => {
+    const fetchExames = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/exames");
+        setExamesDisponiveis(response.data); // Ex.: [{id: 1, descricao: "Hemograma"}, {id: 2, descricao: "Glicemia"}]
+      } catch (error) {
+        console.error("Erro ao buscar exames:", error);
+        alert("Erro ao carregar exames disponíveis.");
+      }
+    };
+    fetchExames();
+  }, []);
 
   const adicionarExame = () => {
-    if (exame.trim()) {
-      setListaExames([...listaExames, exame]);
-      setExame("");
+    if (selectedExameId) {
+      // Evitar duplicatas
+      if (!listaExameIds.includes(Number(selectedExameId))) {
+        setListaExameIds([...listaExameIds, Number(selectedExameId)]);
+      }
+      setSelectedExameId(""); // Limpar o dropdown
     }
   };
 
   const removerExame = (index) => {
-    setListaExames(listaExames.filter((_, i) => i !== index));
+    setListaExameIds(listaExameIds.filter((_, i) => i !== index));
   };
 
   // Função para emitir a requisição
   const emitirRequisicao = async () => {
     try {
       const data = {
-        cpfPaciente, // Envia o CPF do paciente
-        nomePaciente, // Envia o nome do paciente
-        exames: listaExames,
-        dataRequisicao: dataRequisicao ? dataRequisicao : null, // Envia null se não houver data
+        cpfPaciente,
+        nomePaciente,
+        exameIds: listaExameIds, // Envia como [1, 2, 3]
+        dataRequisicao: dataRequisicao ? dataRequisicao : null,
       };
 
       const response = await axios.post("http://localhost:8080/requisicoes", data);
@@ -41,6 +59,12 @@ const Requisicao = () => {
       console.error("Erro ao emitir requisição:", error);
       alert("Erro ao emitir requisição. Tente novamente.");
     }
+  };
+
+  // Função auxiliar para obter a descrição do exame pelo ID
+  const getDescricaoExame = (id) => {
+    const exame = examesDisponiveis.find(exame => exame.id === id);
+    return exame ? exame.descricao : "Desconhecido";
   };
 
   return (
@@ -63,22 +87,27 @@ const Requisicao = () => {
         placeholder="Digite o nome do paciente"
       />
 
-      <label>Nome do Exame:</label>
-      <input
-        type="text"
-        value={exame}
-        onChange={(e) => setExame(e.target.value)}
-        placeholder="Digite o nome do exame"
-      />
-      <button onClick={adicionarExame}>Adicionar Exame</button>
+      <label>Selecione o Exame:</label>
+      <select className="exame-select"
+        value={selectedExameId}
+        onChange={(e) => setSelectedExameId(e.target.value)}
+      >
+        <option className="exame-option" value="">Selecione um exame</option>
+        {examesDisponiveis.map((exame) => (
+          <option key={exame.id} value={exame.id}>
+            {exame.descricao}
+          </option>
+        ))}
+      </select>
+      <button  className="exame-btn" onClick={adicionarExame}>Adicionar Exame</button>
 
-      {listaExames.length > 0 && (
+      {listaExameIds.length > 0 && (
         <div className="lista-exames">
-          <h3>Exames Adicionados:</h3>
+          <h3>Exames Selecionados:</h3>
           <ul>
-            {listaExames.map((item, index) => (
+            {listaExameIds.map((exameId, index) => (
               <li key={index}>
-                {item}
+                {getDescricaoExame(exameId)}
                 <button className="remover-btn" onClick={() => removerExame(index)}>
                   Remover
                 </button>
@@ -88,18 +117,17 @@ const Requisicao = () => {
         </div>
       )}
 
-      {/* Adicionando o campo de data */}
-      <label>Data da Requisição:</label>
-      <input
+      <label className="data-label">Data da Requisição:</label>
+      <input className="data-input"
         type="datetime-local"
         value={dataRequisicao}
         onChange={(e) => setDataRequisicao(e.target.value)}
       />
 
-      <button className="emitir-requisicao" onClick={emitirRequisicao}>
+      <button className="button-requisicao" onClick={emitirRequisicao}>
         Emitir Requisição
       </button>
-      <button className="voltar" onClick={() => navigate("/BuscarRequisicoes")}>
+      <button className="button-requisicao" onClick={() => navigate("/BuscarRequisicoes")}>
         Voltar
       </button>
     </div>

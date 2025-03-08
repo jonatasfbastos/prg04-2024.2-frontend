@@ -24,10 +24,12 @@ import CriarMedicamento from "./pages/medicamento/CriarMedicamento.jsx";
 import VisitasList from "./pages/visitadomiciliar/VisitasList.jsx";
 import VisitaForm from "./pages/visitadomiciliar/VisitaForm.jsx";
 import VisitaDetalhes from "./pages/visitadomiciliar/VisitaDetalhes.jsx";
-import GestaoVacinacao from "./pages/vacinacao/GestaoVacinacao.jsx";
+import Vacinas from "./pages/vacina/Vacinas.jsx";
 import GerirCampanha from "./pages/campanha/gerir-campanhas.jsx";
 import Familia from "./pages/familia/familia.jsx";
 import CriarFamilia from "./pages/familia/criarFamilia.jsx";
+import GestaoAtendimentos from "./pages/gestaoatendimento/GestaoAtendimento.jsx"
+import Lotes from "./pages/lote/Lotes.jsx";
 
 const Layout = () => {
   const location = useLocation();
@@ -51,7 +53,7 @@ const Layout = () => {
         <Route path="/gestao-termos" element={<GestaoTermos />} />
         <Route path="/criar-termo" element={<CriarTermo />} />
         <Route path="/emissao-relatorios" element={<EmissaoRelatorios />} />
-        <Route path="/unidadesdesaude" element={<Unidades />} />
+        <Route path="/unidades-de-saude" element={<Unidades />} />
         <Route path="/agendas" element={<Agendas />} />
         <Route path="/medicamentos" element={<Medicamentos />} />
         <Route path="/CriarMedicamento" element={<CriarMedicamento />} />
@@ -68,11 +70,10 @@ const Layout = () => {
           path="/visitadomiciliar/detalhes/:id"
           element={<VisitaDetalhes />}
         />
-        <Route path="/vacinacao" element={<GestaoVacinacao />} />
+        <Route path="/vacinas" element={<Vacinas />} />
         <Route path="/gerir-campanhas" element={<GerirCampanha />} />
 
         <Route path="/familia" element={<Familia/>} />
-        <Route path="/criarFamilia" element={<CriarFamilia/>} />
       </Routes>
     </>
   );

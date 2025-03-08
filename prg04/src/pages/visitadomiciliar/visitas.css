@@ -1,11 +1,15 @@
 /* Apenas para as telas de visita */
 .visitas-container {
-  max-width: 900px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100vw;  /* Ocupa toda a largura da tela */
+  min-height: 100vh; /* Garante que ocupa toda a altura da tela */
+  margin: 0;  /* Remove margens */
+  padding: 20px; /* Mantém um espaço interno */
+  border-radius: 0; /* Remove bordas arredondadas */
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Mantém o conteúdo alinhado no topo */
 }
 
 /* Ajuste do cabeçalho */
@@ -17,17 +21,17 @@
 
 /* Estilização dos fieldsets para melhor organização */
 fieldset {
-  border: 1px solid #ccc;
+  border: none; /* Removendo a borda */
   border-radius: 8px;
   padding: 15px;
-  background: #fff;
+  background: transparent;
   margin-bottom: 20px;
 }
 
 /* Destacando os títulos dos fieldsets */
 legend {
   font-weight: bold;
-  font-size: 18px; /* Aumentei o tamanho */
+  font-size: 18px;
   color: #222;
   text-transform: uppercase;
 }
@@ -82,5 +86,6 @@ textarea {
 .visitas-container button[type="button"]:hover {
   background-color: #b02a37;
 }
+
 
 
