@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './style.css'
 import { Button, Form, Modal, Row, Col, Card } from "react-bootstrap";
-import { getFamilias, getFamiliasByName } from "./familia-service";
-import FormFamilia from './formFamilia';
+import { getFamilias, getFamiliasByName } from "./FamiliaService";
+import FormFamilia from './FormFamilia';
 
 export default function Familia() {
     const navigate = useNavigate();
@@ -70,7 +70,7 @@ export default function Familia() {
     }, [paginaAtual]);
 
     const goToCriarFamilia = () => {
-        navigate("/criarFamilia");
+        navigate("/familia/CriarFamilia");
     };
 
     const listarFamilias = async () => {
