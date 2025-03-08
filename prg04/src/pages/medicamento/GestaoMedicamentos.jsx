@@ -15,6 +15,7 @@ function GestaoMedicamentos (){
     const [medicamentoSelecionado, setMedicamentoSelecionado] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
     const [modalAbertoUpdate, setModalAbertoUpdate] = useState(false);
+    const [medicamentoSelecionadoUpdate, setMedicamentoSelecionadoUpdate] = useState(null);
     
 
      // Função para buscar medicamentos
@@ -54,62 +55,45 @@ function GestaoMedicamentos (){
             }
             
         }
-
-         // Estado para armazenar os dados do medicamento
-            const [medicamentoSelecionadoUpdate, setMedicamentoSelecionadoUpdate] = useState({
-                nome: "",
-                categoria: "",
-                fornecedor: "",
-                dataDeFabricacao: "",
-                dataDeValidade: "",
-                quantidade: "",
-                lote: "",
-                instrucaoArmazenamento: "",
-                registroAnvisa: "",
-                tipoReceita: "",
-                descricao: ""
-            });
         
             // Função para atualizar o estado conforme o usuário digita
             const handleChange = (e) => {
                 setMedicamentoSelecionadoUpdate({ ...medicamento, [e.target.name]: e.target.value });
             };
 
-        const atualizarDados = async () => {
-            const response = await fetch(url + "/Update/" + medicamentoSelecionadoUpdate.id , {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    medicamentoSelecionadoUpdate,
-                    quantidade: parseInt(medicamentoSelecionadoUpdate.quantidade), // Converte quantidade para número inteiro
-                    registroAnvisa: parseFloat(medicamentoSelecionadoUpdate.registroAnvisa) // Converte registroAnvisa para número decimal
-                })
-            })
-            .then(response => {
+
+            const atualizarDados = async () => {
+                // Desestruture o objeto para enviar apenas os campos necessários
+                const { id, nome, categoria, quantidade, registroAnvisa, fornecedor, dataDeFabricacao, dataDeValidade, lote, instrucaoArmazenamento, tipoReceita, descricao } = medicamentoSelecionadoUpdate;
+            
+                const response = await fetch(url + "/update/" + id, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        categoria,
+                        quantidade: parseInt(quantidade), // Converte para inteiro
+                        registroAnvisa: parseFloat(registroAnvisa), // Converte para float
+                        fornecedor,
+                        dataDeFabricacao,
+                        dataDeValidade,
+                        lote,
+                        instrucaoArmazenamento,
+                        tipoReceita,
+                        descricao
+                    })
+                });
+            
                 if (response.ok) {
-                    alert("Medicamento Salvo");
-                    // Reseta o estado para limpar os campos do formulário após salvar
-                    setMedicamento({
-                        nome: "",
-                        categoria: "",
-                        fornecedor: "",
-                        dataDeFabricacao: "",
-                        dataDeValidade: "",
-                        quantidade: "",
-                        lote: "",
-                        instrucaoArmazenamento: "",
-                        registroAnvisa: "",
-                        tipoReceita: "",
-                        descricao: ""
-                    });
+                    alert("Medicamento Atualizado");
+                    setModalAbertoUpdate(false);
+                    getMedicamentos();  // Recarregar a lista de medicamentos após a atualização
                 } else {
                     alert("Erro ao salvar medicamento");
                 }
-            })
-            .catch(error => console.error("Erro na requisição:", error));
-        }
+            }
 
         function abrirUpdate(med){
             setMedicamentoSelecionadoUpdate(med);
@@ -160,7 +144,6 @@ function GestaoMedicamentos (){
     return (
     <main>
     <header>
-
        <div className="header_medicamentos">
             <h1>Medicamentos</h1>
             <div className="header_medicamentos-acao">
@@ -168,8 +151,8 @@ function GestaoMedicamentos (){
                     <input type="text" name="pesquisar" id="pesquisar" placeholder="Digite o medicamento ..."/>
                 </div>
                 <div className="header_button">
-                    <button className="header_button_acao">Pesquisar</button>
-                    <button className="header_button_acao" onClick={goToMedicamento}>Novo</button>
+                    <Botao className="header_button_action" texto="Pesquisar"/>
+                    <Botao className="header_button_action" texto="Novo" onClick={goToMedicamento}/>
                 </div>
             </div>
             
@@ -178,12 +161,12 @@ function GestaoMedicamentos (){
     </header>
     <section>
         <div className="section_botao-atualizar">
-         <Botao texto="Atualizar" className="delete" onClick={getMedicamentos}/>
+         <Botao texto="Atualizar" className="section_botao-atualizar_action" onClick={getMedicamentos}/>
         </div>
         
-        <div className="table">
-                <table>
-                <thead>
+        <div className="termos-container">
+                <table className="termos-container-medicamentos">
+                <thead className="termos-container-medicamentos_thead">
                     
                         <tr >
                             <td>Codigo</td>
@@ -193,7 +176,7 @@ function GestaoMedicamentos (){
                             
                         </tr>
                 </thead>
-                <tbody> 
+                <tbody className="termos-container-medicamentos_tbody"> 
                     {/* Criar uma tabela com base no seu elementos adicionando um index para ser o chave e seus elementos*/}
                 {medicamento.length > 0 ? (
                         medicamento.map((med, index) => (
@@ -203,9 +186,9 @@ function GestaoMedicamentos (){
                                 <td>{med.categoria}</td>
                                 <td>{med.quantidade}</td>
                                 <td>
-                                    <Botao texto="Excluir" onClick={() => deleteMedicamento(med.id, med.nome)}/>
-                                    <Botao texto="Editar" onClick={() => abrirUpdate(med)}/>
-                                    <Botao texto="Ver Detalhes" onClick={() => abrirDetalhes(med)}/>
+                                    <Botao className="termos-container-medicamentos_tbody_action" texto="Excluir" onClick={() => deleteMedicamento(med.id, med.nome)}/>
+                                    <Botao className="termos-container-medicamentos_tbody_action" texto="Editar" onClick={() => abrirUpdate(med)}/>
+                                    <Botao className="termos-container-medicamentos_tbody_action" texto="Ver Detalhes" onClick={() => abrirDetalhes(med)}/>
                                 </td>
                             </tr>
                         ))
@@ -251,39 +234,39 @@ function GestaoMedicamentos (){
                 
                 {/* Campos do formulário */}
                 <label htmlFor="nome">Nome do Medicamento <span className="required">*</span></label>
-                <input type="text" name="nome" value={medicamentoSelecionadoUpdate.nome}  placeholder="Digite o nome" id="nome" required/>
+                <input type="text" name="nome" value={medicamentoSelecionadoUpdate.nome} onChange={handleChange} placeholder="Digite o nome" id="nome" required/>
 
                 <label htmlFor="categoria">Categoria <span className="required">*</span></label>
-                <input type="text" name="categoria" value={medicamentoSelecionadoUpdate.categoria}  placeholder="Analgésico" id="categoria" required/>
+                <input type="text" name="categoria" value={medicamentoSelecionadoUpdate.categoria} onChange={handleChange} placeholder="Analgésico" id="categoria" required/>
 
                 <label htmlFor="fornecedor">Fornecedor <span className="required">*</span></label>
-                <input type="text" name="fornecedor" value={medicamentoSelecionadoUpdate.fornecedor}  placeholder="Farmacêutica XYZ" id="fornecedor" required/>
+                <input type="text" name="fornecedor" value={medicamentoSelecionadoUpdate.fornecedor} onChange={handleChange} placeholder="Farmacêutica XYZ" id="fornecedor" required/>
 
                 <label htmlFor="dataDeFabricacao">Data de Fabricação <span className="required">*</span></label>
-                <input type="date" name="dataDeFabricacao" value={new Date(medicamentoSelecionadoUpdate.dataDeFabricacao).toLocaleDateString('pt-BR')}  id="dataDeFabricacao" required/>
+                <input type="date" name="dataDeFabricacao" onChange={handleChange} value={(medicamentoSelecionadoUpdate.dataDeFabricacao)}  id="dataDeFabricacao" required/>
 
                 <label htmlFor="dataDeValidade">Data de Validade <span className="required">*</span></label>
-                <input type="date" name="dataDeValidade" value={new Date(medicamentoSelecionadoUpdate.dataDeValidade).toLocaleDateString('pt-BR')}  id="dataDeValidade" required/>
+                <input type="date" name="dataDeValidade" onChange={handleChange} value={(medicamentoSelecionadoUpdate.dataDeValidade)}  id="dataDeValidade" required/>
 
                 <label htmlFor="quantidade">Quantidade <span className="required">*</span></label>
-                <input type="number" name="quantidade" value={medicamentoSelecionadoUpdate.quantidade}  placeholder="100" id="quantidade" required/>
+                <input type="number" name="quantidade" value={medicamentoSelecionadoUpdate.quantidade} onChange={handleChange} placeholder="100" id="quantidade" required/>
 
                 <label htmlFor="lote">Lote <span className="required">*</span></label>
-                <input type="number" name="lote" value={medicamentoSelecionadoUpdate.lote}  placeholder="12345" id="lote" required/>
+                <input type="number" name="lote" value={medicamentoSelecionadoUpdate.lote} onChange={handleChange} placeholder="12345" id="lote" required/>
 
                 <label htmlFor="instrucaoArmazenamento">Instrução de Armazenamento <span className="required">*</span></label>
-                <input type="text" name="instrucaoArmazenamento" value={medicamentoSelecionadoUpdate.instrucaoArmazenamento}  placeholder="Armazenar em local seco e arejado" id="instrucaoArmazenamento" required/>
+                <input type="text" name="instrucaoArmazenamento" value={medicamentoSelecionadoUpdate.instrucaoArmazenamento} onChange={handleChange} placeholder="Armazenar em local seco e arejado" id="instrucaoArmazenamento" required/>
 
                 <label htmlFor="registroAnvisa">Registro ANVISA <span className="required">*</span></label>
-                <input type="number" name="registroAnvisa" value={medicamentoSelecionadoUpdate.registroAnvisa}  placeholder="987654321" id="registroAnvisa" required/>
+                <input type="number" name="registroAnvisa" value={medicamentoSelecionadoUpdate.registroAnvisa} onChange={handleChange} placeholder="987654321" id="registroAnvisa" required/>
 
                 <label htmlFor="tipoReceita">Tipo de Receita <span className="required">*</span></label>
-                <input type="text" name="tipoReceita" value={medicamentoSelecionadoUpdate.tipoReceita}  placeholder="Médio" id="tipoReceita" required/>
+                <input type="text" name="tipoReceita" value={medicamentoSelecionadoUpdate.tipoReceita} onChange={handleChange}  placeholder="Médio" id="tipoReceita" required/>
 
                 <label htmlFor="descricao">Descrição</label>
-                <textarea name="descricao" value={medicamentoSelecionadoUpdate.descricao}  placeholder="Medicamento utilizado para alívio de dores leves a moderadas." id="descricao"></textarea>
+                <textarea name="descricao" value={medicamentoSelecionadoUpdate.descricao} onChange={handleChange} placeholder="Medicamento utilizado para alívio de dores leves a moderadas." id="descricao"></textarea>
 
-                <button onClick={() => AtualizandoDados()}>Salvar</button>
+                <button type="submit">Salvar</button>
             </form>
         </div>
         </div>
