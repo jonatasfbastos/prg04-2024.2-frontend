@@ -7,17 +7,17 @@ const Requisicao = () => {
   const navigate = useNavigate();
   const [cpfPaciente, setCpfPaciente] = useState("");
   const [nomePaciente, setNomePaciente] = useState("");
-  const [selectedExameId, setSelectedExameId] = useState(""); // Para o dropdown de exames
-  const [listaExameIds, setListaExameIds] = useState([]); // Lista de IDs dos exames selecionados
-  const [examesDisponiveis, setExamesDisponiveis] = useState([]); // Lista de exames do backend
+  const [selectedExameId, setSelectedExameId] = useState("");
+  const [listaExameIds, setListaExameIds] = useState([]);
+  const [examesDisponiveis, setExamesDisponiveis] = useState([]);
   const [dataRequisicao, setDataRequisicao] = useState("");
+  const [error, setError] = useState("");
 
-  // Buscar exames disponíveis ao carregar o componente
   useEffect(() => {
     const fetchExames = async () => {
       try {
         const response = await axios.get("http://localhost:8080/exames");
-        setExamesDisponiveis(response.data); // Ex.: [{id: 1, descricao: "Hemograma"}, {id: 2, descricao: "Glicemia"}]
+        setExamesDisponiveis(response.data);
       } catch (error) {
         console.error("Erro ao buscar exames:", error);
         alert("Erro ao carregar exames disponíveis.");
@@ -28,11 +28,10 @@ const Requisicao = () => {
 
   const adicionarExame = () => {
     if (selectedExameId) {
-      // Evitar duplicatas
       if (!listaExameIds.includes(Number(selectedExameId))) {
         setListaExameIds([...listaExameIds, Number(selectedExameId)]);
       }
-      setSelectedExameId(""); // Limpar o dropdown
+      setSelectedExameId("");
     }
   };
 
@@ -40,30 +39,44 @@ const Requisicao = () => {
     setListaExameIds(listaExameIds.filter((_, i) => i !== index));
   };
 
-  // Função para emitir a requisição
   const emitirRequisicao = async () => {
     try {
+      // Validação básica
+      if (!cpfPaciente || !nomePaciente) {
+        setError("CPF e Nome do paciente são obrigatórios.");
+        return;
+      }
+      if (listaExameIds.length === 0) {
+        setError("Selecione pelo menos um exame.");
+        return;
+      }
+
+      // Enviar o valor bruto do input sem conversão
       const data = {
         cpfPaciente,
         nomePaciente,
-        exameIds: listaExameIds, // Envia como [1, 2, 3]
-        dataRequisicao: dataRequisicao ? dataRequisicao : null,
+        exameIds: listaExameIds,
+        dataRequisicao: dataRequisicao || null, // Envia o valor exato do input ou null se vazio
       };
+
+      console.log("Dados enviados:", data); // Depuração
 
       const response = await axios.post("http://localhost:8080/requisicoes", data);
 
-      console.log(response.data);
+      console.log("Resposta do backend:", response.data);
 
       navigate("/BuscarRequisicoes");
     } catch (error) {
       console.error("Erro ao emitir requisição:", error);
-      alert("Erro ao emitir requisição. Tente novamente.");
+      setError("Erro ao emitir requisição. Tente novamente.");
+      if (error.response) {
+        console.log("Detalhes do erro:", error.response.data);
+      }
     }
   };
 
-  // Função auxiliar para obter a descrição do exame pelo ID
   const getDescricaoExame = (id) => {
-    const exame = examesDisponiveis.find(exame => exame.id === id);
+    const exame = examesDisponiveis.find((exame) => exame.id === id);
     return exame ? exame.descricao : "Desconhecido";
   };
 
@@ -88,18 +101,19 @@ const Requisicao = () => {
       />
 
       <label>Selecione o Exame:</label>
-      <select className="exame-select"
-        value={selectedExameId}
-        onChange={(e) => setSelectedExameId(e.target.value)}
-      >
-        <option className="exame-option" value="">Selecione um exame</option>
+      <select className="exame-select" value={selectedExameId} onChange={(e) => setSelectedExameId(e.target.value)}>
+        <option className="exame-option" value="">
+          Selecione um exame
+        </option>
         {examesDisponiveis.map((exame) => (
           <option key={exame.id} value={exame.id}>
             {exame.descricao}
           </option>
         ))}
       </select>
-      <button  className="exame-btn" onClick={adicionarExame}>Adicionar Exame</button>
+      <button className="exame-btn" onClick={adicionarExame}>
+        Adicionar Exame
+      </button>
 
       {listaExameIds.length > 0 && (
         <div className="lista-exames">
@@ -118,11 +132,18 @@ const Requisicao = () => {
       )}
 
       <label className="data-label">Data da Requisição:</label>
-      <input className="data-input"
+      <input
+        className="data-input"
         type="datetime-local"
         value={dataRequisicao}
-        onChange={(e) => setDataRequisicao(e.target.value)}
+        onChange={(e) => {
+          const newValue = e.target.value;
+          console.log("Novo valor do input:", newValue); // Depuração
+          setDataRequisicao(newValue);
+        }}
       />
+
+      {error && <div className="error-message">{error}</div>}
 
       <button className="button-requisicao" onClick={emitirRequisicao}>
         Emitir Requisição
