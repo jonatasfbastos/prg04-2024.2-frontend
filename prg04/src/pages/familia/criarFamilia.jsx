@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Modal, Row, Col, Card } from "react-bootstrap";
+import { Button, Form, Modal, Row, Col, Card, ListGroup } from "react-bootstrap";
 import './style.css';
 
 function CriarFamilia() {
@@ -13,6 +13,25 @@ function CriarFamilia() {
     const [showModal, setShowModal] = useState(false); //estado para controlar o modal
     const [responsavel, setResponsavel] = useState([]);
     const [responsavelSelecionado, setResponsavelSelecionado] = useState("");
+    const [cpfBusca, setCpfBusca] = useState(""); // CPF para buscar o paciente
+    const [pacienteEncontrado, setPacienteEncontrado] = useState(null); // Paciente encontrado na busca
+
+    useEffect(() => {
+        const buscarPacientes = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/pacientes/findall?page=0&size=10');
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar pacientes');
+                }
+                const data = await response.json();
+                setPacientesDisponiveis(data.content);
+            } catch (error) {
+                console.error('Erro ao buscar pacientes:', error);
+            }
+        };
+
+        buscarPacientes();
+    }, []);
 
     useEffect(() => {
         const buscarFuncionarios = async () => {
@@ -57,18 +76,44 @@ function CriarFamilia() {
         }
     };
 
+    const buscarPaciente = async () => {
+        if (!cpfBusca.trim()) {
+            return;
+        }
+
+        try {
+            const cpf = cpfBusca.replace(/\D/g, ''); //removendo a formatacao
+            const url = `http://localhost:8080/paciente/find-by-cpf/${cpf}`
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Paciente não encontrado');
+            }
+            const data = await response.json();
+            setPacienteEncontrado(data);
+        } catch (error) {
+            console.error('Erro ao buscar paciente:', error);
+            setPacienteEncontrado(null);
+        }
+    };
 
     //adiciona um membro a lista
     const adicionarMembro = () => {
-        if (novoMembro.trim() !== "") {
-            setMembros([...membros, novoMembro]);
-            setNovoMembro("");
+        if (pacienteEncontrado && !membros.some(membros => membros.id === pacienteEncontrado.id)) {
+            setMembros([...membros, pacienteEncontrado]);
+            //limpa os campos
+            setPacienteEncontrado(null);
+            setCpfBusca("");
+        } else if (!pacienteEncontrado) {
+            alert("paciente nao econtrado");
+        } else {
+            alert("Este paciente ja foi adicionado");
         }
     };
 
     //remove um membro da lista
-    const removerMembro = (index) => {
-        const novaLista = membros.filter((_, i) => i !== index);
+    const removerMembro = (pacienteId) => {
+        const novaLista = membros.filter((membros) => membros.id !== pacienteId);
         setMembros(novaLista);
     };
 
@@ -77,7 +122,7 @@ function CriarFamilia() {
         const familiaData = {
             nome: nome.trim(), //trim remove espacos em brancos no inicio e no final
             endereco: endereco.trim(),
-            membros: membros.filter(membro => membro.trim() !== ""), //remove campos vazios da lista
+            membros: membros.map((membro) => ({id:membro.id})), 
             responsavel_id: responsavelSelecionado,
         };
 
@@ -133,38 +178,53 @@ function CriarFamilia() {
                         <Row className="mb-2">
                             <Col>
                                 <Form.Control
-                                    type="text"
-                                    placeholder="Digite o nome do membro"
-                                    value={novoMembro}
-                                    onChange={(e) => setNovoMembro(e.target.value)}
+                                type="text"
+                                placeholder="Digite o cpf do paciente"
+                                value={cpfBusca}
+                                onChange={(e) => setCpfBusca(e.target.value)}
                                 />
                             </Col>
+                        </Row>
+                        <Button variant="primary" onClick={buscarPaciente}>Buscar</Button>
+                        {pacienteEncontrado && (
+                        <Row className="mb-2 align-items-center">
+                            <Col>
+                                <p>
+                                    Paciente encontrado: <strong>{pacienteEncontrado.nome}</strong>
+                                </p>
+                            </Col>
                             <Col xs="auto">
-                                <Button variant="primary" onClick={adicionarMembro}>
-                                    Adicionar Membro
+                                <Button variant="success" onClick={adicionarMembro}>
+                                    Adicionar
                                 </Button>
                             </Col>
                         </Row>
-                        {/*lista de membros*/}
-                        {membros.map((membro, index) => (
-                            <Row key={index} className="mb-2 align-items-center">
-                                <Col>
-                                    <Form.Control
-                                        type="text"
-                                        value={membro}
-                                        readOnly
-                                    />
-                                </Col>
-                                <Col xs="auto">
-                                    <Button
-                                        variant="danger"
-                                        onClick={() => removerMembro(index)}
-                                    >
-                                        Remover
-                                    </Button>
-                                </Col>
-                            </Row>
-                        ))}
+                        )}
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Membros Selecionados</Form.Label>
+                            {membros.length > 0 ? (
+                                <ListGroup>
+                                    {membros.map((membro) => {
+                                        console.log("Membro:", membro); 
+                                        return (
+                                        <ListGroup.Item key={membro.id} className="d-flex justify-content-between align-items-center">
+                                           <span>{membro.nome}</span>
+                                                <Button
+                                                    variant="danger"
+                                                    size="sm"
+                                                    onClick={() => removerMembro(membro.id)}
+                                                >
+                                                    Remover
+                                                </Button>
+                                        </ListGroup.Item>
+                                        );
+                                    })}
+                                </ListGroup>
+                            ) : (
+                                <p>Nenhum membro adicionado.</p>
+                            )}
+                        </Form.Group>
                     </Form.Group>
 
                     <Form.Group className="mb-3">

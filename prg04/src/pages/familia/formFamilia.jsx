@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Form, Row, Col, Button, ListGroup } from "react-bootstrap";
 
 function FormularioFamilia({ familia, onSalvar, onCancelar, responsavel=[] }) {
     const [nome, setNome] = useState(familia ? familia.nome : "");
@@ -8,11 +8,33 @@ function FormularioFamilia({ familia, onSalvar, onCancelar, responsavel=[] }) {
     const [novoMembro, setNovoMembro] = useState("");
     const [responsavelSelecionado, setResponsavelSelecionado] = useState
     (familia ? familia.responsavel.id : "");
+    const [cpfBusca, setCpfBusca] = useState(""); 
+    const [pacienteEncontrado, setPacienteEncontrado] = useState(null); // Paciente encontrado na busca
     
+        const buscarPaciente = async () => {
+            if (!cpfBusca.trim()) {
+                return;
+            }
+    
+            try {
+                const cpf = cpfBusca.replace(/\D/g, ''); //removendo a formatacao
+                const url = `http://localhost:8080/paciente/find-by-cpf/${cpf}`
+    
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Paciente não encontrado');
+                }
+                const data = await response.json();
+                setPacienteEncontrado(data);
+            } catch (error) {
+                console.error('Erro ao buscar paciente:', error);
+                setPacienteEncontrado(null);
+            }
+        };
 
     const adicionarMembro = () => {
-        if (novoMembro.trim() !== "") {
-            setMembros([...membros, novoMembro]);
+        if (pacienteEncontrado) {
+            setMembros([...membros, pacienteEncontrado]);
             setNovoMembro("");
         }
     };
@@ -27,10 +49,10 @@ function FormularioFamilia({ familia, onSalvar, onCancelar, responsavel=[] }) {
             id: familia.id,
             nome: nome.trim(),
             endereco: endereco.trim(),
-            membros: membros.filter(membro => membro.trim() !== ""),
+            membros: membros.filter(membro => membro.nome.trim() !== "").map(membro => membro.nome.trim()),
             responsavelId: responsavelSelecionado,
         };
-
+        console.log(familiaData);
         onSalvar(familiaData);
     };
 
@@ -60,43 +82,58 @@ function FormularioFamilia({ familia, onSalvar, onCancelar, responsavel=[] }) {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label>Membros da Família</Form.Label>
-                <Row className="mb-2">
-                    <Col>
-                        <Form.Control
-                            type="text"
-                            placeholder="Digite o nome do membro"
-                            value={novoMembro}
-                            onChange={(e) => setNovoMembro(e.target.value)}
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Button variant="primary" onClick={adicionarMembro}>
-                            Adicionar Membro
-                        </Button>
-                    </Col>
-                </Row>
-                {/*lista de membros*/}
-                {membros.map((membro, index) => (
-                    <Row key={index} className="mb-2 align-items-center">
-                        <Col>
-                            <Form.Control
+                        <Form.Label>Membros da Família</Form.Label>
+                        <Row className="mb-2">
+                            <Col>
+                                <Form.Control
                                 type="text"
-                                value={membro}
-                                readOnly
-                            />
-                        </Col>
-                        <Col xs="auto">
-                            <Button
-                                variant="danger"
-                                onClick={() => removerMembro(index)}
-                            >
-                                Remover
-                            </Button>
-                        </Col>
-                    </Row>
-                ))}
-            </Form.Group>
+                                placeholder="Digite o cpf do paciente"
+                                value={cpfBusca}
+                                onChange={(e) => setCpfBusca(e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                        <Button variant="primary" onClick={buscarPaciente}>Buscar</Button>
+                        {pacienteEncontrado && (
+                        <Row className="mb-2 align-items-center">
+                            <Col>
+                                <p>
+                                    Paciente encontrado: <strong>{pacienteEncontrado.nome}</strong>
+                                </p>
+                            </Col>
+                            <Col xs="auto">
+                                <Button variant="success" onClick={adicionarMembro}>
+                                    Adicionar
+                                </Button>
+                            </Col>
+                        </Row>
+                        )}
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Membros Selecionados</Form.Label>
+                            {membros.length > 0 ? (
+                                <ListGroup>
+                                    {membros.map((membro) => {
+                                        console.log("Membro:", membro); 
+                                        return (
+                                        <ListGroup.Item key={membro.id} className="d-flex justify-content-between align-items-center">
+                                           <span>{membro.nome}</span>
+                                                <Button
+                                                    variant="danger"
+                                                    size="sm"
+                                                    onClick={() => removerMembro(membro.id)}
+                                                >
+                                                    Remover
+                                                </Button>
+                                        </ListGroup.Item>
+                                        );
+                                    })}
+                                </ListGroup>
+                            ) : (
+                                <p>Nenhum membro adicionado.</p>
+                            )}
+                        </Form.Group>
+                    </Form.Group>
 
             <Form.Group className="mb-3">
                 <Form.Label>Responsável<span className="required">*</span></Form.Label>

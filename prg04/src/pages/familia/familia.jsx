@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './style.css'
-import { Button, Form, Modal, Row, Col, Card } from "react-bootstrap";
+import { Button, Form, Modal, Row, Col, Card, ListGroup } from "react-bootstrap";
 import { getFamilias, getFamiliasByName } from "./FamiliaService";
 import FormFamilia from './FormFamilia';
 
@@ -10,15 +10,21 @@ export default function Familia() {
 
     const [nome, setName] = useState("");
     const [familias, setFamilias] = useState([]);
+    const [endereco, setEndereco] = useState("");
     const [paginaAtual, setPaginaAtual] = useState(0);
     const [totalPaginas, setTotalPaginas] = useState(0);
     const [isFirstPage, setIsFirstPage] = useState(true);
     const [isLastPage, setIsLastPage] = useState(false);
     const [paginaInicial, setPaginaInicial] = useState(0);
     const [familiaSelecionada, setFamiliaSelecionada] = useState(null);
+    const [responsavelSelecionado, setResponsavelSelecionado] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [familiaUpdate, setFamiliaUpdate] = useState(null);
     const [responsavel, setResponsavel] = useState([]);
+    const [cpfBusca, setCpfBusca] = useState("");
+    const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
+    const [membros, setMembros] = useState([]);
+    const [loading, setLoading] = useState(false); //para controle de carregamento
     const itensPorPagina = 10;
     const maxBotoes = 10;
 
@@ -31,7 +37,12 @@ export default function Familia() {
                     throw new Error('Erro ao buscar funcionários');
                 }
                 const data = await response.json();
-                setResponsavel(data);
+                if (Array.isArray(data)) {
+                    setResponsavel(data);
+                } else {
+                    setResponsavel([]);
+                }
+                
             } catch (error) {
                 console.error('Erro ao buscar funcionários:', error);
                 setResponsavel([]);
@@ -41,6 +52,7 @@ export default function Familia() {
         buscarFuncionarios();
 
         const carregarFamilias = async () => {
+            setLoading(true); //para indicar q os dados ainda estao carregando
             try {
                 const response = await fetch(`http://localhost:8080/familias/findAll?page=${paginaAtual}&size=${itensPorPagina}`);
                 
@@ -64,10 +76,28 @@ export default function Familia() {
             } catch (error) {
                 console.error("Erro ao carregar famílias:", error);
             }
+            setLoading(false);
         };
 
         carregarFamilias();
     }, [paginaAtual]);
+
+    const buscarPaciente = async () => {
+        try {
+            const cpf = cpfBusca.replace(/\D/g, ''); //removendo a formatacao
+            const url = `http://localhost:8080/paciente/find-by-cpf/${cpf}`
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Paciente não encontrado');
+            }
+            const data = await response.json();
+            setPacienteEncontrado(data);
+        } catch (error) {
+            console.error('Erro ao buscar paciente:', error);
+            setPacienteEncontrado(null);
+        }
+    };
 
     const goToCriarFamilia = () => {
         navigate("/familia/CriarFamilia");
@@ -91,6 +121,7 @@ export default function Familia() {
     };
 
     const buscarFamilias = async () => {
+        setLoading(true);
         try {
             let familiasFiltradas;
     
@@ -115,8 +146,7 @@ export default function Familia() {
                 if (!response.ok) {
                     if (response.status === 404) {
                         setFamilias([]); 
-                        alert("Nenhuma família encontrada com esse nome.");
-                        return;
+                        return alert("Nenhuma família encontrada com esse nome.");
                     } else {
                         throw new Error('Erro ao buscar famílias');
                     }
@@ -138,6 +168,7 @@ export default function Familia() {
             console.error('Erro ao buscar famílias:', error);
             alert('Erro ao buscar famílias. Tente novamente.');
         }
+        setLoading(false);
     };
 
     const exibirDetalhesFamilia = async (id) => {
@@ -155,12 +186,23 @@ export default function Familia() {
 
     const salvarEdicao = async (familiaData) => {
         try {
+            // Verifique se o nome de cada membro não é undefined antes de chamar o trim
+            const membrosUpdate = familiaData.membros.map(membro => ({
+                id: membro.id,
+                nome: membro.nome ? membro.nome.trim() : ''  
+            }));
+    
+            const payload = {
+                ...familiaData,
+                membros: membrosUpdate  
+            };
+    
             const response = await fetch(`http://localhost:8080/familias/update/${familiaData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(familiaData),
+                body: JSON.stringify(payload),
             });
     
             if (!response.ok) {
@@ -170,19 +212,17 @@ export default function Familia() {
             const data = await response.json();
             console.log('Família atualizada:', data);
     
-            //atualiza a lista de familias
-            const familiasAtualizadas = familias.map(familia => 
-                familia.id === data.id ? data : familia
+            const familiasAtualizadas = familias.map(familia =>
+                familia.id === data.id ? { ...familia, ...data } : familia
             );
             setFamilias(familiasAtualizadas);
     
-            //fecha o modal de edição
             setShowModal(false);
         } catch (error) {
             console.error('Erro ao salvar edição:', error);
             alert('Erro ao salvar edição. Tente novamente.');
         }
-    };
+    };    
     
     //funcao para mudar a pagina da listagem
     const mudarPagina = (novaPagina) => {
@@ -204,6 +244,31 @@ export default function Familia() {
             const novaPaginaInicial = paginaInicial - maxBotoes;
             setPaginaInicial(novaPaginaInicial);
             setPaginaAtual(novaPaginaInicial);
+        }
+    };
+
+
+//salva a familia
+    const salvarFamilia = async () => {
+        const familiaData = {
+            nome: nome.trim(), //trim remove espacos em brancos no inicio e no final
+            endereco: endereco.trim(),
+            membros: membros.map((membro) => ({id:membro.id})), 
+            responsavel_id: responsavelSelecionado,
+        };
+
+        //verifica se os campos obrigatorios estao preenchidos
+        if (!familiaData.nome || !familiaData.endereco || !familiaData.responsavel_id) {
+            alert("Preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        try {
+            const response = await criarFamilia(familiaData);
+            console.log("Família criada:", response);
+            setShowModal(true);
+        } catch(error) {
+            console.log('Erro ao criar familia.', error)
         }
     };
 
@@ -249,7 +314,7 @@ export default function Familia() {
                         <tr key={familia.id}>
                             <td><span className="pre-atributo"></span>{familia.nome}</td>
                             <td><span className="pre-atributo"></span> {familia.responsavel.nome}</td>
-                                <td>{familia.membros.length > 0 ? familia.membros[0] : "Nenhum membro"}</td> {/*pega o priemiro membro do banco de dados, se nao tiver mostra uma mensagem*/}
+                                <td>{familia.membros.length > 0 ? familia.membros[0].nome : "Nenhum membro"}</td> {/*pega o priemiro membro do banco de dados, se nao tiver mostra uma mensagem*/}
                             <td>
                             <button className="button-details" onClick={() => exibirDetalhesFamilia(familia.id)}>Ver Detalhes</button>
                             <button className="button-details" onClick={() => {
@@ -267,7 +332,7 @@ export default function Familia() {
                 </tbody>
             </table>
 
-            {/*modal para edicao */}
+            {/* Modal para edição */}
             {showModal && (
             <div className="modal">
                 <div className="modal-content">
@@ -285,13 +350,17 @@ export default function Familia() {
             </div>
             )} 
 
+
             {/*modal com detalhes da familia */}
             {familiaSelecionada && (
                 <div className="modal">
                     <div className="modal-content">
                         <h2>Detalhes da Família</h2>
                         <p><strong>Nome:</strong> {familiaSelecionada.nome}</p>
-                        <p><strong>Membros:</strong> {familiaSelecionada.membros.join(", ")}</p>
+                        <p><strong>Membros:</strong></p>
+                            <ul>{familiaSelecionada.membros.map((membro => 
+                                <li key={membro.id}>{membro.nome}</li>))}
+                            </ul>
                         <p><strong>Endereço:</strong> {familiaSelecionada.endereco}</p>
                         <p><strong>Responsável:</strong> {familiaSelecionada.responsavel.nome}</p>
                         <p><strong>CPF do Responsável:</strong> {familiaSelecionada.responsavel.cpf}</p>
@@ -301,7 +370,7 @@ export default function Familia() {
                 </div>
             )}
 
-                {/* paginacao */}
+            {/* paginacao */}
             <div className="pagination">
                 <button onClick={voltarBloco} disabled={paginaInicial === 0}>{"<<"}</button>
                 <button onClick={() => mudarPagina(paginaAtual - 1)} disabled={isFirstPage}>&lt;</button>
