@@ -37,22 +37,76 @@
     display: flex;
     align-items: center;
     justify-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.header_button .header_button_action{
+   color: var(--color-white);
+   font-weight: bold;
+   font-size: 12px;
+   padding: 5px;
 }
 
 .header_button_acao{
     width: 10vh;
     padding: 5px;
     margin-bottom: 20px;
-    font-size: 12px;
     font-weight: bolder;
     border-radius: 20px;
-   
 }
 
 .section_botao-atualizar{
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    padding: 10px;
+}
+
+.section_botao-atualizar .section_botao-atualizar_action{
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.termos-container-medicamentos{
+    display: flex;
+    flex-direction: column;
+}
+
+.termos-container-medicamentos_thead{
+    padding: 5px;
+    width: 100%;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.182);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.termos-container-medicamentos_thead tr{
+    display: flex;
+    /*Preencher a área permitida com os elementos*/
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    padding-right: 22%;
+
+}
+
+
+.termos-container-medicamentos_tbody{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.termos-container-medicamentos_tbody .termos-container-medicamentos_tbody_action{
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 11px;
+    width: 100%;
 }
 
 .form_cancelar{
@@ -122,6 +176,13 @@
     flex-direction: column;
 }
 
+.criar-termo-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 600px) {
     .header_medicamentos h1{
         font-size: 30px;
@@ -134,7 +195,33 @@
         margin-top: 20px;
        width: 15vh;
     }
-    
+    .header_button .header_button_action{
+        padding: 10px;
+        font-size: 14px;
+     }
+     .section_botao-atualizar .section_botao-atualizar_action{
+        color: var(--color-white);
+        font-weight: bolder;
+        font-size: 14px;
+    }
+    .termos-container-medicamentos_thead{
+        font-size: 14px;
+        
+        width: 80%;
+    }
+    .termos-container-medicamentos_tbody{
+        width: 80%;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .termos-container-medicamentos_tbody tr{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+    }
+
 }
 
 @media (min-width: 1100px) {
@@ -154,4 +241,5 @@
     .modal_medicamento-content {
         width: 600px;
     }
+
 }
