@@ -75,6 +75,8 @@ const Layout = () => {
 
         <Route path="/familia" element={<Familia/>} />
         <Route path="/familia/CriarFamilia" element={<CriarFamilia/>} />
+
+        <Route path="/gestaoatendimentos" element={<GestaoAtendimentos />} />
       </Routes>
     </>
   );
